@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vnc
+  labels:
+    app: vnc_test
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: vnc
+  template:
+    metadata:
+      labels:
+        app: vnc
+    spec:
+      containers:
+      - image: dorowu/ubuntu-desktop-lxde-vnc
+        name: vnc
+        ports:
+        - containerPort: 5901
+          name: vnc-port
