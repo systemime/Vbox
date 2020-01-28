@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+{% load static %}
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Vbox 1.0.0 | 注册</title>
+
+    <link href="{% static 'inspinia/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'inspinia/font-awesome/css/font-awesome.css' %}" rel="stylesheet">
+    <link href="{% static 'inspinia/css/plugins/iCheck/custom.css' %}" rel="stylesheet">
+    <link href="{% static 'inspinia/css/animate.css' %}" rel="stylesheet">
+    <link href="{% static 'inspinia/css/style.css' %}" rel="stylesheet">
+    <!-- Sweet Alert -->
+    <link href="{% static 'inspinia/css/plugins/sweetalert/sweetalert.css' %}" rel="stylesheet">
+
+</head>
+
+<body class="gray-bg">
+
+    <div class="middle-box text-center loginscreen   animated fadeInDown">
+        <div>
+            <div>
+                <h1 class="logo-name">Vbox</h1>
+            </div>
+            <h3>注册平台账户</h3>
+            <p>创建账户以查看更多好玩功能</p>
+            <form class="m-t" role="form" action="" onSubmit="return confirm();">
+                {% csrf_token %}
+                <div class="form-group">
+                    <input type="text" id="new_username" name="new_username" class="form-control" placeholder="用户名" required="">
+                </div>
+                <div class="form-group">
+                    <input type="text" id="new_nickname" name="new_nickname" class="form-control" placeholder="昵称" required="">
+                </div>
+                <div class="form-group">
+                    <input type="email" id="new_email" name="email" class="form-control" placeholder="电子邮件" required="">
+                </div>
+                <div class="form-group">
+                    <input type="password" id="new_passwd" name="password" class="form-control" placeholder="密码" required="">
+                </div>
+                <div class="form-group">
+                    <div class="checkbox i-checks"><label> <input type="checkbox"><i></i> 同意条款和政策 </label></div>
+                </div>
+                <button type="submit" class="btn btn-primary block full-width m-b demo2">注册</button>
+
+                <p class="text-muted text-center"><small>已经有一个帐户?</small></p>
+                <a class="btn btn-sm btn-white btn-block" href="{% url 'users:login' %}">登录</a>
+            </form>
+            <p class="m-t"> <small>Copyright</strong> inspinia 2.9.2 &copy; 2017-2018</small> </p>
+        </div>
+    </div>
+
+    <!-- Mainly scripts -->
+    <script src="{% static 'inspinia/js/jquery-3.1.1.min.js' %}"></script>
+    <script src="{% static 'inspinia/js/popper.min.js' %}"></script>
+    <script src="{% static 'inspinia/js/bootstrap.js' %}"></script>
+    <!-- iCheck -->
+    <script src="{% static 'inspinia/js/plugins/iCheck/icheck.min.js' %}"></script>
+    <!-- Custom and plugin javascript -->
+    <script src="{% static 'inspinia/js/inspinia.js' %}"></script>
+    <script src="{% static 'inspinia/js/plugins/pace/pace.min.js' %}"></script>
+    <!-- Sweet alert -->
+    <script src="{% static 'inspinia/js/plugins/sweetalert/sweetalert.min.js' %}"></script>
+    <script>
+        $(document).ready(function(){
+            $('.i-checks').iCheck({
+                checkboxClass: 'icheckbox_square-green',
+                radioClass: 'iradio_square-green',
+            });
+
+            var y_name = /^[a-zA-Z'][a-zA-Z'][a-zA-Z'][a-zA-Z-' ]+[a-zA-Z']?$/;
+            $("#new_username").change(function(){
+                if(!y_name.test($('#new_username').val())){
+                    swal({
+                        title: "用户名填写错误",
+                        text: "字母或与数字的组合，最短需要四个字符哟"
+                    });
+                    $(this).val("");
+                }    
+            });
+            var y_nick = /^[\u4E00-\u9FA5A-Za-z\s]+(·[\u4E00-\u9FA5A-Za-z]+)*$/;
+            $("#new_nickname").change(function(){
+                if(!y_nick.test($('#new_nickname').val())){
+                    swal({
+                        title: "昵称填写错误",
+                        text: "唔，请三思，不如换个昵称试试？"
+                    });
+                    $(this).val("");
+                }    
+            });
+            var y_eamil = /^[a-z\d]+(\.[a-z\d]+)*@([\da-z](-[\da-z])?)+(\.{1,2}[a-z]+)+$/;
+            $("#new_email").change(function(){
+                if(!y_eamil.test($('#new_email').val())){
+                    swal({
+                        title: "邮箱填写错误",
+                        text: "您的邮箱看起来有些特别，要不检查一下拼写？"
+                    });
+                    $(this).val("");
+                }    
+            });
+
+            var y_passwd = /.{6}/;
+            $("#new_passwd").change(function(){
+                if(!y_passwd.test($('#new_passwd').val())){
+                    swal({
+                        title: "密码长度太短啦",
+                        text: "做人要6，密码长度怎么能短？"
+                    });
+                    $(this).val("");
+                }    
+            });
+
+
+            $('.demo2').click(function(){
+                var name = $('#new_username').val();
+                var nick = $('#new_nickname').val();
+                var email = $('#new_email').val();
+                var passwd = $('#new_passwd').val();
+
+                if (name && nick && email && passwd) {
+                    $.ajax({
+                        url:"{% url 'users:registered' %}",
+                        type:"post",
+                        data: {'username': name, 'nickname': nick, 'email': email, 'passwd': passwd, 'csrfmiddlewaretoken': '{{ csrf_token }}'},
+                        async: true,  // 防止狗屁浏览器拦截
+				        timeout: 5000,
+				        cache: true,
+                        //var obj = eval("("+data+")");
+                        beforeSend: LoadFunction, //加载执行方法
+				        error: errFunction,  //错误执行方法
+				        success: succFunction, //成功执行方法
+                    });
+                    $('#new_username').focus();
+                    return false;
+                }
+                else {
+                    swal({
+                        title: "请检查填写信息",
+                        text: "感谢您对本系统的信任，但您似乎有信息没有填写？"
+                    });　　
+                    $('#new_username').focus();
+                    return false;
+                }
+
+                function LoadFunction() {
+                    //$("#aboutcontent").html('删除中...');
+                    //alert('删除中');
+                };
+
+                function errFunction() {
+                    swal({
+                        title: "注册失败！",
+                        text: "系统发生未知错误，请重新注册",
+                    });
+                };
+
+                function succFunction(res) {
+                    swal({
+                        title: "注册成功！",
+                        text: res.status,
+                        type: "success"
+                    });
+                    setTimeout(function(){
+                        window.location.href="{% url 'users:login' %}";
+                    },4000);
+                };
+            });
+        });
+
+    </script>
+</body>
+
+</html>

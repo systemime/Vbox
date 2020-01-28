@@ -1,0 +1,366 @@
+{% extends "bash.html" %}
+
+{% load staticfiles %}
+{% load static %}
+{% block title %}
+    容器信息
+{% endblock %}
+{% block css_style %}
+    <!-- FooTable -->
+    <link href="{% static 'inspinia/css/plugins/footable/footable.core.css' %}" rel="stylesheet">
+    <!-- Sweet Alert -->
+    <link href="{% static 'inspinia/css/plugins/sweetalert/sweetalert.css' %}" rel="stylesheet">
+{% endblock %}
+{% block content %}
+        <div class="row wrapper border-bottom white-bg page-heading">
+            <div class="col-sm-4">
+                <h2>容器信息</h2>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="{% url 'users:index' %}">主页</a>
+                    </li>
+                    <li class="breadcrumb-item active">
+                        <strong>容器信息</strong>
+                    </li>
+                </ol>
+            </div>
+            <div class="col-sm-8">
+                <div class="title-action">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">创建新容器</button>
+                </div>
+            </div>
+        </div>
+        <div class="modal inmodal" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content animated bounceInRight">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <i class="fa fa-laptop modal-icon"></i>
+                        <h4 class="modal-title">填写你需要的配置</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                        <form>
+                            {% csrf_token %}
+                            <label>请选择操作系统：</label>
+                            <select class="form-control" id="sos">
+                                {% for key,value in data.os_list %}
+                                    <option id="os">{{ value }}</option>
+                                {% endfor %}
+                            </select>
+                            <label>请选择CPU个数（个）：</label>
+                            <select class="form-control" id="scpus">
+                                {% for item in data.array %}
+                                    <option id="cpus">{{item}}</option>
+                                {% endfor %}
+                            </select>
+                            <label>输入内存大小（MB）：</label>
+                            <div class="col-sm-15">
+                                <input type="number" class="form-control" id="Memory" value="512" οninput="if(value>24)value=24;if(value.length>2)value=value.slice(0,2);if(value<0)value=0">
+                            </div>
+                            <label>请选择内置代理：</label>
+                            <select class="form-control" id="sproxy">
+                                {% for key,value in data.proxy_list %}
+                                    <option id="proxy">{{ value }}</option>
+                                {% endfor %}
+                            </select>
+                            <label>请选择编程语言：</label>
+                            <select class="form-control" id="slanguage">
+                                {% for key,value in data.language_list %}
+                                    <option id="language">{{ value }}</option>
+                                {% endfor %}
+                            </select>
+                            <label>请选择数据库版本：</label>
+                            <select class="form-control" id="sdatabase">
+                                {% for key,value in data.database_list %}
+                                    <option id="database">{{ value }}</option>
+                                {% endfor %}
+                            </select>
+                            <label>输入使用时长（h）：</label>
+                            <div class="col-sm-15">
+                                <input type="number" id="use_time" class="form-control" value="24">
+                            </div>
+                            <label>请输入内部开放端口（0-65535）：</label>
+                            <div class="col-sm-15">
+                                <input type="number" placeholder="非必填，可为空" class="form-control" id="port_info">
+                            </div>
+                        </form>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
+                        <button type="button" class="btn btn-primary" id="Configsetup">确认提交</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="wrapper wrapper-content animated fadeInRight">
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="ibox ">
+                        <div class="ibox-title">
+                            <h5>您选择系统的基本信息将在这里展示</h5>
+
+                            <div class="ibox-tools">
+                                <a class="collapse-link">
+                                    <i class="fa fa-chevron-up"></i>
+                                </a>
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                    <i class="fa fa-wrench"></i>
+                                </a>
+                                <ul class="dropdown-menu dropdown-user">
+                                    <li><a href="#" class="dropdown-item">选项 1</a>
+                                    </li>
+                                    <li><a href="#" class="dropdown-item">选项 2</a>
+                                    </li>
+                                </ul>
+                                <a class="close-link">
+                                    <i class="fa fa-times"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="ibox-content">
+
+                            <table class="footable table table-stripped toggle-arrow-tiny">
+                                <thead>
+                                <tr>
+
+                                    <th data-toggle="true">项目</th>
+                                    <th>名称</th>
+                                    <th>电话</th>
+                                    <th data-hide="all">公司</th>
+                                    <th data-hide="all">已完成</th>
+                                    <th data-hide="all">任务</th>
+                                    <th data-hide="all">数据</th>
+                                    <th>操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>项目例子1</td>
+                                    <td>高达</td>
+                                    <td>86 1234 5678</td>
+                                    <td>乐高公司</td>
+                                    <td><span class="pie">0.52/1.561</span></td>
+                                    <td>20%</td>
+                                    <td>2017年12月12日</td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <button data-toggle="dropdown" class="btn btn-primary dropdown-toggle">操作 </button>
+                                            <ul class="dropdown-menu">
+                                                <li><a class="dropdown-item" href="#" class="font-bold">ssh 连接</a></li>
+                                                <li><a class="dropdown-item" href="#">vnc 连接</a></li>
+                                                <li class="dropdown-divider"></li>
+                                                <li><a class="dropdown-item demo4" href="#">删除虚拟容器</a></li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>项目例子10</td>
+                                    <td>高达</td>
+                                    <td>86 1234 5678</td>
+                                    <td>乐高公司</td>
+                                    <td><span class="pie">3,1</span></td>
+                                    <td>75%</td>
+                                    <td>2017年12月12日</td>
+                                    <td><a href="#"><i class="fa fa-check text-navy"></i></a></td>
+                                </tr>
+                                <tr>
+                                    <td>项目例子11</td>
+                                    <td>高达</td>
+                                    <td>86 1234 5678</td>
+                                    <td>乐高公司</td>
+                                    <td><span class="pie">4,9</span></td>
+                                    <td>18%</td>
+                                    <td>2017年12月12日</td>
+                                    <td><a href="#"><i class="fa fa-check text-navy"></i></a></td>
+                                </tr>
+                                <tr>
+                                    <td>项目例子11</td>
+                                    <td>高达</td>
+                                    <td>86 1234 5678</td>
+                                    <td>乐高公司</td>
+                                    <td><span class="pie">4,9</span></td>
+                                    <td>18%</td>
+                                    <td>2017年12月12日</td>
+                                    <td><a href="#"><i class="fa fa-check text-navy"></i></a></td>
+                                </tr>
+                                <tr>
+                                    <td>项目例子11</td>
+                                    <td>高达</td>
+                                    <td>86 1234 5678</td>
+                                    <td>乐高公司</td>
+                                    <td><span class="pie">4,9</span></td>
+                                    <td>18%</td>
+                                    <td>2017年12月12日</td>
+                                    <td><a href="#"><i class="fa fa-check text-navy"></i></a></td>
+                                </tr>
+                                <tr>
+                                    <td>项目例子13
+                                        <small>标注</small>
+                                    </td>
+                                    <td>高达</td>
+                                    <td>86 1234 5678</td>
+                                    <td>乐高公司</td>
+                                    <td><span class="pie">0.52/1.561</span></td>
+                                    <td>20%</td>
+                                    <td>2017年12月12日</td>
+                                    <td><a href="#"><i class="fa fa-check text-navy"></i></a></td>
+                                </tr>
+                                <tr>
+                                    <td>项目例子14</td>
+                                    <td>高达</td>
+                                    <td>86 1234 5678</td>
+                                    <td>乐高公司</td>
+                                    <td><span class="pie">4,9</span></td>
+                                    <td>18%</td>
+                                    <td>2017年12月12日</td>
+                                    <td><a href="#"><i class="fa fa-check text-navy"></i></a></td>
+                                </tr>
+                                </tbody>
+                                <tfoot>
+                                <tr>
+                                    <td colspan="5">
+                                        <ul class="pagination float-right"></ul>
+                                    </td>
+                                </tr>
+                                </tfoot>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <!-- FooTable -->
+    {% block page-js %}
+        <script src="{% static 'inspinia/js/plugins/footable/footable.all.min.js' %}"></script>
+        <!-- Sweet alert -->
+        <script src="{% static 'inspinia/js/plugins/sweetalert/sweetalert.min.js' %}"></script>
+        <!-- Page-Level Scripts -->
+        <script>
+            $(document).ready(function() {
+                $('.footable').footable();
+
+                $("#Memory").change(function(){
+                    if($('#Memory').val()>4096 || $('#Memory').val()<512){
+                        swal({
+                            title: "内存配置错误",
+                            text: "最小内存为512M，最大为4096M，只允许填写数字"
+                        });
+                        $(this).val("512");
+                    }    
+                });
+
+                $("#use_time").change(function(){
+                    if($('#use_time').val()>24 || $('#use_time').val()<1){
+                        swal({
+                            title: "使用时长配置错误",
+                            text: "时长范围仅允许1-24小时，只允许填写数字，可随时删除"
+                        });
+                        $(this).val("24");
+                    }    
+                });
+
+                $("#port_info").change(function(){
+                    if($('#port_info').val()>65535 || $('#port_info').val()<1){
+                        swal({
+                            title: "端口配置错误",
+                            text: "端口范围为0-65535，选择系统进程端口将创建失败"
+                        });
+                        $(this).val("");
+                    }    
+                });
+
+                $('.demo4').click(function () {
+                    swal({
+                        title: "你确定？",
+                        text: "你将无法恢复这个虚构的文件！",
+                        type: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#DD6B55",
+                        confirmButtonText: "删除",
+                        cancelButtonText: "取消",
+                        closeOnConfirm: false,
+                        closeOnCancel: false },
+                        function (isConfirm) {
+                            if (isConfirm) {
+                                $.ajax({
+                                    url: "{% url 'delete_user_pod' %}",
+                                    method: 'GET',
+                                    success:function (result) {
+                                        swal("删除", result.error, "success");
+                                        setTimeout(function(){
+                                            window.location.href="{% url 'select' %}";
+                                        },2000);
+                                    }
+                                });
+
+                            } else {
+                                swal("取消", "你的虚构文件是安全的:)", "error");
+                            }
+                    });
+                });
+                $('#Configsetup').click(function () {
+                    var os = $("#sos option:selected").text();
+                    var cpus = $("#scpus option:selected").text();
+                    var memory = $('#Memory').val();
+                    var proxy = $("#sproxy option:selected").text();
+                    var language = $("#slanguage option:selected").text();
+                    var database = $("#sdatabase option:selected").text();
+                    var use_time = $('#use_time').val();
+                    var port = $("#port_info").val();
+
+                    $.ajax({
+                        url:"{% url 'select' %}",
+                        type:"post",
+                        data: {
+                            'os': os,
+                            'cpus': cpus,
+                            'memory': memory,
+                            'language': language,
+                            'database': database,
+                            'use_time': use_time,
+                            'port': port,
+                            'csrfmiddlewaretoken': '{{ csrf_token }}'
+                        },
+                        async: true,  // 防止狗屁浏览器拦截
+				        timeout: 5000,
+				        cache: true,
+                        beforeSend: LoadFunction, //加载执行方法
+				        error: errFunction,  //错误执行方法
+				        success: succFunction, //成功执行方法
+                    });
+                    $('#new_username').focus();
+                    return false;
+
+                    function LoadFunction() {
+                        //$("#aboutcontent").html('删除中...');
+                        //alert('删除中');
+                    };
+
+                    function errFunction() {
+                        swal({
+                            title: "注册失败！",
+                            text: "系统发生未知错误，请重新注册",
+                        });
+                    };
+
+                    function succFunction(res) {
+                        swal({
+                            title: "提交成功，正在生成！",
+                            text: res.error,
+                            type: "success"
+                        });
+                        setTimeout(function(){
+                            window.location.href="{% url 'select' %}";
+                        },3000);
+                    };
+                });
+            });
+        </script>
+    {% endblock %}
+
+{% endblock %}

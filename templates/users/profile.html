@@ -1,0 +1,220 @@
+﻿{% extends "bash.html" %}
+
+{% load static %}
+{% block css_style %}
+
+{% endblock %}
+{% block title %}
+    个人信息
+{% endblock %}
+{% block content %}
+            <div class="row wrapper border-bottom white-bg page-heading">
+                <div class="col-lg-10">
+                    <h2>资料页</h2>
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="{% url 'users:index' %}">主页</a>
+                        </li>
+                        <li class="breadcrumb-item active">
+                            <strong>个人信息</strong>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        <div class="wrapper wrapper-content">
+            <div class="row animated fadeInRight">
+                <div class="col-md-4">
+                    <div class="ibox ">
+                        <div class="ibox-title">
+                            <h5>资料详情</h5>
+                        </div>
+                        <div>
+                            <div class="ibox-content no-padding border-left-right">
+                                <img alt="image" class="img-fluid" src="img/profile_big.jpg">
+                            </div>
+                            <div class="ibox-content profile-content">
+                                <h4><strong>小明</strong></h4>
+                                <p><i class="fa fa-map-marker"></i> 北京 123/123</p>
+                                <h5>
+                                    我的简介
+                                </h5>
+                                <p>
+                                    这个家伙很懒，什么都不想告诉你！
+                                </p>
+                                <div class="row m-t-lg">
+                                    <div class="col-md-4">
+                                        <span class="bar">5,3,9,6,5,9,7,3,5,2</span>
+                                        <h5><strong>169</strong> 帖子</h5>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <span class="line">5,3,9,6,5,9,7,3,5,2</span>
+                                        <h5><strong>28</strong> 好友</h5>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <span class="bar">5,3,2,-1,-3,-2,2,3,5,2</span>
+                                        <h5><strong>240</strong> 关注</h5>
+                                    </div>
+                                </div>
+                                <div class="user-button">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <button type="button" class="btn btn-primary btn-sm btn-block"><i class="fa fa-envelope"></i> 发送信息</button>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <button type="button" class="btn btn-default btn-sm btn-block"><i class="fa fa-coffee"></i> 请喝咖啡</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+                    </div>
+                <div class="col-md-8">
+                    <div class="ibox ">
+                        <div class="ibox-title">
+                            <h5>我的动态</h5>
+                            <div class="ibox-tools">
+                                <a class="collapse-link">
+                                    <i class="fa fa-chevron-up"></i>
+                                </a>
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                    <i class="fa fa-wrench"></i>
+                                </a>
+                                <ul class="dropdown-menu dropdown-user">
+                                    <li><a href="#" class="dropdown-item">选项 1</a>
+                                    </li>
+                                    <li><a href="#" class="dropdown-item">选项 2</a>
+                                    </li>
+                                </ul>
+                                <a class="close-link">
+                                    <i class="fa fa-times"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="ibox-content">
+
+                            <div>
+                                <div class="feed-activity-list">
+
+                                    <div class="feed-element">
+                                        <a href="#" class="float-left">
+                                            <img alt="image" class="rounded-circle" src="img/a1.jpg">
+                                        </a>
+                                        <div class="media-body ">
+                                            <small class="float-right text-navy">1分钟前</small>
+                                            <strong>小明 </strong> 时间是一切财富中最宝贵的财富 <br>
+                                            <small class="text-muted">今天下午2017.12.12 4:21 </small>
+                                            <div class="actions">
+                                                <a href=""  class="btn btn-xs btn-white"><i class="fa fa-thumbs-up"></i> 赞 </a>
+                                                <a href="" class="btn btn-xs btn-danger"><i class="fa fa-heart"></i> 喜欢</a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="feed-element">
+                                        <a href="#" class="float-left">
+                                            <img alt="image" class="rounded-circle" src="img/profile.jpg">
+                                        </a>
+                                        <div class="media-body ">
+                                            <small class="float-right">5分钟前</small>
+                                            <strong>小明 </strong> 时间是一切财富中最宝贵的财富 <br>
+                                            <small class="text-muted">今天下午2017.12.12 4:21 </small>
+                                        </div>
+                                    </div>
+
+                                    <div class="feed-element">
+                                        <a href="#" class="float-left">
+                                            <img alt="image" class="rounded-circle" src="img/a2.jpg">
+                                        </a>
+                                        <div class="media-body ">
+                                            <small class="float-right">2小时前</small>
+                                            <strong>小明 </strong> 时间是一切财富中最宝贵的财富 <br>
+                                            <small class="text-muted">今天下午2017.12.12 4:21 </small>
+                                            <div class="well">
+                                                我需要三件东西：爱情友谊和图书。然而这三者之间何其相通！炽热的爱情可以充实图书的内容，图书又是人们最忠实的朋友。
+                                            </div>
+                                            <div class="float-right">
+                                                <a href=""  class="btn btn-xs btn-white"><i class="fa fa-thumbs-up"></i> 赞 </a>
+                                                <a href=""  class="btn btn-xs btn-white"><i class="fa fa-heart"></i> 喜欢</a>
+                                                <a href="" class="btn btn-xs btn-primary"><i class="fa fa-pencil"></i> 信息</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="feed-element">
+                                        <a href="#" class="float-left">
+                                            <img alt="image" class="rounded-circle" src="img/a3.jpg">
+                                        </a>
+                                        <div class="media-body ">
+                                            <small class="float-right">2小时前</small>
+                                            <strong>小明 </strong> 时间是一切财富中最宝贵的财富 <br>
+                                            <small class="text-muted">今天下午2017.12.12 4:21 </small>
+                                            <div class="photos">
+                                                <a target="_blank" href="http://24.media.tumblr.com/20a9c501846f50c1271210639987000f/tumblr_n4vje69pJm1st5lhmo1_1280.jpg"> <img alt="image" class="feed-photo" src="img/p1.jpg"></a>
+                                                <a target="_blank" href="http://37.media.tumblr.com/9afe602b3e624aff6681b0b51f5a062b/tumblr_n4ef69szs71st5lhmo1_1280.jpg"> <img alt="image" class="feed-photo" src="img/p3.jpg"></a>
+                                                </div>
+                                        </div>
+                                    </div>
+                                    <div class="feed-element">
+                                        <a href="#" class="float-left">
+                                            <img alt="image" class="rounded-circle" src="img/a4.jpg">
+                                        </a>
+                                        <div class="media-body ">
+                                            <small class="float-right text-navy">5小时前</small>
+                                            <strong>小明 </strong> 时间是一切财富中最宝贵的财富 <br>
+                                            <small class="text-muted">今天下午2017.12.12 4:21 </small>
+                                            <div class="actions">
+                                                <a href=""  class="btn btn-xs btn-white"><i class="fa fa-thumbs-up"></i> 赞 </a>
+                                                <a href=""  class="btn btn-xs btn-white"><i class="fa fa-heart"></i> 喜欢</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="feed-element">
+                                        <a href="#" class="float-left">
+                                            <img alt="image" class="rounded-circle" src="img/a5.jpg">
+                                        </a>
+                                        <div class="media-body ">
+                                            <small class="float-right">2小时前</small>
+                                            <strong>小明 </strong> 时间是一切财富中最宝贵的财富 <br>
+                                            <small class="text-muted">今天下午2017.12.12 4:21 </small>
+                                            <div class="well">
+                                                我需要三件东西：爱情友谊和图书。然而这三者之间何其相通！炽热的爱情可以充实图书的内容，图书又是人们最忠实的朋友。
+                                            </div>
+                                            <div class="float-right">
+                                                <a href=""  class="btn btn-xs btn-white"><i class="fa fa-thumbs-up"></i> Like </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="feed-element">
+                                        <a href="#" class="float-left">
+                                            <img alt="image" class="rounded-circle" src="img/profile.jpg">
+                                        </a>
+                                        <div class="media-body ">
+                                            <small class="float-right">23小时前</small>
+                                            <strong>小明 </strong> 时间是一切财富中最宝贵的财富 <br>
+                                            <small class="text-muted">今天下午2017.12.12 4:21 </small>
+                                        </div>
+                                    </div>
+                                    <div class="feed-element">
+                                        <a href="#" class="float-left">
+                                            <img alt="image" class="rounded-circle" src="img/a7.jpg">
+                                        </a>
+                                        <div class="media-body ">
+                                            <small class="float-right">46小时前</small>
+                                            <strong>小明 </strong> 时间是一切财富中最宝贵的财富 <br>
+                                            <small class="text-muted">今天下午2017.12.12 4:21 </small>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <button class="btn btn-primary btn-block m"><i class="fa fa-arrow-down"></i> 显示更多</button>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+{% endblock %}

@@ -1,0 +1,102 @@
+{% extends "bash.html" %}
+
+{% load i18n %}
+{% load account socialaccount %}
+
+{% load staticfiles %}
+{% block title %}
+    登录
+{% endblock %}
+{% block content %}
+    <title>选择系统环境</title>
+    <link href="{% static 'css/select/style.css' %}" rel="stylesheet" type="text/css" />
+    <script src="{% static 'js/layui/layui.js' %}"></script>
+    <script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
+
+    {% csrf_token %}
+    nihao
+    <select class="form-control">
+        {% for item in data.array %}
+            <option id="cpus">{{item}}</option>
+        {% endfor %}
+    </select>
+    <select class="form-control">
+        {% for key,value in data.os_list %}
+            <option id="os">{{ value }}</option>
+        {% endfor %}
+    </select>
+    <select class="form-control">
+        {% for key,value in data.proxy_list %}
+            <option id="proxy">{{ value }}</option>
+        {% endfor %}
+    </select>
+    <select class="form-control">
+        {% for key,value in data.language_list %}
+            <option id="language">{{ value }}</option>
+        {% endfor %}
+    </select>
+    <select class="form-control">
+        {% for key,value in data.database_list %}
+            <option id="database">{{ value }}</option>
+        {% endfor %}
+    </select>
+    <input type="text" id="port" class="form-control" placeholder="Text input" >
+    <input type="text" id="namespace" class="form-control" placeholder="Text input" >
+
+    <div class="success-msg"></div>
+    <label>
+        <span>&nbsp;</span>
+        <button id="submit" type="button" class="button">提交</button>
+    </label>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        //使用layui
+        layui.use('layer', function() {
+            //点击提交按钮, 提交按钮id
+            $(".button").click(function() {
+                var layer = layui.layer;
+                // 标题的id
+                var cpus = $("#cpus").val()
+                // 内容的id
+                var os = $("#os").val()
+                var language = $("#language").val()
+                var database = $("#database").val()
+                var port = $("#port").val()
+                var proxy = $("#proxy").val()
+                var namespace = $("#namespace").val()
+                var token = $('input[name=csrfmiddlewaretoken]').val();
+                //判断内容是否为空
+                /*if (name.length == 0) {
+                    layer.msg('标题为空');
+                    return false;
+                } else if (email.length == 0) {
+                    layer.msg('邮箱为空');
+                    return false;
+                } else if (message == 0) {
+                    layer.msg('写点内容吧');
+                    return false;
+                } else {*/
+                    $.ajax({
+                        url: "http://192.168.221.133:60013/selectos/",
+                        method: 'POST',
+                        data: {
+                            csrfmiddlewaretoken: token,
+                            'cpus': $("#cpus").val(),
+                            'os': $("#os").val(),
+                            'proxy': $("#proxy").val(),
+                            'language': $("#language").val(),
+                            'database': $("#database").val(),
+                            'port': $("#port").val(),
+                            'namespace': $("#namespace").val(),
+                        },
+                        success:function (result) {
+                            //window.location.href="http://47.100.114.188:9000";
+                        }
+                    })
+                //}
+            })
+        });
+    })
+</script>
+{% endblock %}
