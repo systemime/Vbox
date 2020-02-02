@@ -6,17 +6,16 @@ from django.views.generic import View
 
 # from django.contrib.auth.decorators import login_required
 # 用自定义的
-from tools.tool import login_required
-
 from django.contrib import messages
 from django.urls import reverse
 from django.conf import settings
 from django.views.generic import View
-import time, json
+import json, time
 import django.utils.timezone as timezone
 
-from tools.tool import *
 from tools.k8s import KubeApi
+from tools.tool import login_required, hash_code, mkdir
+
 from Vbox import celery_app
 
 from .models import UserProfile
@@ -92,10 +91,13 @@ def login(request):
 def logout(request):
     if not request.session.get('islogin', None):
         return redirect(reverse('users:login'))
-    user = UserProfile.objects.get(id=int(request.session.get('userid')))
-    user.last_login_time = datetime.datetime.today()
-    user.save()
-    request.session.flush()     # 清除所有后包括django-admin登陆状态也会被清除
+    try:
+        user = UserProfile.objects.get(id=int(request.session.get('userid')))
+        user.last_login_time = datetime.datetime.today()
+        user.save()
+        request.session.flush()     # 清除所有后包括django-admin登陆状态也会被清除
+    except:
+        return redirect(reverse('users:login'))
     # event_log(user, 2, '用户 [{}] 退出'.format(user.username), request.META.get('REMOTE_ADDR', None), request.META.get('HTTP_USER_AGENT', None))
     return redirect(reverse('users:login'))
 
@@ -113,13 +115,14 @@ class Registered(View):
         user.nick_name = request.POST.get('nickname')
         user.email = request.POST.get('email')
         user.password = hash_code(request.POST.get('passwd'))
-        user.role = user.ROLE_CHOICES
+        user.role = 1
         try:
-            user.save()
-        except:
-            return JsonResponse({"status": 104, "error": '未知错误'}, safe=False)
-        kube = create_this_namespace(username)
-        mkdir(username)
+            user.save()  # save user info
+            kube = create_this_namespace(username)
+            mkdir(username)  # mkdir user volume path
+        except Exception as err:
+            print(err)
+            return JsonResponse({"status": 104, "error": err}, safe=False)
         return JsonResponse({"status": 200, "error": 'success', "kube": kube}, safe=False)
 
 
@@ -128,7 +131,7 @@ def profile(request):
     '''展示个人资料'''
     # user = request.user
     # return render(request, 'users/u_profile.html', {'user': user})
-    img = UserProfile.objects.get(id='3').avatar
+    img = UserProfile.objects.get(username=request.session.get('username', None)).avatar
     nickname = request.session.get('nickname', None)
     role = request.session.get('role', None)
     page = '个人信息'
@@ -154,7 +157,8 @@ def change_profile(request):
 
 
 def index(request):
-    img = UserProfile.objects.get(id='3').avatar
+    username = request.session.get('username', None)
+    img = UserProfile.objects.get(username=username).avatar
     nickname = request.session.get('nickname', None)
     role = request.session.get('role', None)
     page = '首页'

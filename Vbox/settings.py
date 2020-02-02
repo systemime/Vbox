@@ -55,6 +55,8 @@ INSTALLED_APPS = [
     # 自定义app
     'users',
     'selectos',
+    'file',
+    'webssh',
 ]
 
 # 配置表单插件使用的样式

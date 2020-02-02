@@ -58,12 +58,6 @@
                             <div class="col-sm-15">
                                 <input type="number" class="form-control" id="Memory" value="512" οninput="if(value>24)value=24;if(value.length>2)value=value.slice(0,2);if(value<0)value=0">
                             </div>
-                            <label>请选择内置代理：</label>
-                            <select class="form-control" id="sproxy">
-                                {% for key,value in data.proxy_list %}
-                                    <option id="proxy">{{ value }}</option>
-                                {% endfor %}
-                            </select>
                             <label>请选择编程语言：</label>
                             <select class="form-control" id="slanguage">
                                 {% for key,value in data.language_list %}
@@ -84,7 +78,9 @@
                             <div class="col-sm-15">
                                 <input type="number" placeholder="非必填，可为空" class="form-control" id="port_info">
                             </div>
-                        </form>
+                        </form><br>
+                        <b>注意，您最多可以创建4个容器，共计可以使用4个CPU，4G内存，20G存储</b><br>
+                        <b>系统拥有错误提示，端口内部开放，集成frp，记得搭建ssh转发</b>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -110,9 +106,11 @@
                                     <i class="fa fa-wrench"></i>
                                 </a>
                                 <ul class="dropdown-menu dropdown-user">
-                                    <li><a href="#" class="dropdown-item">选项 1</a>
+                                    <li><a href="#" class="dropdown-item">清空全部容器</a>
                                     </li>
-                                    <li><a href="#" class="dropdown-item">选项 2</a>
+                                    <li><a href="#" class="dropdown-item">生成二级用户账号</a>
+                                    </li>
+                                    <li><a href="#" class="dropdown-item">导出全部容器信息</a>
                                     </li>
                                 </ul>
                                 <a class="close-link">
@@ -122,103 +120,44 @@
                         </div>
                         <div class="ibox-content">
 
-                            <table class="footable table table-stripped toggle-arrow-tiny">
+                            <table class="footable table table-stripped toggle-arrow-tiny" id="dep_list">
                                 <thead>
                                 <tr>
-
-                                    <th data-toggle="true">项目</th>
-                                    <th>名称</th>
-                                    <th>电话</th>
-                                    <th data-hide="all">公司</th>
-                                    <th data-hide="all">已完成</th>
-                                    <th data-hide="all">任务</th>
-                                    <th data-hide="all">数据</th>
+                                    <th data-toggle="true">容器名称</th>
+                                    <th>操作系统</th>
+                                    <th>CPU</th>
+                                    <th>内存</th>
+                                    <th data-hide="all">数据库</th>
+                                    <th data-hide="all">语言</th>
+                                    <th data-hide="all">内部端口</th>
+                                    <th data-hide="all">租用时间</th>
                                     <th>操作</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td>项目例子1</td>
-                                    <td>高达</td>
-                                    <td>86 1234 5678</td>
-                                    <td>乐高公司</td>
-                                    <td><span class="pie">0.52/1.561</span></td>
-                                    <td>20%</td>
-                                    <td>2017年12月12日</td>
-                                    <td>
-                                        <div class="btn-group">
-                                            <button data-toggle="dropdown" class="btn btn-primary dropdown-toggle">操作 </button>
-                                            <ul class="dropdown-menu">
-                                                <li><a class="dropdown-item" href="#" class="font-bold">ssh 连接</a></li>
-                                                <li><a class="dropdown-item" href="#">vnc 连接</a></li>
-                                                <li class="dropdown-divider"></li>
-                                                <li><a class="dropdown-item demo4" href="#">删除虚拟容器</a></li>
-                                            </ul>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>项目例子10</td>
-                                    <td>高达</td>
-                                    <td>86 1234 5678</td>
-                                    <td>乐高公司</td>
-                                    <td><span class="pie">3,1</span></td>
-                                    <td>75%</td>
-                                    <td>2017年12月12日</td>
-                                    <td><a href="#"><i class="fa fa-check text-navy"></i></a></td>
-                                </tr>
-                                <tr>
-                                    <td>项目例子11</td>
-                                    <td>高达</td>
-                                    <td>86 1234 5678</td>
-                                    <td>乐高公司</td>
-                                    <td><span class="pie">4,9</span></td>
-                                    <td>18%</td>
-                                    <td>2017年12月12日</td>
-                                    <td><a href="#"><i class="fa fa-check text-navy"></i></a></td>
-                                </tr>
-                                <tr>
-                                    <td>项目例子11</td>
-                                    <td>高达</td>
-                                    <td>86 1234 5678</td>
-                                    <td>乐高公司</td>
-                                    <td><span class="pie">4,9</span></td>
-                                    <td>18%</td>
-                                    <td>2017年12月12日</td>
-                                    <td><a href="#"><i class="fa fa-check text-navy"></i></a></td>
-                                </tr>
-                                <tr>
-                                    <td>项目例子11</td>
-                                    <td>高达</td>
-                                    <td>86 1234 5678</td>
-                                    <td>乐高公司</td>
-                                    <td><span class="pie">4,9</span></td>
-                                    <td>18%</td>
-                                    <td>2017年12月12日</td>
-                                    <td><a href="#"><i class="fa fa-check text-navy"></i></a></td>
-                                </tr>
-                                <tr>
-                                    <td>项目例子13
-                                        <small>标注</small>
-                                    </td>
-                                    <td>高达</td>
-                                    <td>86 1234 5678</td>
-                                    <td>乐高公司</td>
-                                    <td><span class="pie">0.52/1.561</span></td>
-                                    <td>20%</td>
-                                    <td>2017年12月12日</td>
-                                    <td><a href="#"><i class="fa fa-check text-navy"></i></a></td>
-                                </tr>
-                                <tr>
-                                    <td>项目例子14</td>
-                                    <td>高达</td>
-                                    <td>86 1234 5678</td>
-                                    <td>乐高公司</td>
-                                    <td><span class="pie">4,9</span></td>
-                                    <td>18%</td>
-                                    <td>2017年12月12日</td>
-                                    <td><a href="#"><i class="fa fa-check text-navy"></i></a></td>
-                                </tr>
+                                    {% for container in container_info %}
+                                        <tr>
+                                            <td>{{ container.deployment }}</td>
+                                            <td>{{ container.os }}</td>
+                                            <td>{{ container.cpus }}</td>
+                                            <td>{{ container.ram }}</td>
+                                            <td>{{ container.database }}</td>
+                                            <td>{{ container.language }}</td>
+                                            <td>{{ container.port }}</td>
+                                            <td>{{ container.use_time }}</td>
+                                            <td>
+                                                <div class="btn-group">
+                                                    <button data-toggle="dropdown" class="btn btn-primary dropdown-toggle">操作 </button>
+                                                    <ul class="dropdown-menu">
+                                                        <li><a class="dropdown-item font-bold webssh" target="_blank" href="/webssh/webterminal/?dep_id={{ container.id }}">ssh 连接</a></li>
+                                                        <li><a class="dropdown-item" href="#">vnc 连接</a></li>
+                                                        <li class="dropdown-divider"></li>
+                                                        <li><a class="dropdown-item demo4" id="{{ container.id }}" href="#" οnclick="get_this_id(this.id)">删除虚拟容器</a></li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
                                 </tbody>
                                 <tfoot>
                                 <tr>
@@ -245,10 +184,10 @@
                 $('.footable').footable();
 
                 $("#Memory").change(function(){
-                    if($('#Memory').val()>4096 || $('#Memory').val()<512){
+                    if($('#Memory').val()>2048 || $('#Memory').val()<512){
                         swal({
                             title: "内存配置错误",
-                            text: "最小内存为512M，最大为4096M，只允许填写数字"
+                            text: "最小内存为512M，最大为2048M，只允许填写数字"
                         });
                         $(this).val("512");
                     }    
@@ -274,7 +213,10 @@
                     }    
                 });
 
+                // 容器删除
                 $('.demo4').click(function () {
+                    var dep_id = $(this).attr('id');
+                    //var dep_name = $("#dep_name").text();
                     swal({
                         title: "你确定？",
                         text: "你将无法恢复这个虚构的文件！",
@@ -288,8 +230,11 @@
                         function (isConfirm) {
                             if (isConfirm) {
                                 $.ajax({
-                                    url: "{% url 'delete_user_pod' %}",
+                                    url: "{% url 'delete_user_deployment' %}",
                                     method: 'GET',
+                                    data: {
+                                        "dep_id": dep_id
+                                    },
                                     success:function (result) {
                                         swal("删除", result.error, "success");
                                         setTimeout(function(){
@@ -303,11 +248,12 @@
                             }
                     });
                 });
+
+                // 提交生成信息
                 $('#Configsetup').click(function () {
                     var os = $("#sos option:selected").text();
                     var cpus = $("#scpus option:selected").text();
                     var memory = $('#Memory').val();
-                    var proxy = $("#sproxy option:selected").text();
                     var language = $("#slanguage option:selected").text();
                     var database = $("#sdatabase option:selected").text();
                     var use_time = $('#use_time').val();
@@ -343,8 +289,8 @@
 
                     function errFunction() {
                         swal({
-                            title: "注册失败！",
-                            text: "系统发生未知错误，请重新注册",
+                            title: "提交失败！",
+                            text: "系统发生未知错误，请重新选择",
                         });
                     };
 

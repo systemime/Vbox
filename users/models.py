@@ -25,6 +25,7 @@ class UserProfile(AbstractUser):
     memo = models.TextField(blank=True, null=True, verbose_name="备注")
     create_time = models.DateTimeField(auto_now_add=True, verbose_name='创建时间')
     last_login_time = models.DateTimeField(blank=True, null=True, verbose_name='最后登录时间')
+    pod_num = models.IntegerField(null=False, default=0, verbose_name='容器数量')
 
     class Meta:
         verbose_name = '用户信息'

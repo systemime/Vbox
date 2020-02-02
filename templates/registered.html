@@ -159,13 +159,13 @@
 
                 function succFunction(res) {
                     swal({
-                        title: "注册成功！",
-                        text: res.status,
+                        title: "注册提交成功！",
+                        text: res.error,
                         type: "success"
                     });
                     setTimeout(function(){
                         window.location.href="{% url 'users:login' %}";
-                    },4000);
+                    },2500);
                 };
             });
         });

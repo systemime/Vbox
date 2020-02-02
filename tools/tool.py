@@ -6,6 +6,8 @@ import random
 from django.urls import reverse
 from django.shortcuts import redirect
 
+import os
+
 
 # 用户密码加密
 def hash_code(s):
@@ -49,13 +51,16 @@ import hashlib, time
 
 def get_deploy_name():
     m = hashlib.md5()
-    m.update(str(time.time()).encode(encoding='utf-8'))
+    t = str(time.time())
+    m.update(t.encode(encoding='utf-8'))
     deploy_name = m.hexdigest()
-    return deploy_name
+    return deploy_name, t
 
-import os
 
-def mkdir(name):  # 创建挂载目录
-    path = "/home/tools/" + name
+def mkdir(namespace):  # 创建挂载目录
+    path = "/home/soul/tools/" + namespace
     if not os.path.exists(path):
         os.makedirs(path)
+    return path
+
+

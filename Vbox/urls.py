@@ -18,6 +18,7 @@ from django.urls import path, include, re_path
 from django.conf.urls import url
 from users import urls as users_url
 from selectos import urls as selectos_url
+from webssh import urls as ssh_url
 from file import urls as file_url
 
 from django.conf import settings
@@ -30,5 +31,6 @@ urlpatterns = [
     path('users/', include(users_url)),
     path('selectos/', include(selectos_url)),
     path('file/', include(file_url)),
+    path('webssh/', include(ssh_url)),
     url(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -47,7 +47,7 @@
       <form action="{% url 'users:login' %}" method="post" class="mb-2 login-form" onsubmit="return login_form();">
 		{% csrf_token %}
         <div class="input-group">
-          <input type="username" class="form-control" name="username" placeholder="用户名" id="username" value="test1" onkeyup="check_username();" onblur="check_username();">
+          <input type="username" class="form-control" name="username" placeholder="用户名" id="username" value="systemime" onkeyup="check_username();" onblur="check_username();">
           <div class="input-group-append input-group-text" id="username-icon">
               <span class="fas fa-envelope"></span>
           </div>
