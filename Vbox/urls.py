@@ -32,5 +32,6 @@ urlpatterns = [
     path('selectos/', include(selectos_url)),
     path('file/', include(file_url)),
     path('webssh/', include(ssh_url)),
+    path('webguacamole/', include('webguacamole.urls', namespace='webguacamole')),
     url(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

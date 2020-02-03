@@ -150,7 +150,7 @@
                                                     <button data-toggle="dropdown" class="btn btn-primary dropdown-toggle">操作 </button>
                                                     <ul class="dropdown-menu">
                                                         <li><a class="dropdown-item font-bold webssh" target="_blank" href="/webssh/webterminal/?dep_id={{ container.id }}">ssh 连接</a></li>
-                                                        <li><a class="dropdown-item" href="#">vnc 连接</a></li>
+                                                        <li><a class="dropdown-item font-bold webguacamole" target="_blank" href="{% url 'webguacamole:terminal' container.id %}">vnc 连接</a></li>
                                                         <li class="dropdown-divider"></li>
                                                         <li><a class="dropdown-item demo4" id="{{ container.id }}" href="#" οnclick="get_this_id(this.id)">删除虚拟容器</a></li>
                                                     </ul>

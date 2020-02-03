@@ -33,11 +33,6 @@ class Systemos(models.Model):
         (3, 'MongoDB'),
     )
 
-    proxy_list = (
-        (0, 'null'),
-        (1, 'nginx'),
-        (2, 'tomcat'),
-    )
     user = models.ForeignKey('users.UserProfile', to_field='username', related_name='dep_user', null=False, on_delete=models.CASCADE)
     namespace = models.CharField(max_length=63, null=False, default='default', verbose_name='命名空间')
     deployment = models.CharField(unique=True, max_length=64, default='emp_name', choices=os_list, null=False,

@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     'selectos',
     'file',
     'webssh',
+    'webguacamole',
 ]
 
 # 配置表单插件使用的样式
@@ -183,7 +184,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'), )
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # blog是项目名，media是约定成俗的文件夹名
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # media是约定成俗的文件夹名
 MEDIA_URL = "/media/"      # 跟STATIC_URL类似，指定用户可以通过这个路径找到文件
 
 # 用户加密密钥, 第一次设置后切勿再随意更改
@@ -313,3 +314,9 @@ AUTH_USER_MODEL = 'users.UserProfile'
 RATELIMIT_LOGIN = '600/30s'
 RATELIMIT_NOLOGIN = '20/30s'
 
+# webguacamole
+GUACD = {
+    'host': '172.17.0.2',
+    'port': 4822,
+    'timeout': 15,
+}
