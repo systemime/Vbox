@@ -187,6 +187,11 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'), )
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # media是约定成俗的文件夹名
 MEDIA_URL = "/media/"      # 跟STATIC_URL类似，指定用户可以通过这个路径找到文件
 
+RECORD_DIR = 'record'   # 存放终端结果文件
+RECORD_ROOT = os.path.join(MEDIA_ROOT, RECORD_DIR)
+if not os.path.isdir(RECORD_ROOT):
+    os.makedirs(RECORD_ROOT)
+
 # 用户加密密钥, 第一次设置后切勿再随意更改
 PASSWD_TOKEN = '__66711__Ops__devops'
 

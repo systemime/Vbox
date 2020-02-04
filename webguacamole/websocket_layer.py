@@ -73,7 +73,7 @@ class WebGuacamole(WebsocketConsumer):
         self.guacamoleclient = Client(websocker=self)
         self.guacamoleclient.connect(
             protocol=self.protocol,  # 协议
-            hostname=self.hostips,  # 主机ip， 这里从k8s查询
+            hostname=self.hostip,  # 主机ip， 这里从k8s查询
             port='5900',  # 主机端口， 默认5900
             username='root',  # 登录账号名称， 默认root
             password='123456',  # 登录账户密码，默认123456

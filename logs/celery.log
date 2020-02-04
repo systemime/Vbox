@@ -1,135 +1,20 @@
 nohup: ignoring input
-[2020-01-21 00:48:22,890: INFO/MainProcess] Connected to redis://localhost:6379/0
-[2020-01-21 00:48:22,917: INFO/MainProcess] mingle: searching for neighbors
-[2020-01-21 00:48:23,957: INFO/MainProcess] mingle: all alone
-[2020-01-21 00:48:23,974: WARNING/MainProcess] /home/soul/tools/my_env/Vbox/lib/python3.6/site-packages/celery/fixups/django.py:203: UserWarning: Using settings.DEBUG leads to a memory
+[2020-02-04 13:25:35,762: INFO/MainProcess] Connected to redis://localhost:6379/0
+[2020-02-04 13:25:35,773: INFO/MainProcess] mingle: searching for neighbors
+[2020-02-04 13:25:36,794: INFO/MainProcess] mingle: all alone
+[2020-02-04 13:25:36,808: WARNING/MainProcess] /home/soul/tools/my_env/Vbox/lib/python3.6/site-packages/celery/fixups/django.py:203: UserWarning: Using settings.DEBUG leads to a memory
             leak, never use this setting in production environments!
   leak, never use this setting in production environments!''')
-[2020-01-21 00:48:23,974: INFO/MainProcess] celery@master ready.
-[2020-01-21 13:13:26,698: ERROR/MainProcess] Received unregistered task of type 'tasks.tasks.task_save_event_log'.
-The message has been ignored and discarded.
+[2020-02-04 13:25:36,808: INFO/MainProcess] celery@master ready.
 
-Did you remember to import the module containing this task?
-Or maybe you're using relative imports?
-
-Please see
-http://docs.celeryq.org/en/latest/internals/protocol.html
-for more information.
-
-The full contents of the message body was:
-b'[[null, 3, "\\u7528\\u6237 [systemime] \\u4e0d\\u5b58\\u5728", "192.168.221.1", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.117 Safari/537.36"], {}, {"callbacks": null, "errbacks": null, "chain": null, "chord": null}]' (267b)
-Traceback (most recent call last):
-  File "/home/soul/tools/my_env/Vbox/lib/python3.6/site-packages/celery/worker/consumer/consumer.py", line 559, in on_task_received
-    strategy = strategies[type_]
-KeyError: 'tasks.tasks.task_save_event_log'
-[2020-01-23 01:54:10,013: INFO/MainProcess] Connected to redis://localhost:6379/0
-[2020-01-23 01:54:10,028: INFO/MainProcess] mingle: searching for neighbors
-[2020-01-23 01:54:11,144: INFO/MainProcess] mingle: all alone
-[2020-01-23 01:54:11,170: WARNING/MainProcess] /home/soul/tools/my_env/Vbox/lib/python3.6/site-packages/celery/fixups/django.py:203: UserWarning: Using settings.DEBUG leads to a memory
-            leak, never use this setting in production environments!
-  leak, never use this setting in production environments!''')
-[2020-01-23 01:54:11,170: INFO/MainProcess] celery@master ready.
-[2020-01-24 10:10:51,215: ERROR/MainProcess] Received unregistered task of type 'tasks.tasks.task_save_event_log'.
-The message has been ignored and discarded.
-
-Did you remember to import the module containing this task?
-Or maybe you're using relative imports?
-
-Please see
-http://docs.celeryq.org/en/latest/internals/protocol.html
-for more information.
-
-The full contents of the message body was:
-b'[["admin", 1, "\\u7528\\u6237 [admin] \\u767b\\u9646\\u6210\\u529f", "192.168.221.1", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.117 Safari/537.36"], {}, {"callbacks": null, "errbacks": null, "chain": null, "chord": null}]' (272b)
-Traceback (most recent call last):
-  File "/home/soul/tools/my_env/Vbox/lib/python3.6/site-packages/celery/worker/consumer/consumer.py", line 559, in on_task_received
-    strategy = strategies[type_]
-KeyError: 'tasks.tasks.task_save_event_log'
-[2020-01-24 10:11:03,395: ERROR/MainProcess] Received unregistered task of type 'tasks.tasks.task_save_event_log'.
-The message has been ignored and discarded.
-
-Did you remember to import the module containing this task?
-Or maybe you're using relative imports?
-
-Please see
-http://docs.celeryq.org/en/latest/internals/protocol.html
-for more information.
-
-The full contents of the message body was:
-b'[["admin", 2, "\\u7528\\u6237 [admin] \\u9000\\u51fa", "192.168.221.1", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.117 Safari/537.36"], {}, {"callbacks": null, "errbacks": null, "chain": null, "chord": null}]' (260b)
-Traceback (most recent call last):
-  File "/home/soul/tools/my_env/Vbox/lib/python3.6/site-packages/celery/worker/consumer/consumer.py", line 559, in on_task_received
-    strategy = strategies[type_]
-KeyError: 'tasks.tasks.task_save_event_log'
-[2020-01-24 15:31:24,963: ERROR/MainProcess] Received unregistered task of type 'tasks.tasks.task_save_event_log'.
-The message has been ignored and discarded.
-
-Did you remember to import the module containing this task?
-Or maybe you're using relative imports?
-
-Please see
-http://docs.celeryq.org/en/latest/internals/protocol.html
-for more information.
-
-The full contents of the message body was:
-b'[["admin", 1, "\\u7528\\u6237 [admin] \\u767b\\u9646\\u6210\\u529f", "192.168.221.1", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.117 Safari/537.36"], {}, {"callbacks": null, "errbacks": null, "chain": null, "chord": null}]' (272b)
-Traceback (most recent call last):
-  File "/home/soul/tools/my_env/Vbox/lib/python3.6/site-packages/celery/worker/consumer/consumer.py", line 559, in on_task_received
-    strategy = strategies[type_]
-KeyError: 'tasks.tasks.task_save_event_log'
-[2020-01-25 19:54:29,249: CRITICAL/MainProcess] Unrecoverable error: VersionMismatch('Redis transport requires redis-py versions 3.2.0 or later. You have 2.10.6',)
-Traceback (most recent call last):
-  File "/home/soul/tools/my_env/Vbox/lib/python3.6/site-packages/kombu/transport/virtual/base.py", line 921, in create_channel
-    return self._avail_channels.pop()
-IndexError: pop from empty list
-
-During handling of the above exception, another exception occurred:
-
-Traceback (most recent call last):
-  File "/home/soul/tools/my_env/Vbox/lib/python3.6/site-packages/celery/worker/worker.py", line 205, in start
-    self.blueprint.start(self)
-  File "/home/soul/tools/my_env/Vbox/lib/python3.6/site-packages/celery/bootsteps.py", line 119, in start
-    step.start(parent)
-  File "/home/soul/tools/my_env/Vbox/lib/python3.6/site-packages/celery/bootsteps.py", line 369, in start
-    return self.obj.start()
-  File "/home/soul/tools/my_env/Vbox/lib/python3.6/site-packages/celery/worker/consumer/consumer.py", line 318, in start
-    blueprint.start(self)
-  File "/home/soul/tools/my_env/Vbox/lib/python3.6/site-packages/celery/bootsteps.py", line 119, in start
-    step.start(parent)
-  File "/home/soul/tools/my_env/Vbox/lib/python3.6/site-packages/celery/worker/consumer/connection.py", line 23, in start
-    c.connection = c.connect()
-  File "/home/soul/tools/my_env/Vbox/lib/python3.6/site-packages/celery/worker/consumer/consumer.py", line 405, in connect
-    conn = self.connection_for_read(heartbeat=self.amqheartbeat)
-  File "/home/soul/tools/my_env/Vbox/lib/python3.6/site-packages/celery/worker/consumer/consumer.py", line 412, in connection_for_read
-    self.app.connection_for_read(heartbeat=heartbeat))
-  File "/home/soul/tools/my_env/Vbox/lib/python3.6/site-packages/celery/worker/consumer/consumer.py", line 436, in ensure_connected
-    callback=maybe_shutdown,
-  File "/home/soul/tools/my_env/Vbox/lib/python3.6/site-packages/kombu/connection.py", line 430, in ensure_connection
-    callback, timeout=timeout)
-  File "/home/soul/tools/my_env/Vbox/lib/python3.6/site-packages/kombu/utils/functional.py", line 344, in retry_over_time
-    return fun(*args, **kwargs)
-  File "/home/soul/tools/my_env/Vbox/lib/python3.6/site-packages/kombu/connection.py", line 283, in connect
-    return self.connection
-  File "/home/soul/tools/my_env/Vbox/lib/python3.6/site-packages/kombu/connection.py", line 839, in connection
-    self._connection = self._establish_connection()
-  File "/home/soul/tools/my_env/Vbox/lib/python3.6/site-packages/kombu/connection.py", line 794, in _establish_connection
-    conn = self.transport.establish_connection()
-  File "/home/soul/tools/my_env/Vbox/lib/python3.6/site-packages/kombu/transport/virtual/base.py", line 941, in establish_connection
-    self._avail_channels.append(self.create_channel(self))
-  File "/home/soul/tools/my_env/Vbox/lib/python3.6/site-packages/kombu/transport/virtual/base.py", line 923, in create_channel
-    channel = self.Channel(connection)
-  File "/home/soul/tools/my_env/Vbox/lib/python3.6/site-packages/kombu/transport/redis.py", line 507, in __init__
-    self.Client = self._get_client()
-  File "/home/soul/tools/my_env/Vbox/lib/python3.6/site-packages/kombu/transport/redis.py", line 975, in _get_client
-    'You have {0.__version__}'.format(redis))
-kombu.exceptions.VersionMismatch: Redis transport requires redis-py versions 3.2.0 or later. You have 2.10.6
+worker: Warm shutdown (MainProcess)
  
  -------------- celery@master v4.4.0 (cliffs)
 --- ***** ----- 
--- ******* ---- Linux-5.3.0-26-generic-x86_64-with-debian-buster-sid 2020-01-25 19:54:28
+-- ******* ---- Linux-5.3.0-26-generic-x86_64-with-debian-buster-sid 2020-02-04 13:25:34
 - *** --- * --- 
 - ** ---------- [config]
-- ** ---------- .> app:         Vbox:0x7f937b1afb00
+- ** ---------- .> app:         Vbox:0x7faf4831edd8
 - ** ---------- .> transport:   redis://localhost:6379/0
 - ** ---------- .> results:     redis://localhost:6379/1
 - *** --- * --- .> concurrency: 8 (prefork)
@@ -141,6 +26,8 @@ kombu.exceptions.VersionMismatch: Redis transport requires redis-py versions 3.2
 
 [tasks]
   . Vbox.celery.debug_task
+  . selectos.views.create_deployment
+  . selectos.views.delete_deployment
   . selectos.views.delete_this_namespace
   . users.views.create_this_namespace
 
