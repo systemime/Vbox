@@ -216,5 +216,7 @@
                 </div>
             </div>
         </div>
-
+    {% block ready-js %}
+        $("#u_profile").addClass("active");
+    {% endblock %}
 {% endblock %}

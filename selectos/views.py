@@ -81,14 +81,10 @@ class Selectos(View):
         IMGNAME = imgname_list[os]
 
         # readUint32: unexpected character: \\ufffd, error found in #10 byte of ...|erPort\\": \\"59999\\"}],
-        # 单引号，必须正整形
+        # 单引号，必须正整形，未知bug
         port = request.POST.get('port')
         if not port:
             port = 64444
-        # PORTS = []
-        # port_s = {}
-        # port_s["ontainerPort"] = int(port)
-        # PORTS.append(port_s)
         PORTS = int(port)
 
         DIR = '/home/soul/tools/' + str(namespace)
@@ -145,10 +141,9 @@ def delete_user_deployment(request):
     return JsonResponse({"status": 200, "error": "删除成功"}, safe=False)
 
 
-
-
-
-
-
-
+@login_required
+def pod_num(request):
+    func = request.GET.get("getpodsum")
+    data = {'sum': Systemos.objects.filter(namespace=request.session.get('username', None)).count()}
+    return HttpResponse("%s('%s')" % (func, json.dumps(data)))
 

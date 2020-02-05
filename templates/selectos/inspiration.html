@@ -174,6 +174,9 @@
             </div>
         </div>
     <!-- FooTable -->
+    {% block ready-js %}
+        $("#pod_info").addClass("active");
+    {% endblock %}
     {% block page-js %}
         <script src="{% static 'inspinia/js/plugins/footable/footable.all.min.js' %}"></script>
         <!-- Sweet alert -->

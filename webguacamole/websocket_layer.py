@@ -14,7 +14,7 @@ from .guacamoleclient import Client
 
 from django.http.request import QueryDict
 # from webssh.tasks import celery_save_res_asciinema, celery_save_terminal_log  # 创建操作文件，写入日志表
-from util.tool import gen_rand_char
+from tools.tool import gen_rand_char
 from tools.k8s import KubeApi
 
 
@@ -29,15 +29,15 @@ class WebGuacamole(WebsocketConsumer):
 
         self.hostid = int(guacamole_args.get('hostid'))  # 主机id
 
-        self.host = Systemos.objects.get(id=self.hostid)
+        self.host = Systemos.objects.get(id=self.hostid)  # 获取主机信息
         self.namespace = self.host.namespace
         kub = KubeApi(self.namespace)
-        state, data = kub.get_deployment_pod(self.host.labels)
-        state, data = kub.get_this_pod_info(data.items[0].metadata.name)
+        state, data = kub.get_deployment_pod(self.host.labels)  # 先查labels
+        state, data = kub.get_this_pod_info(data.items[0].metadata.name)  # 再查pod详细信息
         self.hostip = data.status.pod_ip
 
-        self.remote_host = self.host  # 远程主机信息
-        self.protocol = 'vnc'
+        self.remote_host = self.host  # 主机信息
+        self.protocol = 'vnc'  # 链接协议
         self.width = guacamole_args.get('width')  # 宽
         self.height = guacamole_args.get('height')  # 高
         self.dpi = guacamole_args.get('dpi')  # 分辨率
@@ -61,16 +61,13 @@ class WebGuacamole(WebsocketConsumer):
         if not self.session.get('islogin', None):  # 未登录直接断开 websocket 连接
             self.close(3001)
 
-        # 获取主机信息
-        # self.host 已经获取
-        # self.remote_host = RemoteUserBindHost.objects.get(id=self.hostid)
-
         # 登录协议查询 vnc 登陆不需要账号
         # 这里需要从前/后端传入协议名称,或者默认vnc
         _type = 8  # web vnc
 
-        # 建立连接
+        # 初始化
         self.guacamoleclient = Client(websocker=self)
+        # 建立连接
         self.guacamoleclient.connect(
             protocol=self.protocol,  # 协议
             hostname=self.hostip,  # 主机ip， 这里从k8s查询
@@ -123,7 +120,7 @@ class WebGuacamole(WebsocketConsumer):
                     self.guacamoleclient.res = []
                     if platform.system().lower() == 'linux':
                         pass
-                        # 创建一个文件保存操作（内容没看懂）
+                        # 创建一个文件保存操作,（内容没看懂）(其实就是最后部分操作数据保存下来)
                         # celery_save_res_asciinema.delay(
                         #     settings.MEDIA_ROOT + '/' + self.guacamoleclient.res_file, tmp, False
                         # )
