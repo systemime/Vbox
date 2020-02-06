@@ -47,13 +47,13 @@ def login(request):
                     error_message = '用户已禁用!'
                     event_log.delay(user.nick_name, 0, 3, '用户 [{}] 已禁用'.format(user.nick_name),
                                     request.META.get('REMOTE_ADDR', None), request.META.get('HTTP_USER_AGENT', None),
-                                    request.headers)
+                                    str(request.headers))
                     return render(request, 'login.html', locals())
             except Exception:
                 error_message = '用户不存在!'
                 event_log.delay(None, 0, 3, '用户 [{}] 不存在'.format(username),
                                 request.META.get('REMOTE_ADDR', None), request.META.get('HTTP_USER_AGENT', None),
-                                request.headers)
+                                str(request.headers))
                 return render(request, 'login.html', locals())
             if user.password == hash_code(password):
                 data = {'last_login_time': timezone.now()}  # 获取最后登录时间
@@ -71,20 +71,20 @@ def login(request):
                 now = int(time.time())
                 request.session['logintime'] = now  # 登录时间
                 request.session['lasttime'] = now  # 最后登录时间
-                event_log.delay(username, 0, 1, '用户 [{}] 登陆成功'.format(username),
+                event_log.delay(user.nick_name, 0, 1, '用户 [{}] 登陆成功'.format(user.nick_name),
                                 request.META.get('REMOTE_ADDR', None), request.META.get('HTTP_USER_AGENT', None),
-                                request.headers)
+                                str(request.headers))
                 return redirect(reverse('users:index'))  # 一切正确，则跳转到首页
             else:
                 error_message = '密码错误!'
                 event_log.delay(user.nick_name, 0, 3, '用户 [{}] 密码错误'.format(user.nick_name),
                                 request.META.get('REMOTE_ADDR', None), request.META.get('HTTP_USER_AGENT', None),
-                                request.headers)
+                                str(request.headers))
                 return render(request, 'login.html', locals())
         else:
             event_log.delay(None, 0, 3, '登陆表单验证错误',
                             request.META.get('REMOTE_ADDR', None), request.META.get('HTTP_USER_AGENT', None),
-                            request.headers)
+                            str(request.headers))
             return render(request, 'login.html', locals())
     return render(request, 'login.html')
 
@@ -104,7 +104,7 @@ def logout(request):
         return redirect(reverse('users:login'))
     event_log.delay(nickname, 0, 2, '用户 [{}] 退出'.format(nickname),
                     request.META.get('REMOTE_ADDR', None), request.META.get('HTTP_USER_AGENT', None),
-                    request.headers)
+                    str(request.headers))
     return redirect(reverse('users:login'))
 
 
@@ -167,13 +167,16 @@ def change_profile(request):
 
     return render(request, 'users/change_profile.html', context={'form': form})
 
-
+@login_required
 def index(request):
     username = request.session.get('username', None)
     img = UserProfile.objects.get(username=username).avatar
     nickname = request.session.get('nickname', None)
     role = request.session.get('role', None)
     page = '首页'
+    event_log.delay(nickname, 1, 19, '[{}] 访问首页'.format(nickname),
+                    request.META.get('REMOTE_ADDR', None), request.META.get('HTTP_USER_AGENT', None),
+                    str(request.headers))
     return render(request, 'users/index.html', locals())
 
 

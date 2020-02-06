@@ -175,7 +175,7 @@
         </div>
     <!-- FooTable -->
     {% block ready-js %}
-        $("#pod_info").addClass("active");
+
     {% endblock %}
     {% block page-js %}
         <script src="{% static 'inspinia/js/plugins/footable/footable.all.min.js' %}"></script>
@@ -184,6 +184,7 @@
         <!-- Page-Level Scripts -->
         <script>
             $(document).ready(function() {
+                $("#pod_info").addClass("active");  // 点击变色,破前端这么烦人
                 $('.footable').footable();
 
                 $("#Memory").change(function(){
@@ -242,7 +243,7 @@
                                         swal("删除", result.error, "success");
                                         setTimeout(function(){
                                             window.location.href="{% url 'select' %}";
-                                        },2000);
+                                        },1500);
                                     }
                                 });
 
@@ -305,7 +306,7 @@
                         });
                         setTimeout(function(){
                             window.location.href="{% url 'select' %}";
-                        },3000);
+                        },1500);
                     };
                 });
             });

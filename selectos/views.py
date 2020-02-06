@@ -54,7 +54,7 @@ class Selectos(View):
         nickname = request.session.get('nickname', None)
         event_log.delay(nickname, 1, 20, '[{}] 访问容器信息页面'.format(nickname),
                         request.META.get('REMOTE_ADDR', None), request.META.get('HTTP_USER_AGENT', None),
-                        request.headers)
+                        str(request.headers))
         return render(request, 'selectos/inspiration.html', locals())
 
     def container_list(self, request):

@@ -1,7 +1,7 @@
 from django.urls import path
-from .views import web_terminal
+from .views import web_ssh
 
 
 urlpatterns = [
-    path("webterminal/", web_terminal, name='webterminal'),
+    path("webterminal/", web_ssh, name='webssh'),
 ]

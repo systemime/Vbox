@@ -2,6 +2,7 @@ from kubernetes import client, config
 from kubernetes.stream import stream
 from kubernetes.client.rest import ApiException
 import json
+from threading import Thread
 
 
 class KubeApi:
@@ -413,7 +414,29 @@ class KubeApi:
     #         return api_response
 
 
+class K8SStreamThread(Thread):
+    """
+    调用k8s中exec接口实现链接
+    创建新线程维持链接
+    """
+    def __init__(self, websocket, container_stream):
+        # 工作线程、工作队列、线程编号
+        Thread.__init__(self)
+        self.websocket = websocket
+        self.stream = container_stream
 
+    def run(self):
+        # #重载threading类中的run()
+        while self.stream.is_open():
+            if self.stream.peek_stdout():
+                stdout = self.stream.read_stdout()
+                self.websocket.send(stdout)
+
+            if self.stream.peek_stderr():
+                stderr = self.stream.read_stderr()
+                self.websocket.send(stderr)
+        else:
+            self.websocket.close()
 
 
 
