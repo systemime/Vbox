@@ -24,11 +24,6 @@ def hash_code(s):
 def gen_rand_char(length=16, chars='qwertyuioplkjhgfdsazxcvbnm1236547890PLKMNBVCXZASDFGHJKOIUYTREWQ'):
     return ''.join(random.sample(chars, length))
 
-try:
-    session_exipry_time = settings.CUSTOM_SESSION_EXIPRY_TIME
-except Exception:
-    session_exipry_time = 60 * 30
-
 
 # 登陆装饰器
 def login_required(func):
@@ -41,7 +36,7 @@ def login_required(func):
             return redirect(reverse('users:login'))
         lasttime = int(request.session.get('lasttime'))
         now = int(time.time())
-        if now - lasttime > session_exipry_time:
+        if now - lasttime > settings.SESSION_COOKIE_AGE:
             return redirect(reverse('users:logout'))
         else:
             request.session['lasttime'] = now

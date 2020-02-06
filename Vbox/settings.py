@@ -196,7 +196,9 @@ if not os.path.isdir(RECORD_ROOT):
 PASSWD_TOKEN = '__66711__Ops__devops'
 
 # session 如果在此期间未做任何操作，则退出， django 本身要么设置固定时间，要么关闭浏览器失效
-CUSTOM_SESSION_EXIPRY_TIME = 60 * 120    # 30 分钟
+SESSION_COOKIE_AGE = 60 * 120  # 2小时
+SESSION_SAVE_EVERY_REQUEST = True  # 上下两种方式的依赖项，SESSION_EXPIRE_AT_BROWSER_CLOSE优先级高
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True  # 关闭浏览器，则COOKIE失效
 
 # 终端过期时间，最好小于等于 CUSTOM_SESSION_EXIPRY_TIME
 CUSTOM_TERMINAL_EXIPRY_TIME = 60 * 120

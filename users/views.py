@@ -15,6 +15,7 @@ import django.utils.timezone as timezone
 
 from tools.k8s import KubeApi
 from tools.tool import login_required, hash_code, mkdir
+from tools.logs import event_log  # 日志记录
 
 from Vbox import celery_app
 
@@ -27,14 +28,13 @@ from .forms import LoginForm
 def create_this_namespace(name):
     task = KubeApi(name)
     info = task.create_user_namespace()
-    print(info)
+    return info
 
-# Create your views here.
+
 # @ratelimit(key=key, rate=rate, method=ALL, block=True)
 def login(request):
-    # session中存在islogin则显示首页，否则加载登录页面
     if request.session.get('islogin', None):  # 不允许重复登录
-        return redirect(reverse('select'))
+        return redirect(reverse('users:index'))
     if request.method == "POST":
         login_form = LoginForm(request.POST)
         error_message = '请检查填写的内容!'
@@ -45,43 +45,46 @@ def login(request):
                 user = UserProfile.objects.get(username=username)
                 if not user.enabled:
                     error_message = '用户已禁用!'
-                    # event_log(user, 3, '用户 [{}] 已禁用'.format(username), request.META.get('REMOTE_ADDR', None), request.META.get('HTTP_USER_AGENT', None))
+                    event_log.delay(user.nick_name, 0, 3, '用户 [{}] 已禁用'.format(user.nick_name),
+                                    request.META.get('REMOTE_ADDR', None), request.META.get('HTTP_USER_AGENT', None),
+                                    request.headers)
                     return render(request, 'login.html', locals())
             except Exception:
                 error_message = '用户不存在!'
-                # event_log(None, 3, '用户 [{}] 不存在'.format(username), request.META.get('REMOTE_ADDR', None), request.META.get('HTTP_USER_AGENT', None))
+                event_log.delay(None, 0, 3, '用户 [{}] 不存在'.format(username),
+                                request.META.get('REMOTE_ADDR', None), request.META.get('HTTP_USER_AGENT', None),
+                                request.headers)
                 return render(request, 'login.html', locals())
-            # if user.password == password:
             if user.password == hash_code(password):
                 data = {'last_login_time': timezone.now()}  # 获取最后登录时间
                 UserProfile.objects.filter(username=username).update(**data)  # 更新数据库内记录
                 request.session.set_expiry(0)  # 设置session验证超时时间，关闭浏览器即刻失效
                 request.session['issuperuser'] = False  # 默认非超级管理员
-                if user.role == 1:      # 超级管理员
+                if user.role == 0:      # 超级管理员
                     request.session['issuperuser'] = True
                 request.session['islogin'] = True  # 确认登录状态
                 request.session['userid'] = user.id  # 获取id
                 request.session['username'] = user.username  # 用户名/namespace
                 request.session['nickname'] = user.nick_name  # 名称
-                request.session['role'] = [v for key, v in UserProfile.ROLE_CHOICES if key==user.role][0]  # 用户级别
+                request.session['role'] = [v for key, v in UserProfile.ROLE_CHOICES if key == user.role][0]  # 用户具体级别信息
                 request.session['locked'] = False   # 锁定屏幕
                 now = int(time.time())
                 request.session['logintime'] = now  # 登录时间
                 request.session['lasttime'] = now  # 最后登录时间
-                # if user.username == 'admin' and user.role == 1:  # admin 拥有所有权限
-                    # permission_dict, menu_list = init_permission(user.username, is_super=True)  # 获取权限列表与菜单列表
-                # else:
-                    # permission_dict, menu_list = init_permission(user.username)     # 初始化权限和菜单
-                # request.session[settings.INIT_PERMISSION] = permission_dict
-                # request.session[settings.INIT_MENU] = menu_list
-                # event_log(user, 1, '用户 [{}] 登陆成功'.format(username), request.META.get('REMOTE_ADDR', None), request.META.get('HTTP_USER_AGENT', None))
+                event_log.delay(username, 0, 1, '用户 [{}] 登陆成功'.format(username),
+                                request.META.get('REMOTE_ADDR', None), request.META.get('HTTP_USER_AGENT', None),
+                                request.headers)
                 return redirect(reverse('users:index'))  # 一切正确，则跳转到首页
             else:
                 error_message = '密码错误!'
-                # event_log(user, 3, '用户 [{}] 密码错误'.format(username), request.META.get('REMOTE_ADDR', None), request.META.get('HTTP_USER_AGENT', None))
+                event_log.delay(user.nick_name, 0, 3, '用户 [{}] 密码错误'.format(user.nick_name),
+                                request.META.get('REMOTE_ADDR', None), request.META.get('HTTP_USER_AGENT', None),
+                                request.headers)
                 return render(request, 'login.html', locals())
         else:
-            # event_log(None, 3, '登陆表单验证错误', request.META.get('REMOTE_ADDR', None), request.META.get('HTTP_USER_AGENT', None))
+            event_log.delay(None, 0, 3, '登陆表单验证错误',
+                            request.META.get('REMOTE_ADDR', None), request.META.get('HTTP_USER_AGENT', None),
+                            request.headers)
             return render(request, 'login.html', locals())
     return render(request, 'login.html')
 
@@ -94,11 +97,14 @@ def logout(request):
     try:
         user = UserProfile.objects.get(id=int(request.session.get('userid')))
         user.last_login_time = datetime.datetime.today()
+        nickname = user.nick_name
         user.save()
         request.session.flush()     # 清除所有后包括django-admin登陆状态也会被清除
     except:
         return redirect(reverse('users:login'))
-    # event_log(user, 2, '用户 [{}] 退出'.format(user.username), request.META.get('REMOTE_ADDR', None), request.META.get('HTTP_USER_AGENT', None))
+    event_log.delay(nickname, 0, 2, '用户 [{}] 退出'.format(nickname),
+                    request.META.get('REMOTE_ADDR', None), request.META.get('HTTP_USER_AGENT', None),
+                    request.headers)
     return redirect(reverse('users:login'))
 
 
@@ -111,19 +117,25 @@ class Registered(View):
     def post(self, request):
         user = UserProfile()
         username = request.POST.get('username')
-        user.username = username
-        user.nick_name = request.POST.get('nickname')
-        user.email = request.POST.get('email')
-        user.password = hash_code(request.POST.get('passwd'))
-        user.role = 1
-        try:
-            user.save()  # save user info
-            kube = create_this_namespace(username)
-            mkdir(username)  # mkdir user volume path
-        except Exception as err:
-            print(err)
-            return JsonResponse({"status": 104, "error": err}, safe=False)
-        return JsonResponse({"status": 200, "error": 'success', "kube": kube}, safe=False)
+        if not [name for name in list(UserProfile.objects.values('username')) if name['username'] == username]:
+            user.username = username
+            user.nick_name = request.POST.get('nickname')
+            user.email = request.POST.get('email')
+            user.password = hash_code(request.POST.get('passwd'))
+            user.role = 1
+            try:
+                user.save()  # save user info
+                kube = create_this_namespace(username)
+                mkdir(username)  # mkdir user volume path
+                event_log.delay(request.POST.get('nickname'), 0, 6, '用户 [{}] 创建成功'.format(request.POST.get('nickname')),
+                    request.META.get('REMOTE_ADDR', None), request.META.get('HTTP_USER_AGENT', None),
+                    kube)
+            except Exception as err:
+                print(err)
+                return JsonResponse({"status": 104, "error": err}, safe=False)
+            return JsonResponse({"status": 200, "error": 'success'}, safe=False)
+        else:
+            return JsonResponse({"status": 104, "error": '该用户已存在！'}, safe=False)
 
 
 @login_required

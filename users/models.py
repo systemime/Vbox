@@ -35,45 +35,54 @@ class UserProfile(AbstractUser):
     def __str__(self):
         return self.username
 
-class LoginLog(models.Model):
+class UserLog(models.Model):
     event_type_choice = (
         (1, '登陆'),
         (2, '退出'),
         (3, '登陆错误'),
         (4, '修改密码失败'),
         (5, '修改密码成功'),
-        (6, '添加用户'),
-        (7, '删除用户'),
-        (8, '添加组'),
-        (9, '删除组'),
-        (10, '更新用户'),
-        (11, '更新组'),
-        (12, '添加主机'),
-        (13, '删除主机'),
-        (14, '更新主机'),
-        (15, '添加主机用户'),
-        (16, '删除主机用户'),
-        (17, '更新主机用户'),
-        (18, '停止在线会话'),
-        (19, '锁定在线会话'),
-        (20, '解锁在线会话'),
-        (21, '添加主机组'),
-        (22, '删除主机组'),
-        (23, '更新主机组'),
+        (6, '新增用户'),
+        (7, '删除用户用户'),
+        (8, '更新用户信息'),
+        (9, '创建虚拟主机'),
+        (10, '创建失败'),
+        (11, '删除虚拟主机'),
+        (12, '建立ssh连接'),
+        (13, '关闭ssh连接'),
+        (14, '建立vnc连接'),
+        (15, '关闭vnc连接'),
+        (16, '导出主机数据'),
+        (17, '申请子账户'),
+        (18, '批准子账户'),
+        (19, '访问首页'),
+        (20, '访问容器信息'),
+        (21, '访问个人页面'),
+        (22, '访问文件上传'),
+        (23, '上传文件'),
+        (24, '访问文件列表'),
+        (25, '删除文件'),
     )
-    # 当用户被删除后，相关的登陆日志user字段设置为NULL
-    # user = models.ForeignKey('User', blank=True, null=True, on_delete=models.PROTECT, verbose_name='用户')
+    log_type = (
+        (0, '系统日志'),
+        (1, '一级用户日志'),
+        (2, '二级用户日志'),
+    )
+    # 不产生关联关系，纯记录
     user = models.CharField(max_length=64, blank=True, null=True, verbose_name="用户")
+    role = models.SmallIntegerField(default=0, choices=log_type, verbose_name="日志级别")
     event_type = models.SmallIntegerField('事件类型', choices=event_type_choice, default=1)
     detail = models.TextField('事件详情', default='登陆成功')
-    address = models.GenericIPAddressField('IP地址', blank=True, null=True)
+    address = models.GenericIPAddressField(verbose_name='IP地址', blank=True, null=True)
     useragent = models.CharField(max_length=512, blank=True, null=True, verbose_name='User_Agent')
     create_time = models.DateTimeField('事件时间', auto_now_add=True)
+    other = models.TextField(verbose_name="系统事件")  # request.header信息或kube处理信息
+
 
     def __str__(self):
         return self.get_event_type_display()
 
     class Meta:
         ordering = ["-create_time"]
-        verbose_name = '用户日志'
-        verbose_name_plural = '用户日志'
+        verbose_name = '用户操作日志'  # 管理员暂时放在此处
+        verbose_name_plural = '用户操作日志'

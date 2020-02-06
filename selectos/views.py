@@ -4,6 +4,7 @@ import json
 from django.views.generic import View
 from tools.k8s import KubeApi
 from tools.tool import get_deploy_name
+from tools.logs import event_log
 
 from Vbox import celery_app
 
@@ -26,13 +27,13 @@ def delete_this_namespace(name):
 def create_deployment(namespace, VERSION, DEPNAME, IMGNAME, PORTS, DIR, CPUS, MEMORY, EPH):
     task = KubeApi(namespace)
     info = task.create_deployment(VERSION, DEPNAME, IMGNAME, PORTS, DIR, CPUS, MEMORY, EPH)
-    print(info)
+    return info
 
 @celery_app.task
 def delete_deployment(namespace, dep_name):
     task = KubeApi(namespace)
     info = task.delete_deployment(dep_name)
-    print(info)
+    return info
 
 
 @method_decorator(login_required, name='dispatch')  # dispatch代表全部方法
@@ -50,6 +51,10 @@ class Selectos(View):
         role = request.session.get('role', None)
         page = '容器信息'
         container_info = self.container_list(request)
+        nickname = request.session.get('nickname', None)
+        event_log.delay(nickname, 1, 20, '[{}] 访问容器信息页面'.format(nickname),
+                        request.META.get('REMOTE_ADDR', None), request.META.get('HTTP_USER_AGENT', None),
+                        request.headers)
         return render(request, 'selectos/inspiration.html', locals())
 
     def container_list(self, request):
@@ -91,12 +96,15 @@ class Selectos(View):
         CPUS = cpu_limit[str(request.POST.get('cpus'))]
         MEMORY = str(request.POST.get('memory')) + 'Mi'
         EPH = '5Gi'
+        nickname = request.session.get('nickname', None)
         try:
             print(namespace, VERSION, DEPNAME, IMGNAME, PORTS, DIR, CPUS, MEMORY, EPH)
-            create_deployment(namespace, VERSION, DEPNAME,
+            kube = create_deployment(namespace, VERSION, DEPNAME,
                               IMGNAME, PORTS, DIR, CPUS, MEMORY, EPH)
         except Exception as err:
-            print("创建错误" + err)
+            event_log.delay(nickname, 1, 10, '[{}] 创建容器失败'.format(nickname),
+                            request.META.get('REMOTE_ADDR', None), request.META.get('HTTP_USER_AGENT', None),
+                            str(err))
             return JsonResponse({"status": 1304, "error": err}, safe=False)
 
         try:
@@ -121,9 +129,20 @@ class Selectos(View):
             # user_pod_num.pod_num = container.objects.get(username=request.session.get('username', None)).pod_num + 1
         except Exception as err:
             print(err)
+            event_log.delay(nickname, 1, 9, '[{}] 创建容器成功，数据未录入'.format(nickname),
+                            request.META.get('REMOTE_ADDR', None), request.META.get('HTTP_USER_AGENT', None),
+                            str(err))
             return JsonResponse({"status": "创建成功", "error": "字段存储失败"}, safe=False)
-
-        return JsonResponse({"status": 200, "error": "生成成功"}, safe=False)
+        if not kube[0]:
+            event_log.delay(nickname, 1, 9, '[{}] 创建容器失败'.format(nickname),
+                            request.META.get('REMOTE_ADDR', None), request.META.get('HTTP_USER_AGENT', None),
+                            kube)
+            return JsonResponse({"status": 1304, "error": "创建容器失败"}, safe=False)
+        else:
+            event_log.delay(nickname, 1, 9, '[{}] 创建容器成功'.format(nickname),
+                            request.META.get('REMOTE_ADDR', None), request.META.get('HTTP_USER_AGENT', None),
+                            kube)
+            return JsonResponse({"status": 200, "error": "生成成功"}, safe=False)
 
 @login_required
 def delete_user_deployment(request):
@@ -135,10 +154,24 @@ def delete_user_deployment(request):
         pod_num = UserProfile.objects.get(username=request.session.get('username', None))
         pod_num.pod_num = pod_num.pod_num - 1
         pod_num.save()
-        delete_deployment(namespace=request.session.get('username', None), dep_name=dep_name)
+        kube = delete_deployment(namespace=request.session.get('username', None), dep_name=dep_name)
     except Exception as err:
+        event_log.delay(request.session.get('nickname', None), 1, 11,
+                        '[{}] 删除容器失败'.format(request.session.get('nickname', None)),
+                        request.META.get('REMOTE_ADDR', None), request.META.get('HTTP_USER_AGENT', None),
+                        str(err))
         return JsonResponse({"status": "删除失败", "error": err}, safe=False)
-    return JsonResponse({"status": 200, "error": "删除成功"}, safe=False)
+    if not kube[0]:
+        event_log.delay(request.session.get('nickname', None), 1, 11, '[{}] 删除容器失败'.format(request.session.get('nickname', None)),
+                        request.META.get('REMOTE_ADDR', None), request.META.get('HTTP_USER_AGENT', None),
+                        kube)
+        return JsonResponse({"status": 1304, "error": "删除失败"}, safe=False)
+    else:
+        event_log.delay(request.session.get('nickname', None), 1, 11, '[{}] 删除容器成功'.format(request.session.get('nickname', None)),
+                        request.META.get('REMOTE_ADDR', None), request.META.get('HTTP_USER_AGENT', None),
+                        kube)
+        return JsonResponse({"status": 200, "error": "删除成功"}, safe=False)
+
 
 
 @login_required
