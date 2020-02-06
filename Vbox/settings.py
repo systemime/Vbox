@@ -325,5 +325,5 @@ RATELIMIT_NOLOGIN = '20/30s'
 GUACD = {
     'host': '172.17.0.2',
     'port': 4822,
-    'timeout': 15,
+    'timeout': 30,
 }

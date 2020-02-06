@@ -31,7 +31,6 @@ class SSHConsumer(WebsocketConsumer):
         :param close_code: 1000在ssh内输入exit，1001手动关闭标签页
         :return:
         """
-        print(close_code)
         if close_code == 1001:
             self.stream.write_stdin('exit\r')
             nickname = self.scope["session"].get('nickname', None)  # 从头文件里获取，？？？那我还保持为空干啥
@@ -50,7 +49,6 @@ class SSHConsumer(WebsocketConsumer):
                 nickname = self.scope["session"].get('nickname', None)
                 event_log.delay(nickname, 1, 13, '[{}] 关闭ssh链接'.format(nickname),
                                 '', '', str(self.scope['headers']))
-
             else:
                 ssh_log(self.namespace, self.name, self.message)
                 self.message = ''

@@ -7,6 +7,7 @@ from users.models import UserProfile
 class Logs_to_SSH(models.Model):
     user = models.ForeignKey('users.UserProfile', to_field='username', related_name='web_user', null=False,
                              on_delete=models.DO_NOTHING)
+    # pod_name并未存入user表，这里通过kubeapi得到，不做外键关联
     pod_name = models.CharField(max_length=64, default='', null=False, verbose_name='容器名称')
     command = models.CharField(max_length=128, default='', null=True, blank=True, verbose_name='操作命令')
     create_time = models.DateTimeField('事件时间', auto_now_add=True)

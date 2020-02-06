@@ -29,9 +29,6 @@
                         <li class="breadcrumb-item">
                             <a href="{% url 'users:index' %}">主页</a>
                         </li>
-                        <li class="breadcrumb-item">
-                            <a>文件管理</a>
-                        </li>
                         <li class="breadcrumb-item active">
                             <strong>文件上传</strong>
                         </li>
@@ -43,22 +40,24 @@
                 <div class="col-lg-12">
                     <div class="ibox">
                         <div class="ibox-title">
-                            <h5>Dropzone.js</h5>
+{#                            <h5>Dropzone.js</h5>#}
+                            <h5>文件上传入口</h5>
                         </div>
                         <div class="ibox-content">
 
                             <p>
-                                <strong>Dropzone.js</strong> 是一个轻量级的JavaScript库，将HTML元素转换为dropzone。这意味着用户可以将文件拖放到其上，并且该文件通过AJAX上传到服务器。
+                                可以选择 <strong>5M </strong>以下的文件上传至服务器，每位用户的用户空间均为5GB，目前仅允许上传图片、文本，所有虚拟机共享该文件，位于 <strong>/opt </strong>文件夹下
                             </p>
 
-                            <form action="#" class="dropzone" id="dropzoneForm">
+                            <form class="dropzone" id="dropzoneForm">
+                                {% csrf_token %}
                                 <div class="fallback">
                                     <input name="file" type="file" multiple />
                                 </div>
                             </form>
                             <br>
                             <p class="m-t-xs">
-                                abowe的HTML标记代码示例：
+                                当<strong>所有容器到期时</strong>，空间内文件会被自动删除，<strong>请不要上传重要文件留存</strong>
                             </p>
 
                         </div>
@@ -66,11 +65,64 @@
                 </div>
             </div>
             <script>
-                Dropzone.options.dropzoneForm = {
+                /*Dropzone.options.dropzoneForm = {  // 使用下面的方法时此方法自动失效（from未设定或div class="dropzone"时）
                     paramName: "file", // The name that will be used to transfer the file
-                    maxFilesize: 2, // MB
-                    dictDefaultMessage: "<strong>在这里删除文件或点击上传。</strong></br>这只是一个演示的dropzone上传窗口，所选文件实际上没有上传。"
-                };
+                    maxFilesize: 5, // MB
+                    dictDefaultMessage: "<strong>在这里删除文件或点击上传。</strong></br>请勿恶意上传文件，当发现恶意行为时您的账户可能被禁用"
+                };*/
+                var myDropzone = new Dropzone("#dropzoneForm", {
+                    url: "{{ request.path }}",//文件提交地址
+                    method:"post",  //也可用put
+                    paramName:"file", //默认为file
+                    maxFiles:1,//一次性上传的文件数量上限
+                    maxFilesize: 5, //文件大小，单位：MB
+                    acceptedFiles: ".jpg,.gif,.png,.jpeg,.txt,.yaml,.dockerfile,.py,.java,.html,.js,.css,.jsp,.xml,.sql", //上传的类型
+                    addRemoveLinks:true,
+                    parallelUploads: 3,//一次上传的文件数量
+                    //previewsContainer:"#preview",//上传图片的预览窗口
+                    dictDefaultMessage:'拖动文件至此或者点击上传',
+                    dictMaxFilesExceeded: "您最多只能上传3个文件！",
+                    dictResponseError: '文件上传失败!',
+                    dictInvalidFileType: "文件类型只能是*.jpg,*.gif,*.png,*.jpeg等。",
+                    dictFallbackMessage:"浏览器不受支持",
+                    dictFileTooBig:"文件过大上传文件最大支持.",
+                    dictRemoveLinks: "删除",
+                    dictCancelUpload: "取消",
+                    //对一些方法的后续处理
+                    init:function(){
+                        this.on("addedfile", function(file) {
+                            //上传文件时触发的事件
+                            document.querySelector('div .dz-default').style.display = 'none';
+                        });
+                        this.on("success",function(file,data){
+                            //上传成功触发的事件
+                            console.log('上传成功');
+                        });
+                        this.on("error",function (file,data) {
+                            //上传失败触发的事件
+                            console.log('fail');
+                            var message = '';
+                            //lavarel框架有一个表单验证，
+                            //对于ajax请求，JSON 响应会发送一个 422 HTTP 状态码，
+                            //对应file.accepted的值是false，在这里捕捉表单验证的错误提示
+                            if (file.accepted){
+                                $.each(data,function (key,val) {
+                                    message = message + val[0] + ';';
+                                })
+                                //控制器层面的错误提示，file.accepted = true的时候；
+                                alert(message);
+                            }
+                        });
+                        this.on("removedfile",function(file){
+                            //删除文件时触发的方法(向后台发送删除文件请求)
+            {#               $.post('/admin/del/'+ file_id,{'_method':'DELETE'},function (data) {#}
+            {#                    console.log('删除结果:'+data.message);#}
+            {#                })#}
+
+                            document.querySelector('div .dz-default').style.display = 'block';
+                        });
+                    }
+                });
 
                 $(document).ready(function(){
 
