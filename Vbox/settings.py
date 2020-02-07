@@ -140,6 +140,14 @@ DATABASES = {
     }
 }
 
+CACHES = {  # MemcachedCache 缓存替换原则是LRU算法
+    'default': {
+        # 指定缓存使用的引擎
+        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+        'LOCATION': '127.0.0.1:11211',
+    }
+}
+
 redis_setting = {
     'host': '127.0.0.1',
     'port': 6379,
@@ -184,7 +192,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'), )
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # media是约定成俗的文件夹名
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # media是约定成俗的文件夹名,头像存放
 MEDIA_URL = "/media/"      # 跟STATIC_URL类似，指定用户可以通过这个路径找到文件
 
 RECORD_DIR = 'record'   # 存放终端结果文件
@@ -195,8 +203,11 @@ if not os.path.isdir(RECORD_ROOT):
 # 用户加密密钥, 第一次设置后切勿再随意更改
 PASSWD_TOKEN = '__66711__Ops__devops'
 
+# 重建数据库后一定要运行cache.clear()清除缓存中残留的session，否则无法登录
+# cached_db缓存模式，session先存储到MemcachedCache缓存中，再存储到数据库（同读取顺序）
+SESSION_ENGINE = 'django.contrib.sessions.backends.cached_db'
 # session 如果在此期间未做任何操作，则退出， django 本身要么设置固定时间，要么关闭浏览器失效
-SESSION_COOKIE_AGE = 60 * 120  # 2小时
+SESSION_COOKIE_AGE = 60 * 240  # 4小时
 SESSION_SAVE_EVERY_REQUEST = True  # 上下两种方式的依赖项，SESSION_EXPIRE_AT_BROWSER_CLOSE优先级高
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True  # 关闭浏览器，则COOKIE失效
 

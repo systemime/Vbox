@@ -14,6 +14,11 @@ from selectos.models import Systemos
 from tools.tool import login_required
 # 对类视图使用装饰器需要使用这个方法
 from django.utils.decorators import method_decorator
+# from django.views.decorators.cache import cache_page  # 缓存装饰器
+# from django.core.cache import cache  # 操作缓存
+# from django.views.decorators.cache import cache_control
+# @cache_control(private=True)  # 私有缓存标识
+# @cache_control(must_revalidate=True, max_age=3600)  # 每次访问均验证缓存，最长保存3600s
 
 
 @celery_app.task
@@ -39,7 +44,8 @@ def delete_deployment(namespace, dep_name):
 @method_decorator(login_required, name='dispatch')  # dispatch代表全部方法
 class Selectos(View):
 
-    # @method_decorator(login_required)  # 对单个方法加装饰器
+    # 10秒缓存
+    # @method_decorator(cache_page(5))  # 对单个方法加装饰器
     def get(self, request):
         data = {}
         data['array'] = range(1, 5)
@@ -144,11 +150,24 @@ class Selectos(View):
                             kube)
             return JsonResponse({"status": 200, "error": "生成成功"}, safe=False)
 
+
 @login_required
 def delete_user_deployment(request):
-    dep_id = request.GET.get('dep_id')
-    dep_name = Systemos.objects.get(id=dep_id).deployment
-    print(dep_name)
+    """
+    删除主机
+    :param request: deployment id
+    :return: 删除结果
+    """
+    try:
+        dep_id = request.GET.get('dep_id')
+        dep_name = Systemos.objects.get(id=dep_id).deployment
+        print(dep_name)
+    except Exception as err:
+        event_log.delay(request.session.get('nickname', None), 1, 11,
+                        '[{}] 删除参数错误'.format(request.session.get('nickname', None)),
+                        request.META.get('REMOTE_ADDR', None), request.META.get('HTTP_USER_AGENT', None),
+                        str(err))
+        return JsonResponse({"status": "删除失败", "error": err}, safe=False)
     try:
         Systemos.objects.get(id=dep_id).delete()
         pod_num = UserProfile.objects.get(username=request.session.get('username', None))
@@ -170,12 +189,18 @@ def delete_user_deployment(request):
         event_log.delay(request.session.get('nickname', None), 1, 11, '[{}] 删除容器成功'.format(request.session.get('nickname', None)),
                         request.META.get('REMOTE_ADDR', None), request.META.get('HTTP_USER_AGENT', None),
                         kube)
+        # cache.clear()  # 清空所有缓存 列表需要立即更新，否则用户二次删除可能报错
         return JsonResponse({"status": 200, "error": "删除成功"}, safe=False)
 
 
-
 @login_required
+# @cache_page(10)  # 10秒缓存
 def pod_num(request):
+    """
+    虚拟主机数量
+    :param request:
+    :return: 主机数量
+    """
     func = request.GET.get("getpodsum")
     data = {'sum': Systemos.objects.filter(namespace=request.session.get('username', None)).count()}
     return HttpResponse("%s('%s')" % (func, json.dumps(data)))

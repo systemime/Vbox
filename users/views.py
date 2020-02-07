@@ -31,7 +31,6 @@ def create_this_namespace(name):
     return info
 
 
-# @ratelimit(key=key, rate=rate, method=ALL, block=True)
 def login(request):
     if request.session.get('islogin', None):  # 不允许重复登录
         return redirect(reverse('users:index'))

@@ -1,7 +1,7 @@
 from django.urls import path
 from django.conf.urls import url
-from .views import show_file_upload
+from .views import File_upload
 
 urlpatterns = [
-    path('show_file_update', show_file_upload, name='show_file_update')
+    path('file_upload', File_upload.as_view(), name='file_upload')
 ]

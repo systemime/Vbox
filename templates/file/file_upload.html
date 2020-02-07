@@ -74,14 +74,14 @@
                     url: "{{ request.path }}",//文件提交地址
                     method:"post",  //也可用put
                     paramName:"file", //默认为file
-                    maxFiles:1,//一次性上传的文件数量上限
+                    maxFiles:5,//一次性上传的文件数量上限
                     maxFilesize: 5, //文件大小，单位：MB
                     acceptedFiles: ".jpg,.gif,.png,.jpeg,.txt,.yaml,.dockerfile,.py,.java,.html,.js,.css,.jsp,.xml,.sql", //上传的类型
                     addRemoveLinks:true,
-                    parallelUploads: 3,//一次上传的文件数量
+                    parallelUploads: 5,//一次上传的文件数量
                     //previewsContainer:"#preview",//上传图片的预览窗口
                     dictDefaultMessage:'拖动文件至此或者点击上传',
-                    dictMaxFilesExceeded: "您最多只能上传3个文件！",
+                    dictMaxFilesExceeded: "您最多一次只能上传5个文件！",
                     dictResponseError: '文件上传失败!',
                     dictInvalidFileType: "文件类型只能是*.jpg,*.gif,*.png,*.jpeg等。",
                     dictFallbackMessage:"浏览器不受支持",
@@ -115,9 +115,9 @@
                         });
                         this.on("removedfile",function(file){
                             //删除文件时触发的方法(向后台发送删除文件请求)
-            {#               $.post('/admin/del/'+ file_id,{'_method':'DELETE'},function (data) {#}
-            {#                    console.log('删除结果:'+data.message);#}
-            {#                })#}
+                           $.post('{% url 'users:index' %}'+ file_id,{'_method':'DELETE'},function (data) {
+                                console.log('删除结果:'+data.message);
+                            })
 
                             document.querySelector('div .dz-default').style.display = 'block';
                         });

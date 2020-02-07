@@ -1,6 +1,7 @@
 from users.models import UserLog
 from webssh.models import Logs_to_SSH
 from Vbox import celery_app
+from file.models import Papers
 
 
 @celery_app.task(ignore_result=True)
@@ -34,4 +35,19 @@ def ssh_log(user, pod_name, message):
         pod_name=pod_name,
         command=message
     )
+
+@celery_app.task
+def save_file_log(username, file_name, size, nickname, REMOTE_ADDR, HTTP_USER_AGENT):
+    try:
+        Papers.objects.create(
+            user_id=username,
+            title=file_name,
+            size=size
+        )
+        event_log.delay(nickname, 1, 23, '[{}] 上传文件存入数据库成功'.format(nickname), REMOTE_ADDR,
+                        HTTP_USER_AGENT, file_name)
+    except Exception as err:
+        event_log.delay(nickname, 1, 23, '[{}] 上传文件未存入数据库'.format(nickname), REMOTE_ADDR,
+                        HTTP_USER_AGENT, str(err))
+
 

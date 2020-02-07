@@ -69,7 +69,7 @@ class UserLog(models.Model):
         (2, '二级用户日志'),
     )
     # 不产生关联关系，纯记录
-    user = models.CharField(max_length=64, blank=True, null=True, verbose_name="用户")
+    user = models.CharField(max_length=64, blank=True, null=True, verbose_name="用户")  # 为了显示便利存储nickname，查询因采用Q查询，包含role
     role = models.SmallIntegerField(default=0, choices=log_type, verbose_name="日志级别")
     event_type = models.SmallIntegerField('事件类型', choices=event_type_choice, default=1)
     detail = models.TextField('事件详情', default='登陆成功')

@@ -34,11 +34,14 @@
                             <!--<div id="user_head_img">
                                   头像异步加载
                             </div>-->
+                            {% load cache %}
+                            {% cache 10 image %}  <!--不渲染-->
                             <img alt="image" class="rounded-circle" src="{{ MEDIA_URL }}{{ img }}" />
                             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                                 <span class="block m-t-xs font-bold">{{ nickname }}</span>
                                 <span class="text-muted text-xs block">{{ role }} <b class="caret"></b></span>
                             </a>
+                            {% endcache %}
                             <ul class="dropdown-menu animated fadeInRight m-t-xs">
                                 <li><a class="dropdown-item" href="{% url 'users:profile' %}">个人信息</a></li>
                                 <li><a class="dropdown-item" href="contacts.html">好友</a></li>
@@ -68,7 +71,7 @@
                     <li id="file_update">
                         <a href="#"><i class="fa fa-sitemap"></i> <span class="nav-label">文件管理 </span><span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level collapse">
-                            <li><a href="{% url 'show_file_update' %}">文件上传</a></li>
+                            <li><a href="{% url 'file_upload' %}">文件上传</a></li>
                             <li>
                                 <a href="#">文件列表</a>
                             </li>

@@ -10,14 +10,14 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('selectos', '0001_initial'),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
+        ('file', '0001_initial'),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='systemos',
+            model_name='papers',
             name='user',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='dep_user', to=settings.AUTH_USER_MODEL, to_field='username'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, related_name='file_upload_user', to=settings.AUTH_USER_MODEL, to_field='username'),
         ),
     ]
