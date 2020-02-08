@@ -1,288 +1,190 @@
 nohup: ignoring input
-[2020-02-08 01:37:01,736: INFO/MainProcess] Connected to redis://localhost:6379/0
-[2020-02-08 01:37:01,754: INFO/MainProcess] mingle: searching for neighbors
-[2020-02-08 01:37:02,783: INFO/MainProcess] mingle: all alone
-[2020-02-08 01:37:02,805: WARNING/MainProcess] /home/soul/tools/my_env/Vbox/lib/python3.6/site-packages/celery/fixups/django.py:203: UserWarning: Using settings.DEBUG leads to a memory
+[2020-02-08 16:06:52,444: INFO/MainProcess] Connected to redis://localhost:6379/0
+[2020-02-08 16:06:52,454: INFO/MainProcess] mingle: searching for neighbors
+[2020-02-08 16:06:53,474: INFO/MainProcess] mingle: all alone
+[2020-02-08 16:06:53,489: WARNING/MainProcess] /home/soul/tools/my_env/Vbox/lib/python3.6/site-packages/celery/fixups/django.py:203: UserWarning: Using settings.DEBUG leads to a memory
             leak, never use this setting in production environments!
   leak, never use this setting in production environments!''')
-[2020-02-08 01:37:02,806: INFO/MainProcess] celery@master ready.
-[2020-02-08 01:37:02,961: INFO/MainProcess] Received task: tools.logs.event_log[9f65b18f-91e0-4642-9362-0d23cc1c09c6]  
-[2020-02-08 01:37:02,967: INFO/MainProcess] Received task: tools.logs.event_log[e4323e12-910b-45f9-8283-df23e1649c78]  
-[2020-02-08 01:37:02,971: INFO/MainProcess] Received task: tools.logs.event_log[1d01c44a-94f1-4621-8fb4-93fb8384528d]  
-[2020-02-08 01:37:02,974: INFO/MainProcess] Received task: tools.logs.event_log[0b3da78d-a24a-4420-98b9-598a55acb162]  
-[2020-02-08 01:37:02,981: INFO/MainProcess] Received task: tools.logs.event_log[f8239282-0aad-47e5-bcd9-5119503b9505]  
-[2020-02-08 01:37:02,986: INFO/MainProcess] Received task: tools.logs.event_log[38e63cdd-06f6-4b02-986c-4c494cdd0694]  
-[2020-02-08 01:37:02,992: INFO/MainProcess] Received task: tools.logs.event_log[4ad47284-db64-4df6-8f55-e9dddba5d555]  
-[2020-02-08 01:37:03,013: INFO/MainProcess] Received task: tools.logs.event_log[6f794840-dfcd-431f-9b34-96abaf71134c]  
-[2020-02-08 01:37:03,010: INFO/ForkPoolWorker-6] Task tools.logs.event_log[9f65b18f-91e0-4642-9362-0d23cc1c09c6] succeeded in 0.04384534800192341s: None
-[2020-02-08 01:37:03,021: INFO/MainProcess] Received task: tools.logs.event_log[e09d3863-841c-437a-b0e2-5b04ada95b27]  
-[2020-02-08 01:37:03,026: INFO/ForkPoolWorker-7] Task tools.logs.event_log[e4323e12-910b-45f9-8283-df23e1649c78] succeeded in 0.05227484699571505s: None
-[2020-02-08 01:37:03,029: INFO/MainProcess] Received task: tools.logs.event_log[d458c346-4a41-4218-b855-a261f5286bb4]  
-[2020-02-08 01:37:03,031: INFO/ForkPoolWorker-6] Task tools.logs.event_log[6f794840-dfcd-431f-9b34-96abaf71134c] succeeded in 0.009040484961587936s: None
-[2020-02-08 01:37:03,032: INFO/ForkPoolWorker-4] Task tools.logs.event_log[4ad47284-db64-4df6-8f55-e9dddba5d555] succeeded in 0.03862720797769725s: None
-[2020-02-08 01:37:03,034: INFO/MainProcess] Received task: tools.logs.event_log[38800aa9-e897-4a43-a713-42c46817259f]  
-[2020-02-08 01:37:03,033: INFO/ForkPoolWorker-1] Task tools.logs.event_log[0b3da78d-a24a-4420-98b9-598a55acb162] succeeded in 0.04965419298969209s: None
-[2020-02-08 01:37:03,035: INFO/ForkPoolWorker-8] Task tools.logs.event_log[1d01c44a-94f1-4621-8fb4-93fb8384528d] succeeded in 0.06086991302436218s: None
-[2020-02-08 01:37:03,039: INFO/ForkPoolWorker-2] Task tools.logs.event_log[f8239282-0aad-47e5-bcd9-5119503b9505] succeeded in 0.05492487701121718s: None
-[2020-02-08 01:37:03,041: INFO/MainProcess] Received task: tools.logs.event_log[b1185cbb-cd43-444f-b3c0-d7b27aaa0961]  
-[2020-02-08 01:37:03,041: INFO/ForkPoolWorker-6] Task tools.logs.event_log[d458c346-4a41-4218-b855-a261f5286bb4] succeeded in 0.004558755026664585s: None
-[2020-02-08 01:37:03,043: INFO/ForkPoolWorker-7] Task tools.logs.event_log[38800aa9-e897-4a43-a713-42c46817259f] succeeded in 0.0051094089867547154s: None
-[2020-02-08 01:37:03,045: INFO/MainProcess] Received task: tools.logs.event_log[397b679d-511d-4fa0-95c9-d86554f8a68c]  
-[2020-02-08 01:37:03,049: INFO/MainProcess] Received task: tools.logs.event_log[e96c3592-1226-4700-9b5e-3ebe612d5802]  
-[2020-02-08 01:37:03,049: INFO/ForkPoolWorker-5] Task tools.logs.event_log[e09d3863-841c-437a-b0e2-5b04ada95b27] succeeded in 0.02689545101020485s: None
-[2020-02-08 01:37:03,049: INFO/ForkPoolWorker-3] Task tools.logs.event_log[38e63cdd-06f6-4b02-986c-4c494cdd0694] succeeded in 0.053557936975266784s: None
-[2020-02-08 01:37:03,050: INFO/ForkPoolWorker-8] Task tools.logs.event_log[397b679d-511d-4fa0-95c9-d86554f8a68c] succeeded in 0.003739463980309665s: None
-[2020-02-08 01:37:03,051: INFO/ForkPoolWorker-6] Task tools.logs.event_log[b1185cbb-cd43-444f-b3c0-d7b27aaa0961] succeeded in 0.004017047001980245s: None
-[2020-02-08 01:37:03,053: INFO/MainProcess] Received task: tools.logs.event_log[5c451677-e7c2-46de-9924-becb1a19a0d0]  
-[2020-02-08 01:37:03,056: INFO/MainProcess] Received task: tools.logs.event_log[68475a24-0661-4c0b-beca-782192d9f802]  
-[2020-02-08 01:37:03,058: INFO/ForkPoolWorker-7] Task tools.logs.event_log[5c451677-e7c2-46de-9924-becb1a19a0d0] succeeded in 0.003941460978239775s: None
-[2020-02-08 01:37:03,059: INFO/ForkPoolWorker-6] Task tools.logs.event_log[e96c3592-1226-4700-9b5e-3ebe612d5802] succeeded in 0.004269139957614243s: None
-[2020-02-08 01:37:03,059: INFO/MainProcess] Received task: tools.logs.event_log[3d5d5c28-9991-42ef-8a8d-eb4e7dd757b7]  
-[2020-02-08 01:37:03,062: INFO/MainProcess] Received task: tools.logs.event_log[a509fb2d-68ea-48df-8f2a-eb2ccb19d965]  
-[2020-02-08 01:37:03,065: INFO/ForkPoolWorker-1] Task tools.logs.event_log[3d5d5c28-9991-42ef-8a8d-eb4e7dd757b7] succeeded in 0.005052439984865487s: None
-[2020-02-08 01:37:03,065: INFO/MainProcess] Received task: tools.logs.event_log[b1c3ba1f-ac4f-4cb6-adf6-752f69f2e446]  
-[2020-02-08 01:37:03,065: INFO/ForkPoolWorker-8] Task tools.logs.event_log[68475a24-0661-4c0b-beca-782192d9f802] succeeded in 0.005465740978252143s: None
-[2020-02-08 01:37:03,067: INFO/MainProcess] Received task: tools.logs.event_log[08c042f2-8e0a-4080-a8d5-73db62c85bc0]  
-[2020-02-08 01:37:03,069: INFO/ForkPoolWorker-7] Task tools.logs.event_log[b1c3ba1f-ac4f-4cb6-adf6-752f69f2e446] succeeded in 0.003299787000287324s: None
-[2020-02-08 01:37:03,070: INFO/ForkPoolWorker-6] Task tools.logs.event_log[a509fb2d-68ea-48df-8f2a-eb2ccb19d965] succeeded in 0.0035593140055425465s: None
-[2020-02-08 01:37:03,070: INFO/MainProcess] Received task: tools.logs.event_log[8bb35675-8a77-47dc-a6a6-fa7d636070bb]  
-[2020-02-08 01:37:03,071: INFO/MainProcess] Received task: tools.logs.event_log[087372e1-7e05-4528-997b-f4c1be45d737]  
-[2020-02-08 01:37:03,074: INFO/MainProcess] Received task: tools.logs.event_log[7834f33a-800d-49f1-be3a-ea169974f33e]  
-[2020-02-08 01:37:03,074: INFO/ForkPoolWorker-1] Task tools.logs.event_log[8bb35675-8a77-47dc-a6a6-fa7d636070bb] succeeded in 0.0032159389811567962s: None
-[2020-02-08 01:37:03,074: INFO/ForkPoolWorker-8] Task tools.logs.event_log[08c042f2-8e0a-4080-a8d5-73db62c85bc0] succeeded in 0.0033585639903321862s: None
-[2020-02-08 01:37:03,075: INFO/MainProcess] Received task: tools.logs.event_log[93254b5f-3bb5-4778-aab5-02bf719df623]  
-[2020-02-08 01:37:03,079: INFO/ForkPoolWorker-7] Task tools.logs.event_log[7834f33a-800d-49f1-be3a-ea169974f33e] succeeded in 0.004436229995917529s: None
-[2020-02-08 01:37:03,079: INFO/ForkPoolWorker-6] Task tools.logs.event_log[087372e1-7e05-4528-997b-f4c1be45d737] succeeded in 0.005195310979615897s: None
-[2020-02-08 01:37:03,080: INFO/MainProcess] Received task: tools.logs.event_log[dd002d8b-9a65-4a43-88a0-77f85a471e75]  
-[2020-02-08 01:37:03,081: INFO/MainProcess] Received task: tools.logs.event_log[868a49ad-d51f-44bf-99c6-107af6744961]  
-[2020-02-08 01:37:03,084: INFO/ForkPoolWorker-8] Task tools.logs.event_log[93254b5f-3bb5-4778-aab5-02bf719df623] succeeded in 0.0033670919947326183s: None
-[2020-02-08 01:37:03,085: INFO/ForkPoolWorker-1] Task tools.logs.event_log[dd002d8b-9a65-4a43-88a0-77f85a471e75] succeeded in 0.004350289993453771s: None
-[2020-02-08 01:37:03,085: INFO/MainProcess] Received task: tools.logs.event_log[3c0c1faa-839e-446d-9ab8-63bebde2e23d]  
-[2020-02-08 01:37:03,088: INFO/MainProcess] Received task: tools.logs.event_log[f20b63a8-e344-44c3-99db-c538b4fd0cf6]  
-[2020-02-08 01:37:03,090: INFO/ForkPoolWorker-7] Task tools.logs.event_log[3c0c1faa-839e-446d-9ab8-63bebde2e23d] succeeded in 0.003917512018233538s: None
-[2020-02-08 01:37:03,090: INFO/ForkPoolWorker-6] Task tools.logs.event_log[868a49ad-d51f-44bf-99c6-107af6744961] succeeded in 0.004087112029083073s: None
-[2020-02-08 01:37:03,090: INFO/MainProcess] Received task: tools.logs.event_log[6f049fda-1551-404f-976c-1a82594755c5]  
-[2020-02-08 01:37:03,092: INFO/MainProcess] Received task: tools.logs.event_log[479fc0c8-ad76-49c4-9f6a-241e92dd94f1]  
-[2020-02-08 01:37:03,097: INFO/ForkPoolWorker-8] Task tools.logs.event_log[f20b63a8-e344-44c3-99db-c538b4fd0cf6] succeeded in 0.0059240940026938915s: None
-[2020-02-08 01:37:03,097: INFO/MainProcess] Received task: tools.logs.event_log[76f1ae52-1fad-414d-8fc2-a2c4de2418d9]  
-[2020-02-08 01:37:03,097: INFO/ForkPoolWorker-1] Task tools.logs.event_log[6f049fda-1551-404f-976c-1a82594755c5] succeeded in 0.006711890047881752s: None
-[2020-02-08 01:37:03,100: INFO/MainProcess] Received task: tools.logs.event_log[804ff51b-1b01-4b0a-af11-6e854ea91fd2]  
-[2020-02-08 01:37:03,101: INFO/ForkPoolWorker-6] Task tools.logs.event_log[479fc0c8-ad76-49c4-9f6a-241e92dd94f1] succeeded in 0.003488452988676727s: None
-[2020-02-08 01:37:03,101: INFO/ForkPoolWorker-7] Task tools.logs.event_log[76f1ae52-1fad-414d-8fc2-a2c4de2418d9] succeeded in 0.00309827399905771s: None
-[2020-02-08 01:37:03,102: INFO/MainProcess] Received task: tools.logs.event_log[548cad20-09ec-4e5f-8ba2-76b0feab6273]  
-[2020-02-08 01:37:03,104: INFO/MainProcess] Received task: tools.logs.event_log[466353bc-319e-4154-b0d6-6971a235aa9f]  
-[2020-02-08 01:37:03,107: INFO/MainProcess] Received task: tools.logs.event_log[b45e31e4-263f-41b9-aa40-08afe408f4f4]  
-[2020-02-08 01:37:03,107: INFO/ForkPoolWorker-7] Task tools.logs.event_log[548cad20-09ec-4e5f-8ba2-76b0feab6273] succeeded in 0.0036281109787523746s: None
-[2020-02-08 01:37:03,108: INFO/ForkPoolWorker-6] Task tools.logs.event_log[804ff51b-1b01-4b0a-af11-6e854ea91fd2] succeeded in 0.004928248992655426s: None
-[2020-02-08 01:37:03,109: INFO/MainProcess] Received task: tools.logs.event_log[0fed2e18-0e19-4fd0-8537-b472021988b6]  
-[2020-02-08 01:37:03,112: INFO/ForkPoolWorker-8] Task tools.logs.event_log[466353bc-319e-4154-b0d6-6971a235aa9f] succeeded in 0.004474728018976748s: None
-[2020-02-08 01:37:03,113: INFO/MainProcess] Received task: tools.logs.event_log[8a569775-3292-465c-9351-f540c1da738f]  
-[2020-02-08 01:37:03,113: INFO/ForkPoolWorker-1] Task tools.logs.event_log[b45e31e4-263f-41b9-aa40-08afe408f4f4] succeeded in 0.005962860013823956s: None
-[2020-02-08 01:37:03,115: INFO/MainProcess] Received task: tools.logs.event_log[b08a1866-5442-4108-a225-5169e85f4dfa]  
-[2020-02-08 01:37:03,117: INFO/ForkPoolWorker-7] Task tools.logs.event_log[8a569775-3292-465c-9351-f540c1da738f] succeeded in 0.0032614030060358346s: None
-[2020-02-08 01:37:03,117: INFO/ForkPoolWorker-6] Task tools.logs.event_log[0fed2e18-0e19-4fd0-8537-b472021988b6] succeeded in 0.00360446103150025s: None
-[2020-02-08 01:37:03,117: INFO/MainProcess] Received task: tools.logs.event_log[a5204677-e133-4b8d-968b-b222ee73b90f]  
-[2020-02-08 01:37:03,119: INFO/MainProcess] Received task: tools.logs.event_log[bdea4b94-fc3a-45ce-82e0-d0478fbf5237]  
-[2020-02-08 01:37:03,121: INFO/ForkPoolWorker-1] Task tools.logs.event_log[a5204677-e133-4b8d-968b-b222ee73b90f] succeeded in 0.0031019080197438598s: None
-[2020-02-08 01:37:03,121: INFO/MainProcess] Received task: tools.logs.event_log[28e28d6c-a295-4e44-b002-9387ab97993b]  
-[2020-02-08 01:37:03,122: INFO/ForkPoolWorker-8] Task tools.logs.event_log[b08a1866-5442-4108-a225-5169e85f4dfa] succeeded in 0.003955152991693467s: None
-[2020-02-08 01:37:03,123: INFO/MainProcess] Received task: tools.logs.event_log[92189224-0090-471e-a47e-c92d9d8b3550]  
-[2020-02-08 01:37:03,125: INFO/ForkPoolWorker-7] Task tools.logs.event_log[28e28d6c-a295-4e44-b002-9387ab97993b] succeeded in 0.0031967859831638634s: None
-[2020-02-08 01:37:03,126: INFO/ForkPoolWorker-6] Task tools.logs.event_log[bdea4b94-fc3a-45ce-82e0-d0478fbf5237] succeeded in 0.003658296016510576s: None
-[2020-02-08 01:37:03,126: INFO/MainProcess] Received task: tools.logs.event_log[cd849282-2e4b-45ee-8b36-cb812358a016]  
-[2020-02-08 01:37:03,130: INFO/MainProcess] Received task: tools.logs.event_log[a5ea3db2-24d2-4085-aa49-62ecdb7b5fb9]  
-[2020-02-08 01:37:03,132: INFO/ForkPoolWorker-1] Task tools.logs.event_log[cd849282-2e4b-45ee-8b36-cb812358a016] succeeded in 0.005338371032848954s: None
-[2020-02-08 01:37:03,132: INFO/ForkPoolWorker-8] Task tools.logs.event_log[92189224-0090-471e-a47e-c92d9d8b3550] succeeded in 0.005639242997858673s: None
-[2020-02-08 01:37:03,132: INFO/MainProcess] Received task: tools.logs.event_log[023f0d32-8541-4877-8dac-03c40c29cfaf]  
-[2020-02-08 01:37:03,134: INFO/MainProcess] Received task: tools.logs.event_log[0c401ac8-d5f2-4f15-85d0-bdb9409b8e87]  
-[2020-02-08 01:37:03,136: INFO/ForkPoolWorker-7] Task tools.logs.event_log[023f0d32-8541-4877-8dac-03c40c29cfaf] succeeded in 0.002965616004075855s: None
-[2020-02-08 01:37:03,136: INFO/ForkPoolWorker-6] Task tools.logs.event_log[a5ea3db2-24d2-4085-aa49-62ecdb7b5fb9] succeeded in 0.003266755025833845s: None
-[2020-02-08 01:37:03,136: INFO/MainProcess] Received task: tools.logs.event_log[d048b5b8-b5ff-4d17-a96d-01176c871e81]  
-[2020-02-08 01:37:03,138: INFO/MainProcess] Received task: tools.logs.event_log[91ba6086-75fd-440a-affc-64e89fc225e3]  
-[2020-02-08 01:37:03,139: INFO/ForkPoolWorker-8] Task tools.logs.event_log[0c401ac8-d5f2-4f15-85d0-bdb9409b8e87] succeeded in 0.0027682549552991986s: None
-[2020-02-08 01:37:03,140: INFO/ForkPoolWorker-1] Task tools.logs.event_log[d048b5b8-b5ff-4d17-a96d-01176c871e81] succeeded in 0.0029433139716275036s: None
-[2020-02-08 01:37:03,140: INFO/MainProcess] Received task: tools.logs.event_log[086ae7c8-4e03-4f30-87c6-b1c7dbbba5d1]  
-[2020-02-08 01:37:03,141: INFO/MainProcess] Received task: tools.logs.event_log[39657b58-c1dd-4dcb-9160-d3633b28e06b]  
-[2020-02-08 01:37:03,145: INFO/ForkPoolWorker-6] Task tools.logs.event_log[91ba6086-75fd-440a-affc-64e89fc225e3] succeeded in 0.004052259027957916s: None
-[2020-02-08 01:37:03,145: INFO/ForkPoolWorker-7] Task tools.logs.event_log[086ae7c8-4e03-4f30-87c6-b1c7dbbba5d1] succeeded in 0.004719940014183521s: None
-[2020-02-08 01:37:03,145: INFO/MainProcess] Received task: tools.logs.event_log[28bcdcad-b5cc-463b-8781-e29672ab0c78]  
-[2020-02-08 01:37:03,147: INFO/MainProcess] Received task: tools.logs.event_log[a0b064bc-adb2-443f-a4f2-b546abb512ee]  
-[2020-02-08 01:37:03,150: INFO/ForkPoolWorker-8] Task tools.logs.event_log[39657b58-c1dd-4dcb-9160-d3633b28e06b] succeeded in 0.003479981969576329s: None
-[2020-02-08 01:37:03,150: INFO/MainProcess] Received task: tools.logs.event_log[62bfeb92-8605-4379-836e-85a666a8377c]  
-[2020-02-08 01:37:03,150: INFO/ForkPoolWorker-1] Task tools.logs.event_log[28bcdcad-b5cc-463b-8781-e29672ab0c78] succeeded in 0.00334534898865968s: None
-[2020-02-08 01:37:03,152: INFO/MainProcess] Received task: tools.logs.event_log[6620e318-650f-4fab-a218-712443ea78a6]  
-[2020-02-08 01:37:03,154: INFO/ForkPoolWorker-6] Task tools.logs.event_log[a0b064bc-adb2-443f-a4f2-b546abb512ee] succeeded in 0.0031736179953441024s: None
-[2020-02-08 01:37:03,154: INFO/ForkPoolWorker-7] Task tools.logs.event_log[62bfeb92-8605-4379-836e-85a666a8377c] succeeded in 0.003464702982455492s: None
-[2020-02-08 01:37:03,154: INFO/MainProcess] Received task: tools.logs.event_log[be8fe4e9-c5fb-423a-8df0-68e520919039]  
-[2020-02-08 01:37:03,157: INFO/MainProcess] Received task: tools.logs.event_log[187b4712-4f89-45e6-9e0e-9ed07f97ae0c]  
-[2020-02-08 01:37:03,158: INFO/ForkPoolWorker-1] Task tools.logs.event_log[be8fe4e9-c5fb-423a-8df0-68e520919039] succeeded in 0.0034519420005381107s: None
-[2020-02-08 01:37:03,159: INFO/ForkPoolWorker-8] Task tools.logs.event_log[6620e318-650f-4fab-a218-712443ea78a6] succeeded in 0.0037350079510360956s: None
-[2020-02-08 01:37:03,159: INFO/MainProcess] Received task: tools.logs.event_log[8e693a96-1320-442f-b3bd-991c2e47911f]  
-[2020-02-08 01:37:03,161: INFO/MainProcess] Received task: tools.logs.event_log[d1e157b6-003b-4221-a5f6-446ff2c513ed]  
-[2020-02-08 01:37:03,164: INFO/ForkPoolWorker-6] Task tools.logs.event_log[187b4712-4f89-45e6-9e0e-9ed07f97ae0c] succeeded in 0.004513783962465823s: None
-[2020-02-08 01:37:03,164: INFO/ForkPoolWorker-7] Task tools.logs.event_log[8e693a96-1320-442f-b3bd-991c2e47911f] succeeded in 0.004271665005944669s: None
-[2020-02-08 01:37:03,165: INFO/MainProcess] Received task: tools.logs.event_log[35e6464e-eb60-498f-8e0d-9131a49c70be]  
-[2020-02-08 01:37:03,166: INFO/MainProcess] Received task: tools.logs.event_log[a73d114a-7ae0-4593-80bd-89aa9951c39c]  
-[2020-02-08 01:37:03,168: INFO/ForkPoolWorker-8] Task tools.logs.event_log[d1e157b6-003b-4221-a5f6-446ff2c513ed] succeeded in 0.00278453400824219s: None
-[2020-02-08 01:37:03,169: INFO/MainProcess] Received task: tools.logs.event_log[24281293-2777-45aa-9f9a-d3573ebadc1e]  
-[2020-02-08 01:37:03,169: INFO/ForkPoolWorker-1] Task tools.logs.event_log[35e6464e-eb60-498f-8e0d-9131a49c70be] succeeded in 0.0032493789913132787s: None
-[2020-02-08 01:37:03,170: INFO/MainProcess] Received task: tools.logs.event_log[3afe2727-8e3e-4a76-929a-066c39452bcb]  
-[2020-02-08 01:37:03,172: INFO/ForkPoolWorker-6] Task tools.logs.event_log[a73d114a-7ae0-4593-80bd-89aa9951c39c] succeeded in 0.002887531998567283s: None
-[2020-02-08 01:37:03,173: INFO/ForkPoolWorker-7] Task tools.logs.event_log[24281293-2777-45aa-9f9a-d3573ebadc1e] succeeded in 0.0034414720139466226s: None
-[2020-02-08 01:37:03,173: INFO/MainProcess] Received task: tools.logs.event_log[9966335e-3e5a-4546-a300-de8b997f6b42]  
-[2020-02-08 01:37:03,174: INFO/MainProcess] Received task: tools.logs.event_log[80b2282d-5733-4d38-88d7-c17c3b57ebea]  
-[2020-02-08 01:37:03,178: INFO/MainProcess] Received task: tools.logs.event_log[fdb1d7f2-40fa-422b-94e5-852254d41088]  
-[2020-02-08 01:37:03,178: INFO/ForkPoolWorker-1] Task tools.logs.event_log[9966335e-3e5a-4546-a300-de8b997f6b42] succeeded in 0.004370080016087741s: None
-[2020-02-08 01:37:03,178: INFO/ForkPoolWorker-8] Task tools.logs.event_log[3afe2727-8e3e-4a76-929a-066c39452bcb] succeeded in 0.00467235897667706s: None
-[2020-02-08 01:37:03,180: INFO/MainProcess] Received task: tools.logs.event_log[c92bfa4c-824f-498f-8be9-7146303a897b]  
-[2020-02-08 01:37:03,182: INFO/MainProcess] Received task: tools.logs.event_log[040b5892-69ec-4752-b55e-4392031b4ace]  
-[2020-02-08 01:37:03,182: INFO/ForkPoolWorker-7] Task tools.logs.event_log[fdb1d7f2-40fa-422b-94e5-852254d41088] succeeded in 0.0028678029775619507s: None
-[2020-02-08 01:37:03,182: INFO/ForkPoolWorker-6] Task tools.logs.event_log[80b2282d-5733-4d38-88d7-c17c3b57ebea] succeeded in 0.0033469100017100573s: None
-[2020-02-08 01:37:03,184: INFO/MainProcess] Received task: tools.logs.event_log[4aa97b8e-9400-4040-86e3-95552bc4f86b]  
-[2020-02-08 01:37:03,186: INFO/ForkPoolWorker-8] Task tools.logs.event_log[c92bfa4c-824f-498f-8be9-7146303a897b] succeeded in 0.003322647011373192s: None
-[2020-02-08 01:37:03,186: INFO/ForkPoolWorker-1] Task tools.logs.event_log[040b5892-69ec-4752-b55e-4392031b4ace] succeeded in 0.003533018985763192s: None
-[2020-02-08 01:37:03,186: INFO/MainProcess] Received task: tools.logs.event_log[9549f5b7-731e-433a-8764-f9dd053171f8]  
-[2020-02-08 01:37:03,188: INFO/MainProcess] Received task: tools.logs.event_log[d28f2cae-3b59-412b-976b-e9f2da7ee86b]  
-[2020-02-08 01:37:03,190: INFO/MainProcess] Received task: tools.logs.event_log[ef832ece-9e54-4d5d-b7c6-a77a566d9c60]  
-[2020-02-08 01:37:03,191: INFO/ForkPoolWorker-6] Task tools.logs.event_log[4aa97b8e-9400-4040-86e3-95552bc4f86b] succeeded in 0.00372621399583295s: None
-[2020-02-08 01:37:03,191: INFO/ForkPoolWorker-7] Task tools.logs.event_log[9549f5b7-731e-433a-8764-f9dd053171f8] succeeded in 0.004208892001770437s: None
-[2020-02-08 01:37:03,192: INFO/MainProcess] Received task: tools.logs.event_log[340c910a-d80a-4a34-84ce-8f869d517f58]  
-[2020-02-08 01:37:03,195: INFO/ForkPoolWorker-8] Task tools.logs.event_log[d28f2cae-3b59-412b-976b-e9f2da7ee86b] succeeded in 0.004014517005998641s: None
-[2020-02-08 01:37:03,195: INFO/ForkPoolWorker-1] Task tools.logs.event_log[ef832ece-9e54-4d5d-b7c6-a77a566d9c60] succeeded in 0.004176857997663319s: None
-[2020-02-08 01:37:03,198: INFO/ForkPoolWorker-6] Task tools.logs.event_log[340c910a-d80a-4a34-84ce-8f869d517f58] succeeded in 0.003166460955981165s: None
-[2020-02-08 01:39:40,962: INFO/MainProcess] Received task: tools.logs.event_log[b48b376d-f21b-49cf-8123-b6cd511e9989]  
-[2020-02-08 01:39:40,967: INFO/ForkPoolWorker-6] Task tools.logs.event_log[b48b376d-f21b-49cf-8123-b6cd511e9989] succeeded in 0.003877668990753591s: None
-[2020-02-08 01:39:43,402: INFO/MainProcess] Received task: tools.logs.event_log[7426b9c4-b6da-4001-944b-cf94e453b8c9]  
-[2020-02-08 01:39:43,407: INFO/ForkPoolWorker-6] Task tools.logs.event_log[7426b9c4-b6da-4001-944b-cf94e453b8c9] succeeded in 0.004442445992026478s: None
-[2020-02-08 01:40:23,166: INFO/MainProcess] Received task: tools.logs.event_log[9d526df2-57ca-4fae-bad8-b875aa90ca14]  
-[2020-02-08 01:40:23,171: INFO/ForkPoolWorker-6] Task tools.logs.event_log[9d526df2-57ca-4fae-bad8-b875aa90ca14] succeeded in 0.004455828981008381s: None
-[2020-02-08 01:40:26,172: INFO/MainProcess] Received task: tools.logs.event_log[611e63c8-9b83-4651-98e5-2be2d8feabc0]  
-[2020-02-08 01:40:26,179: INFO/ForkPoolWorker-6] Task tools.logs.event_log[611e63c8-9b83-4651-98e5-2be2d8feabc0] succeeded in 0.005812641000375152s: None
-[2020-02-08 01:40:27,351: INFO/MainProcess] Received task: tools.logs.event_log[949d608a-f805-4188-96fd-296e5125d170]  
-[2020-02-08 01:40:27,357: INFO/ForkPoolWorker-6] Task tools.logs.event_log[949d608a-f805-4188-96fd-296e5125d170] succeeded in 0.00466773402877152s: None
-[2020-02-08 01:40:30,987: INFO/MainProcess] Received task: tools.logs.event_log[9a25ba30-22f1-4b60-adc8-e5d15891fc53]  
-[2020-02-08 01:40:30,993: INFO/ForkPoolWorker-6] Task tools.logs.event_log[9a25ba30-22f1-4b60-adc8-e5d15891fc53] succeeded in 0.004656031960621476s: None
-[2020-02-08 01:57:32,207: INFO/MainProcess] Received task: tools.logs.event_log[c597aa7b-83ec-4a17-ac49-f0e87148d5c2]  
-[2020-02-08 01:57:32,215: INFO/ForkPoolWorker-6] Task tools.logs.event_log[c597aa7b-83ec-4a17-ac49-f0e87148d5c2] succeeded in 0.006465448997914791s: None
-[2020-02-08 01:57:36,879: INFO/MainProcess] Received task: tools.logs.event_log[f06d043c-e209-43c6-86ea-8e9a34fa3784]  
-[2020-02-08 01:57:36,884: INFO/ForkPoolWorker-6] Task tools.logs.event_log[f06d043c-e209-43c6-86ea-8e9a34fa3784] succeeded in 0.0038217310211621225s: None
-[2020-02-08 01:58:06,073: INFO/MainProcess] Received task: tools.logs.event_log[f79cc7cc-c3b4-4b06-8a17-584750c99a8f]  
-[2020-02-08 01:58:06,080: INFO/ForkPoolWorker-6] Task tools.logs.event_log[f79cc7cc-c3b4-4b06-8a17-584750c99a8f] succeeded in 0.006664631946478039s: None
-[2020-02-08 01:59:01,833: INFO/MainProcess] Received task: tools.logs.event_log[da80dff5-d722-47c1-8f3e-b462f723f741]  
-[2020-02-08 01:59:01,840: INFO/ForkPoolWorker-6] Task tools.logs.event_log[da80dff5-d722-47c1-8f3e-b462f723f741] succeeded in 0.00680842500878498s: None
-[2020-02-08 01:59:27,685: INFO/MainProcess] Received task: tools.logs.event_log[fe6a9923-dbc8-4a86-9a77-3ba5e05044f7]  
-[2020-02-08 01:59:27,694: INFO/ForkPoolWorker-6] Task tools.logs.event_log[fe6a9923-dbc8-4a86-9a77-3ba5e05044f7] succeeded in 0.0071089499979279935s: None
-[2020-02-08 02:00:11,604: INFO/MainProcess] Received task: tools.logs.event_log[1c992004-3cb2-40eb-bb69-09a1068d1024]  
-[2020-02-08 02:00:11,613: INFO/ForkPoolWorker-6] Task tools.logs.event_log[1c992004-3cb2-40eb-bb69-09a1068d1024] succeeded in 0.0075315890135243535s: None
-[2020-02-08 02:00:14,588: INFO/MainProcess] Received task: tools.logs.event_log[4e0eb9b4-a779-471d-8196-0358dbfa8bcd]  
-[2020-02-08 02:00:14,600: INFO/ForkPoolWorker-6] Task tools.logs.event_log[4e0eb9b4-a779-471d-8196-0358dbfa8bcd] succeeded in 0.011131417995784432s: None
-[2020-02-08 02:02:02,939: INFO/MainProcess] Received task: tools.logs.event_log[a9cbc901-41a7-43df-ac66-726a1f3f7d34]  
-[2020-02-08 02:02:02,947: INFO/ForkPoolWorker-6] Task tools.logs.event_log[a9cbc901-41a7-43df-ac66-726a1f3f7d34] succeeded in 0.006871035031508654s: None
-[2020-02-08 02:03:41,342: INFO/MainProcess] Received task: tools.logs.event_log[98fca003-a545-4a47-ae71-e6cccdef76e0]  
-[2020-02-08 02:03:41,347: INFO/ForkPoolWorker-6] Task tools.logs.event_log[98fca003-a545-4a47-ae71-e6cccdef76e0] succeeded in 0.003966158023104072s: None
-[2020-02-08 02:07:28,955: INFO/MainProcess] Received task: tools.logs.event_log[e0088890-6f46-4398-96c3-f5a5e6e87e29]  
-[2020-02-08 02:07:28,963: INFO/ForkPoolWorker-6] Task tools.logs.event_log[e0088890-6f46-4398-96c3-f5a5e6e87e29] succeeded in 0.006465409998781979s: None
-[2020-02-08 02:07:33,081: INFO/MainProcess] Received task: tools.logs.event_log[95a8fc17-617f-4f68-989d-996e2ac89018]  
-[2020-02-08 02:07:33,087: INFO/ForkPoolWorker-6] Task tools.logs.event_log[95a8fc17-617f-4f68-989d-996e2ac89018] succeeded in 0.005234148993622512s: None
-[2020-02-08 02:07:33,102: INFO/MainProcess] Received task: tools.logs.event_log[6b79f543-bc5a-48d1-8826-4d742608094b]  
-[2020-02-08 02:07:33,110: INFO/ForkPoolWorker-6] Task tools.logs.event_log[6b79f543-bc5a-48d1-8826-4d742608094b] succeeded in 0.007032553025055677s: None
-[2020-02-08 02:09:09,404: INFO/MainProcess] Received task: tools.logs.event_log[1be9e962-49ae-4f5c-8eaa-a00ab998c14d]  
-[2020-02-08 02:09:09,413: INFO/ForkPoolWorker-6] Task tools.logs.event_log[1be9e962-49ae-4f5c-8eaa-a00ab998c14d] succeeded in 0.006917291029822081s: None
-[2020-02-08 02:09:22,418: INFO/MainProcess] Received task: tools.logs.event_log[fa537535-dbd2-433f-a0fa-42b65bb1e832]  
-[2020-02-08 02:09:22,428: INFO/ForkPoolWorker-6] Task tools.logs.event_log[fa537535-dbd2-433f-a0fa-42b65bb1e832] succeeded in 0.008031326986383647s: None
-[2020-02-08 02:20:37,109: INFO/MainProcess] Received task: tools.logs.event_log[f97f62b6-fd2a-4d62-8e2b-affba01a62c1]  
-[2020-02-08 02:20:37,115: INFO/ForkPoolWorker-6] Task tools.logs.event_log[f97f62b6-fd2a-4d62-8e2b-affba01a62c1] succeeded in 0.004967818036675453s: None
-[2020-02-08 02:24:16,051: INFO/MainProcess] Received task: tools.logs.event_log[e8d8b1a3-bead-476f-933e-1e090ce7ae67]  
-[2020-02-08 02:24:16,057: INFO/ForkPoolWorker-6] Task tools.logs.event_log[e8d8b1a3-bead-476f-933e-1e090ce7ae67] succeeded in 0.005708541953936219s: None
-[2020-02-08 02:25:38,521: INFO/MainProcess] Received task: tools.logs.event_log[8967d213-dadc-4860-813d-f32d5d555e30]  
-[2020-02-08 02:25:38,532: INFO/ForkPoolWorker-6] Task tools.logs.event_log[8967d213-dadc-4860-813d-f32d5d555e30] succeeded in 0.007829683949239552s: None
-[2020-02-08 02:27:58,277: INFO/MainProcess] Received task: tools.logs.event_log[5cae64ea-ba18-4962-9cce-2ab6bdd0f592]  
-[2020-02-08 02:27:58,284: INFO/ForkPoolWorker-6] Task tools.logs.event_log[5cae64ea-ba18-4962-9cce-2ab6bdd0f592] succeeded in 0.005262847000267357s: None
-[2020-02-08 02:28:48,864: INFO/MainProcess] Received task: tools.logs.event_log[e0df9119-ce28-4c4d-a470-53fa2d34e9bb]  
-[2020-02-08 02:28:48,870: INFO/ForkPoolWorker-6] Task tools.logs.event_log[e0df9119-ce28-4c4d-a470-53fa2d34e9bb] succeeded in 0.004861399997025728s: None
-[2020-02-08 02:28:52,359: INFO/MainProcess] Received task: tools.logs.event_log[19c3c021-b86f-4477-bc22-10820b624f83]  
-[2020-02-08 02:28:52,366: INFO/ForkPoolWorker-6] Task tools.logs.event_log[19c3c021-b86f-4477-bc22-10820b624f83] succeeded in 0.006164633028674871s: None
-[2020-02-08 02:28:52,377: INFO/MainProcess] Received task: tools.logs.event_log[20ccb209-4759-4245-8d1f-4d2dfb765df9]  
-[2020-02-08 02:28:52,384: INFO/ForkPoolWorker-6] Task tools.logs.event_log[20ccb209-4759-4245-8d1f-4d2dfb765df9] succeeded in 0.005520834005437791s: None
-[2020-02-08 02:30:06,939: INFO/MainProcess] Received task: tools.logs.event_log[3e62a768-0cb0-45e7-96a4-bcacc9111b57]  
-[2020-02-08 02:30:06,947: INFO/ForkPoolWorker-6] Task tools.logs.event_log[3e62a768-0cb0-45e7-96a4-bcacc9111b57] succeeded in 0.005585616047028452s: None
-[2020-02-08 02:30:16,193: INFO/MainProcess] Received task: tools.logs.event_log[f18e5809-6b3c-49e6-a850-9bee5d3683ca]  
-[2020-02-08 02:30:16,198: INFO/MainProcess] Received task: tools.logs.event_log[8cf8cd0a-2c09-43ef-8674-bb1eee73d84a]  
-[2020-02-08 02:30:16,200: INFO/ForkPoolWorker-6] Task tools.logs.event_log[f18e5809-6b3c-49e6-a850-9bee5d3683ca] succeeded in 0.005962449009530246s: None
-[2020-02-08 02:30:16,206: INFO/ForkPoolWorker-7] Task tools.logs.event_log[8cf8cd0a-2c09-43ef-8674-bb1eee73d84a] succeeded in 0.005166790040675551s: None
-[2020-02-08 02:32:04,075: INFO/MainProcess] Received task: tools.logs.event_log[f43a2842-b315-4698-8ba1-38f59823a200]  
-[2020-02-08 02:32:04,081: INFO/ForkPoolWorker-6] Task tools.logs.event_log[f43a2842-b315-4698-8ba1-38f59823a200] succeeded in 0.004369709989987314s: None
-[2020-02-08 02:32:07,725: INFO/MainProcess] Received task: tools.logs.event_log[0735540a-125e-4939-878b-a8eb467c7445]  
-[2020-02-08 02:32:07,733: INFO/ForkPoolWorker-6] Task tools.logs.event_log[0735540a-125e-4939-878b-a8eb467c7445] succeeded in 0.006671629031188786s: None
-[2020-02-08 02:32:07,754: INFO/MainProcess] Received task: tools.logs.event_log[a8c56a42-3d1a-49a6-aaf4-2b938c521858]  
-[2020-02-08 02:32:07,762: INFO/ForkPoolWorker-6] Task tools.logs.event_log[a8c56a42-3d1a-49a6-aaf4-2b938c521858] succeeded in 0.0058668829733505845s: None
-[2020-02-08 02:38:30,176: INFO/MainProcess] Received task: tools.logs.event_log[8a7a04d3-60a8-45f8-ac38-20a1fc4b65ac]  
-[2020-02-08 02:38:30,182: INFO/ForkPoolWorker-6] Task tools.logs.event_log[8a7a04d3-60a8-45f8-ac38-20a1fc4b65ac] succeeded in 0.005054353037849069s: None
-[2020-02-08 02:38:33,786: INFO/MainProcess] Received task: tools.logs.event_log[f4e70d84-5634-41c7-8f81-ebca27ea98a9]  
-[2020-02-08 02:38:33,794: INFO/ForkPoolWorker-6] Task tools.logs.event_log[f4e70d84-5634-41c7-8f81-ebca27ea98a9] succeeded in 0.006459446041844785s: None
-[2020-02-08 02:45:10,725: INFO/MainProcess] Received task: tools.logs.event_log[d0fcdcd1-8897-43dd-a9a7-58555a5531a9]  
-[2020-02-08 02:45:10,733: INFO/ForkPoolWorker-6] Task tools.logs.event_log[d0fcdcd1-8897-43dd-a9a7-58555a5531a9] succeeded in 0.005670724029187113s: None
-[2020-02-08 02:45:23,683: INFO/MainProcess] Received task: tools.logs.event_log[95d130bf-5b8d-4cfa-8495-0ca8a07a6b4f]  
-[2020-02-08 02:45:23,690: INFO/ForkPoolWorker-6] Task tools.logs.event_log[95d130bf-5b8d-4cfa-8495-0ca8a07a6b4f] succeeded in 0.005632798012811691s: None
-[2020-02-08 02:45:23,703: INFO/MainProcess] Received task: tools.logs.event_log[835d7b5f-82ce-41dc-a1c5-4b7fa3facd65]  
-[2020-02-08 02:45:23,710: INFO/ForkPoolWorker-6] Task tools.logs.event_log[835d7b5f-82ce-41dc-a1c5-4b7fa3facd65] succeeded in 0.005820944032166153s: None
-[2020-02-08 02:45:23,710: INFO/MainProcess] Received task: tools.logs.event_log[bde164d9-db75-46b2-b651-77bc9d409c65]  
-[2020-02-08 02:45:23,717: INFO/ForkPoolWorker-6] Task tools.logs.event_log[bde164d9-db75-46b2-b651-77bc9d409c65] succeeded in 0.005492772033903748s: None
-[2020-02-08 02:45:23,722: INFO/MainProcess] Received task: tools.logs.event_log[527c057b-ca64-4fe9-afdc-37631c310192]  
-[2020-02-08 02:45:23,732: INFO/ForkPoolWorker-6] Task tools.logs.event_log[527c057b-ca64-4fe9-afdc-37631c310192] succeeded in 0.007532534014899284s: None
-[2020-02-08 02:45:23,745: INFO/MainProcess] Received task: tools.logs.event_log[9dbbf5dd-e34c-43be-8dbc-e2fc1c98ae49]  
-[2020-02-08 02:45:23,751: INFO/ForkPoolWorker-6] Task tools.logs.event_log[9dbbf5dd-e34c-43be-8dbc-e2fc1c98ae49] succeeded in 0.00476236897520721s: None
-[2020-02-08 02:45:23,754: INFO/MainProcess] Received task: tools.logs.event_log[f86de5fd-1b8b-458f-beb9-e1be60ca5c62]  
-[2020-02-08 02:45:23,759: INFO/ForkPoolWorker-6] Task tools.logs.event_log[f86de5fd-1b8b-458f-beb9-e1be60ca5c62] succeeded in 0.0036215840373188257s: None
-[2020-02-08 02:45:56,925: INFO/MainProcess] Received task: tools.logs.event_log[03616410-a91a-4dd2-bc0e-53a088da7ebd]  
-[2020-02-08 02:45:56,943: INFO/ForkPoolWorker-6] Task tools.logs.event_log[03616410-a91a-4dd2-bc0e-53a088da7ebd] succeeded in 0.008880178967956454s: None
-[2020-02-08 02:45:56,954: INFO/MainProcess] Received task: tools.logs.event_log[192e1e60-1300-4ae5-8497-8c34320d0aa7]  
-[2020-02-08 02:45:56,966: INFO/ForkPoolWorker-6] Task tools.logs.event_log[192e1e60-1300-4ae5-8497-8c34320d0aa7] succeeded in 0.005671711987815797s: None
-[2020-02-08 02:45:56,966: INFO/MainProcess] Received task: tools.logs.event_log[25c0234f-0c09-43ab-b69c-185643b3c960]  
-[2020-02-08 02:45:56,973: INFO/ForkPoolWorker-6] Task tools.logs.event_log[25c0234f-0c09-43ab-b69c-185643b3c960] succeeded in 0.004639337013941258s: None
-[2020-02-08 02:45:56,983: INFO/MainProcess] Received task: tools.logs.event_log[bae5c96c-7791-49a0-8a4d-6199e77ca0ef]  
-[2020-02-08 02:45:56,988: INFO/ForkPoolWorker-6] Task tools.logs.event_log[bae5c96c-7791-49a0-8a4d-6199e77ca0ef] succeeded in 0.004048564005643129s: None
-[2020-02-08 02:45:57,037: INFO/MainProcess] Received task: tools.logs.event_log[33d71b1f-0c43-4bda-9fc7-21b1794cade7]  
-[2020-02-08 02:45:57,046: INFO/ForkPoolWorker-6] Task tools.logs.event_log[33d71b1f-0c43-4bda-9fc7-21b1794cade7] succeeded in 0.007295453047845513s: None
-[2020-02-08 02:45:57,052: INFO/MainProcess] Received task: tools.logs.event_log[40e757e1-46bb-4ead-aa89-2e38d34178d3]  
-[2020-02-08 02:45:57,059: INFO/ForkPoolWorker-6] Task tools.logs.event_log[40e757e1-46bb-4ead-aa89-2e38d34178d3] succeeded in 0.005731123965233564s: None
-[2020-02-08 02:46:35,773: INFO/MainProcess] Received task: tools.logs.event_log[fff884b5-9510-4bd4-b5f2-eecc96a77b9d]  
-[2020-02-08 02:46:35,780: INFO/ForkPoolWorker-6] Task tools.logs.event_log[fff884b5-9510-4bd4-b5f2-eecc96a77b9d] succeeded in 0.004934519005473703s: None
-[2020-02-08 02:47:27,070: INFO/MainProcess] Received task: tools.logs.event_log[c60ab9ed-8e2c-4455-8bd8-6c5e4a375f39]  
-[2020-02-08 02:47:27,076: INFO/ForkPoolWorker-6] Task tools.logs.event_log[c60ab9ed-8e2c-4455-8bd8-6c5e4a375f39] succeeded in 0.005690995021723211s: None
-[2020-02-08 02:47:29,832: INFO/MainProcess] Received task: tools.logs.event_log[b2207585-ebb0-48dc-804c-fd589f78595b]  
-[2020-02-08 02:47:29,837: INFO/ForkPoolWorker-6] Task tools.logs.event_log[b2207585-ebb0-48dc-804c-fd589f78595b] succeeded in 0.003565963008441031s: None
-[2020-02-08 02:47:49,466: INFO/MainProcess] Received task: tools.logs.event_log[5213c602-82e7-4d15-bf50-46139a4f4734]  
-[2020-02-08 02:47:49,472: INFO/ForkPoolWorker-6] Task tools.logs.event_log[5213c602-82e7-4d15-bf50-46139a4f4734] succeeded in 0.0043650250299833715s: None
-[2020-02-08 02:49:11,917: INFO/MainProcess] Received task: tools.logs.event_log[3587c40f-707e-4ec8-b554-51c7adb57cbd]  
-[2020-02-08 02:49:11,921: INFO/ForkPoolWorker-6] Task tools.logs.event_log[3587c40f-707e-4ec8-b554-51c7adb57cbd] succeeded in 0.0032780470210127532s: None
-[2020-02-08 02:49:19,853: INFO/MainProcess] Received task: tools.logs.event_log[33ec2f7a-e7c8-4dfe-88e3-0c9226236857]  
-[2020-02-08 02:49:19,861: INFO/ForkPoolWorker-6] Task tools.logs.event_log[33ec2f7a-e7c8-4dfe-88e3-0c9226236857] succeeded in 0.007001919962931424s: None
-
-worker: Warm shutdown (MainProcess)
- 
- -------------- celery@master v4.4.0 (cliffs)
---- ***** ----- 
--- ******* ---- Linux-5.3.0-26-generic-x86_64-with-debian-buster-sid 2020-02-08 01:37:00
-- *** --- * --- 
-- ** ---------- [config]
-- ** ---------- .> app:         Vbox:0x7fe6a2a33f60
-- ** ---------- .> transport:   redis://localhost:6379/0
-- ** ---------- .> results:     redis://localhost:6379/1
-- *** --- * --- .> concurrency: 8 (prefork)
--- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
---- ***** ----- 
- -------------- [queues]
-                .> celery           exchange=celery(direct) key=celery
-                
-
-[tasks]
-  . Vbox.celery.debug_task
-  . selectos.views.create_deployment
-  . selectos.views.delete_deployment
-  . selectos.views.delete_this_namespace
-  . tools.logs.event_log
-  . tools.logs.ssh_log
-  . tools.tool.res
-  . users.views.create_this_namespace
-
+[2020-02-08 16:06:53,489: INFO/MainProcess] celery@master ready.
+[2020-02-08 16:07:09,898: INFO/MainProcess] Received task: tools.logs.event_log[33b47da9-26c9-455f-a5ee-605c88ffea36]  
+[2020-02-08 16:07:09,910: INFO/ForkPoolWorker-6] Task tools.logs.event_log[33b47da9-26c9-455f-a5ee-605c88ffea36] succeeded in 0.010256051027681679s: None
+[2020-02-08 16:07:10,014: INFO/MainProcess] Received task: tools.logs.event_log[658dd610-826b-443e-9989-fee7092244e3]  
+[2020-02-08 16:07:10,020: INFO/ForkPoolWorker-6] Task tools.logs.event_log[658dd610-826b-443e-9989-fee7092244e3] succeeded in 0.004327945003751665s: None
+[2020-02-08 16:07:11,579: INFO/MainProcess] Received task: tools.logs.event_log[ab689803-7274-4cc3-81ac-3a596415e472]  
+[2020-02-08 16:07:11,588: INFO/ForkPoolWorker-6] Task tools.logs.event_log[ab689803-7274-4cc3-81ac-3a596415e472] succeeded in 0.007252237002830952s: None
+[2020-02-08 16:07:13,163: INFO/MainProcess] Received task: tools.logs.event_log[a8a15218-84bb-4bc3-8abf-f8f34c101689]  
+[2020-02-08 16:07:13,170: INFO/ForkPoolWorker-6] Task tools.logs.event_log[a8a15218-84bb-4bc3-8abf-f8f34c101689] succeeded in 0.005430231976788491s: None
+[2020-02-08 16:07:17,820: INFO/MainProcess] Received task: tools.logs.event_log[798b950d-e918-4a7d-98a0-17093b6677cb]  
+[2020-02-08 16:07:17,829: INFO/MainProcess] Received task: tools.logs.event_log[c9f7ea7a-356e-4b9d-aae3-b2c69d44dde6]  
+[2020-02-08 16:07:17,831: INFO/ForkPoolWorker-6] Task tools.logs.event_log[798b950d-e918-4a7d-98a0-17093b6677cb] succeeded in 0.006666842964477837s: None
+[2020-02-08 16:07:17,836: INFO/MainProcess] Received task: tools.logs.event_log[9d28d2a7-4d6c-4f78-b03d-893e7d472e63]  
+[2020-02-08 16:07:17,844: INFO/MainProcess] Received task: tools.logs.event_log[63d59b81-4070-4837-bc03-181e0b583cdc]  
+[2020-02-08 16:07:17,845: INFO/ForkPoolWorker-6] Task tools.logs.event_log[9d28d2a7-4d6c-4f78-b03d-893e7d472e63] succeeded in 0.006539455964230001s: None
+[2020-02-08 16:07:17,854: INFO/ForkPoolWorker-7] Task tools.logs.event_log[c9f7ea7a-356e-4b9d-aae3-b2c69d44dde6] succeeded in 0.022883580008056015s: None
+[2020-02-08 16:07:17,856: INFO/ForkPoolWorker-6] Task tools.logs.event_log[63d59b81-4070-4837-bc03-181e0b583cdc] succeeded in 0.008418942976277322s: None
+[2020-02-08 16:07:53,941: INFO/MainProcess] Received task: tools.logs.event_log[926dc9fe-f176-44dc-b2e5-0ece7376bfc1]  
+[2020-02-08 16:07:53,948: INFO/ForkPoolWorker-6] Task tools.logs.event_log[926dc9fe-f176-44dc-b2e5-0ece7376bfc1] succeeded in 0.00544490700121969s: None
+[2020-02-08 16:08:01,985: INFO/MainProcess] Received task: tools.logs.event_log[2e6c4e66-b865-4f99-b461-189b5a26fc67]  
+[2020-02-08 16:08:01,997: INFO/ForkPoolWorker-6] Task tools.logs.event_log[2e6c4e66-b865-4f99-b461-189b5a26fc67] succeeded in 0.008729500987101346s: None
+[2020-02-08 16:08:03,543: INFO/MainProcess] Received task: tools.logs.event_log[8e438608-ed47-4ee0-8861-c196d8d5f3c6]  
+[2020-02-08 16:08:03,549: INFO/ForkPoolWorker-6] Task tools.logs.event_log[8e438608-ed47-4ee0-8861-c196d8d5f3c6] succeeded in 0.004828476987313479s: None
+[2020-02-08 16:08:06,252: INFO/MainProcess] Received task: tools.logs.event_log[86cc7c6d-9163-4555-8ab0-e046a8a03ae8]  
+[2020-02-08 16:08:06,258: INFO/ForkPoolWorker-6] Task tools.logs.event_log[86cc7c6d-9163-4555-8ab0-e046a8a03ae8] succeeded in 0.005724432994611561s: None
+[2020-02-08 16:08:13,832: INFO/MainProcess] Received task: tools.logs.event_log[5805eae3-6e30-44d0-9f91-dbd3c9b7fe5e]  
+[2020-02-08 16:08:13,841: INFO/ForkPoolWorker-6] Task tools.logs.event_log[5805eae3-6e30-44d0-9f91-dbd3c9b7fe5e] succeeded in 0.008285131014417857s: None
+[2020-02-08 16:15:38,940: INFO/MainProcess] Received task: tools.logs.event_log[7b0489e4-ce73-433b-b5c6-a9a3ec4a3e4e]  
+[2020-02-08 16:15:38,947: INFO/ForkPoolWorker-6] Task tools.logs.event_log[7b0489e4-ce73-433b-b5c6-a9a3ec4a3e4e] succeeded in 0.005602807039394975s: None
+[2020-02-08 18:20:47,390: INFO/MainProcess] Received task: tools.logs.event_log[2053ec5a-d10e-45af-b4ca-bf72ee15acb2]  
+[2020-02-08 18:20:47,404: INFO/ForkPoolWorker-6] Task tools.logs.event_log[2053ec5a-d10e-45af-b4ca-bf72ee15acb2] succeeded in 0.010043387999758124s: None
+[2020-02-08 18:20:50,591: INFO/MainProcess] Received task: tools.logs.event_log[bb38a54d-cb3a-4861-ab8e-f5b7e6ece6f1]  
+[2020-02-08 18:20:50,597: INFO/ForkPoolWorker-6] Task tools.logs.event_log[bb38a54d-cb3a-4861-ab8e-f5b7e6ece6f1] succeeded in 0.004774700966663659s: None
+[2020-02-08 18:20:56,025: INFO/MainProcess] Received task: tools.logs.event_log[f93c2843-63e4-44f2-8030-ddeec637c3bc]  
+[2020-02-08 18:20:56,031: INFO/ForkPoolWorker-6] Task tools.logs.event_log[f93c2843-63e4-44f2-8030-ddeec637c3bc] succeeded in 0.005041284952312708s: None
+[2020-02-08 18:20:56,039: INFO/MainProcess] Received task: tools.logs.event_log[8005ec13-5124-4458-9f22-2396300819c9]  
+[2020-02-08 18:20:56,044: INFO/ForkPoolWorker-6] Task tools.logs.event_log[8005ec13-5124-4458-9f22-2396300819c9] succeeded in 0.004389412002637982s: None
+[2020-02-08 18:20:56,053: INFO/MainProcess] Received task: tools.logs.event_log[84b014aa-07b6-4ec6-b05c-2cf079cd017a]  
+[2020-02-08 18:20:56,058: INFO/MainProcess] Received task: tools.logs.event_log[be85f3ca-66b4-4344-8fc2-cfabd179f8cd]  
+[2020-02-08 18:20:56,060: INFO/ForkPoolWorker-6] Task tools.logs.event_log[84b014aa-07b6-4ec6-b05c-2cf079cd017a] succeeded in 0.005846127984113991s: None
+[2020-02-08 18:20:56,070: INFO/ForkPoolWorker-7] Task tools.logs.event_log[be85f3ca-66b4-4344-8fc2-cfabd179f8cd] succeeded in 0.009260889957658947s: None
+[2020-02-08 18:21:13,293: INFO/MainProcess] Received task: tools.logs.event_log[c1e23e11-b896-46cb-8b8b-94a101d15b6d]  
+[2020-02-08 18:21:13,299: INFO/ForkPoolWorker-6] Task tools.logs.event_log[c1e23e11-b896-46cb-8b8b-94a101d15b6d] succeeded in 0.004771181032992899s: None
+[2020-02-08 18:21:20,390: INFO/MainProcess] Received task: tools.logs.event_log[b76f09e7-243a-4e99-8e5e-9c324ae47640]  
+[2020-02-08 18:21:20,398: INFO/ForkPoolWorker-6] Task tools.logs.event_log[b76f09e7-243a-4e99-8e5e-9c324ae47640] succeeded in 0.00624357198830694s: None
+[2020-02-08 18:22:26,462: INFO/MainProcess] Received task: tools.logs.event_log[a0149df7-3f95-449c-a108-40525efac71f]  
+[2020-02-08 18:22:26,471: INFO/ForkPoolWorker-6] Task tools.logs.event_log[a0149df7-3f95-449c-a108-40525efac71f] succeeded in 0.007087940000928938s: None
+[2020-02-08 18:22:28,153: INFO/MainProcess] Received task: tools.logs.event_log[9d724acd-1854-4c8e-bbd5-8a16e5075a41]  
+[2020-02-08 18:22:28,159: INFO/ForkPoolWorker-6] Task tools.logs.event_log[9d724acd-1854-4c8e-bbd5-8a16e5075a41] succeeded in 0.004498738911934197s: None
+[2020-02-08 18:28:43,802: INFO/MainProcess] Received task: tools.logs.event_log[74ee855b-3832-42a6-8ca1-13abd7ea0aa9]  
+[2020-02-08 18:28:43,807: INFO/ForkPoolWorker-6] Task tools.logs.event_log[74ee855b-3832-42a6-8ca1-13abd7ea0aa9] succeeded in 0.004181190975941718s: None
+[2020-02-08 18:28:45,477: INFO/MainProcess] Received task: tools.logs.event_log[8fb5c9c5-68a4-455c-b56d-9a4117350a2b]  
+[2020-02-08 18:28:45,485: INFO/ForkPoolWorker-6] Task tools.logs.event_log[8fb5c9c5-68a4-455c-b56d-9a4117350a2b] succeeded in 0.0063467309810221195s: None
+[2020-02-08 18:31:51,825: INFO/MainProcess] Received task: tools.logs.event_log[371dc007-691b-466e-a785-0751a0e5bae6]  
+[2020-02-08 18:31:51,831: INFO/ForkPoolWorker-6] Task tools.logs.event_log[371dc007-691b-466e-a785-0751a0e5bae6] succeeded in 0.004430582979694009s: None
+[2020-02-08 18:32:02,742: INFO/MainProcess] Received task: tools.logs.event_log[2c14af51-ca78-4b5e-a5bb-a60d7c104e07]  
+[2020-02-08 18:32:02,748: INFO/ForkPoolWorker-6] Task tools.logs.event_log[2c14af51-ca78-4b5e-a5bb-a60d7c104e07] succeeded in 0.00457372993696481s: None
+[2020-02-08 18:32:04,295: INFO/MainProcess] Received task: tools.logs.event_log[c9be80dc-f029-44dd-af35-3488895a27c3]  
+[2020-02-08 18:32:04,302: INFO/ForkPoolWorker-6] Task tools.logs.event_log[c9be80dc-f029-44dd-af35-3488895a27c3] succeeded in 0.006621401058509946s: None
+[2020-02-08 18:32:13,659: INFO/MainProcess] Received task: tools.logs.event_log[8a89dcf5-2047-4bee-80d5-146b633f17bf]  
+[2020-02-08 18:32:13,666: INFO/ForkPoolWorker-6] Task tools.logs.event_log[8a89dcf5-2047-4bee-80d5-146b633f17bf] succeeded in 0.005444893031381071s: None
+[2020-02-08 18:48:05,341: INFO/MainProcess] Received task: tools.logs.event_log[d5c552de-4a0d-4586-92c1-2d767fa346e7]  
+[2020-02-08 18:48:05,348: INFO/ForkPoolWorker-6] Task tools.logs.event_log[d5c552de-4a0d-4586-92c1-2d767fa346e7] succeeded in 0.005147509044036269s: None
+[2020-02-08 18:48:08,825: INFO/MainProcess] Received task: tools.logs.event_log[57e9cbf3-673d-4170-8508-323491d68786]  
+[2020-02-08 18:48:08,834: INFO/ForkPoolWorker-6] Task tools.logs.event_log[57e9cbf3-673d-4170-8508-323491d68786] succeeded in 0.006390575086697936s: None
+[2020-02-08 18:48:10,388: INFO/MainProcess] Received task: tools.logs.event_log[8088d328-3486-4e1a-8ef0-94f71a688d70]  
+[2020-02-08 18:48:10,397: INFO/ForkPoolWorker-6] Task tools.logs.event_log[8088d328-3486-4e1a-8ef0-94f71a688d70] succeeded in 0.006976058008149266s: None
+[2020-02-08 21:28:12,733: INFO/MainProcess] Received task: tools.logs.event_log[5edebbbf-52c9-4654-bce8-d12624d02ce9]  
+[2020-02-08 21:28:12,750: INFO/ForkPoolWorker-6] Task tools.logs.event_log[5edebbbf-52c9-4654-bce8-d12624d02ce9] succeeded in 0.010689519927836955s: None
+[2020-02-08 21:28:43,329: INFO/MainProcess] Received task: tools.logs.event_log[8a4c1a8e-fbbc-4b14-89b2-9000c28aa264]  
+[2020-02-08 21:28:43,335: INFO/ForkPoolWorker-6] Task tools.logs.event_log[8a4c1a8e-fbbc-4b14-89b2-9000c28aa264] succeeded in 0.005264512030407786s: None
+[2020-02-08 21:28:47,179: INFO/MainProcess] Received task: tools.logs.event_log[c70fdaa5-ed8c-435e-8e28-c6b4666b073b]  
+[2020-02-08 21:28:47,190: INFO/ForkPoolWorker-6] Task tools.logs.event_log[c70fdaa5-ed8c-435e-8e28-c6b4666b073b] succeeded in 0.009275524993427098s: None
+[2020-02-08 21:28:48,755: INFO/MainProcess] Received task: tools.logs.event_log[16ee5dac-f6e2-4ee3-80ce-ee0f4678a6c5]  
+[2020-02-08 21:28:48,766: INFO/ForkPoolWorker-6] Task tools.logs.event_log[16ee5dac-f6e2-4ee3-80ce-ee0f4678a6c5] succeeded in 0.008565085008740425s: None
+[2020-02-08 21:30:44,675: INFO/MainProcess] Received task: tools.logs.event_log[d585a2dd-6dde-4076-8321-6072e848dc2d]  
+[2020-02-08 21:30:44,681: INFO/ForkPoolWorker-6] Task tools.logs.event_log[d585a2dd-6dde-4076-8321-6072e848dc2d] succeeded in 0.0051058660028502345s: None
+[2020-02-08 21:30:48,732: INFO/MainProcess] Received task: tools.logs.event_log[596e4c7f-23c2-4725-93f2-a6fcd74dc8a7]  
+[2020-02-08 21:30:48,743: INFO/ForkPoolWorker-6] Task tools.logs.event_log[596e4c7f-23c2-4725-93f2-a6fcd74dc8a7] succeeded in 0.009476561099290848s: None
+[2020-02-08 21:30:50,298: INFO/MainProcess] Received task: tools.logs.event_log[d61dd040-af94-42e6-9caa-34080f2075e7]  
+[2020-02-08 21:30:50,305: INFO/ForkPoolWorker-6] Task tools.logs.event_log[d61dd040-af94-42e6-9caa-34080f2075e7] succeeded in 0.00619732600171119s: None
+[2020-02-08 21:36:09,144: INFO/MainProcess] Received task: tools.logs.event_log[7e34548a-3f37-4e1b-858f-abce5d5d9b16]  
+[2020-02-08 21:36:09,150: INFO/ForkPoolWorker-6] Task tools.logs.event_log[7e34548a-3f37-4e1b-858f-abce5d5d9b16] succeeded in 0.004414833965711296s: None
+[2020-02-08 21:36:10,865: INFO/MainProcess] Received task: tools.logs.event_log[aab7c0bc-0001-4eb4-979e-f19a2cd22739]  
+[2020-02-08 21:36:10,872: INFO/ForkPoolWorker-6] Task tools.logs.event_log[aab7c0bc-0001-4eb4-979e-f19a2cd22739] succeeded in 0.005896509042941034s: None
+[2020-02-08 21:36:24,702: INFO/MainProcess] Received task: tools.logs.event_log[e7cdfadf-4ff0-468e-b2f2-f5595dca208c]  
+[2020-02-08 21:36:24,712: INFO/ForkPoolWorker-6] Task tools.logs.event_log[e7cdfadf-4ff0-468e-b2f2-f5595dca208c] succeeded in 0.008428087108768523s: None
+[2020-02-08 21:36:26,247: INFO/MainProcess] Received task: tools.logs.event_log[07df6d2e-97c5-45df-8ba7-b62cbf010112]  
+[2020-02-08 21:36:26,255: INFO/ForkPoolWorker-6] Task tools.logs.event_log[07df6d2e-97c5-45df-8ba7-b62cbf010112] succeeded in 0.006644138018600643s: None
+[2020-02-08 21:39:56,481: INFO/MainProcess] Received task: tools.logs.event_log[38ea6e52-4579-4008-af37-bf2eedc0b3e7]  
+[2020-02-08 21:39:56,495: INFO/ForkPoolWorker-6] Task tools.logs.event_log[38ea6e52-4579-4008-af37-bf2eedc0b3e7] succeeded in 0.012657718965783715s: None
+[2020-02-08 21:39:58,565: INFO/MainProcess] Received task: tools.logs.event_log[f45143ca-ce09-4dbf-8d1d-3217fdc5686b]  
+[2020-02-08 21:39:58,577: INFO/ForkPoolWorker-6] Task tools.logs.event_log[f45143ca-ce09-4dbf-8d1d-3217fdc5686b] succeeded in 0.011562266969121993s: None
+[2020-02-08 21:41:09,910: INFO/MainProcess] Received task: tools.logs.event_log[c8bd0f1c-595f-4245-ba91-0ea081ab938f]  
+[2020-02-08 21:41:09,918: INFO/ForkPoolWorker-6] Task tools.logs.event_log[c8bd0f1c-595f-4245-ba91-0ea081ab938f] succeeded in 0.005855437950231135s: None
+[2020-02-08 21:41:11,592: INFO/MainProcess] Received task: tools.logs.event_log[1ae2f1c4-61c8-4c69-9131-46a49ca3c629]  
+[2020-02-08 21:41:11,597: INFO/ForkPoolWorker-6] Task tools.logs.event_log[1ae2f1c4-61c8-4c69-9131-46a49ca3c629] succeeded in 0.004669166053645313s: None
+[2020-02-08 21:41:39,200: INFO/MainProcess] Received task: tools.logs.event_log[96da636c-e7f3-4f01-a4e3-31f793e52c52]  
+[2020-02-08 21:41:39,210: INFO/ForkPoolWorker-6] Task tools.logs.event_log[96da636c-e7f3-4f01-a4e3-31f793e52c52] succeeded in 0.009083751938305795s: None
+[2020-02-08 21:41:40,765: INFO/MainProcess] Received task: tools.logs.event_log[4c529dcc-3ef7-4349-a665-38b168a05a68]  
+[2020-02-08 21:41:40,772: INFO/ForkPoolWorker-6] Task tools.logs.event_log[4c529dcc-3ef7-4349-a665-38b168a05a68] succeeded in 0.006154916016384959s: None
+[2020-02-08 21:46:02,409: INFO/MainProcess] Received task: tools.logs.event_log[2c28ef15-c5de-4d04-89ee-09880dc236fc]  
+[2020-02-08 21:46:02,415: INFO/ForkPoolWorker-6] Task tools.logs.event_log[2c28ef15-c5de-4d04-89ee-09880dc236fc] succeeded in 0.0050497379852458835s: None
+[2020-02-08 21:46:05,127: INFO/MainProcess] Received task: tools.logs.event_log[768579a9-4e70-4a71-9778-907ec4cdb3b9]  
+[2020-02-08 21:46:05,137: INFO/ForkPoolWorker-6] Task tools.logs.event_log[768579a9-4e70-4a71-9778-907ec4cdb3b9] succeeded in 0.008371048956178129s: None
+[2020-02-08 21:46:06,692: INFO/MainProcess] Received task: tools.logs.event_log[0f07bb79-fc32-4505-924b-01e05a5f4adf]  
+[2020-02-08 21:46:06,701: INFO/ForkPoolWorker-6] Task tools.logs.event_log[0f07bb79-fc32-4505-924b-01e05a5f4adf] succeeded in 0.007443835958838463s: None
+[2020-02-08 21:46:21,318: INFO/MainProcess] Received task: tools.logs.event_log[10b5fc3d-162d-401f-9a44-4132bd7cf4cd]  
+[2020-02-08 21:46:21,329: INFO/ForkPoolWorker-6] Task tools.logs.event_log[10b5fc3d-162d-401f-9a44-4132bd7cf4cd] succeeded in 0.008999784011393785s: None
+[2020-02-08 21:46:22,909: INFO/MainProcess] Received task: tools.logs.event_log[a6e19f74-9d2b-4385-87ae-5099852df90d]  
+[2020-02-08 21:46:22,919: INFO/ForkPoolWorker-6] Task tools.logs.event_log[a6e19f74-9d2b-4385-87ae-5099852df90d] succeeded in 0.008435267955064774s: None
+[2020-02-08 21:46:39,395: INFO/MainProcess] Received task: tools.logs.event_log[11e51b3c-eb47-49ac-9df0-dc5e0d914074]  
+[2020-02-08 21:46:39,407: INFO/ForkPoolWorker-6] Task tools.logs.event_log[11e51b3c-eb47-49ac-9df0-dc5e0d914074] succeeded in 0.010434117051772773s: None
+[2020-02-08 21:46:41,096: INFO/MainProcess] Received task: tools.logs.event_log[19b0b734-041a-417c-bc3d-fb5e8361ca0f]  
+[2020-02-08 21:46:41,107: INFO/ForkPoolWorker-6] Task tools.logs.event_log[19b0b734-041a-417c-bc3d-fb5e8361ca0f] succeeded in 0.009352601948194206s: None
+[2020-02-08 21:47:30,267: INFO/MainProcess] Received task: tools.logs.event_log[e3fc091d-a2f7-4d0e-8d34-713cf0216611]  
+[2020-02-08 21:47:30,276: INFO/ForkPoolWorker-6] Task tools.logs.event_log[e3fc091d-a2f7-4d0e-8d34-713cf0216611] succeeded in 0.00740593601949513s: None
+[2020-02-08 21:47:45,073: INFO/MainProcess] Received task: tools.logs.event_log[e7010179-6eb3-4171-9817-a63743134a82]  
+[2020-02-08 21:47:45,079: INFO/ForkPoolWorker-6] Task tools.logs.event_log[e7010179-6eb3-4171-9817-a63743134a82] succeeded in 0.005407256074249744s: None
+[2020-02-08 21:47:48,713: INFO/MainProcess] Received task: tools.logs.event_log[22b7d206-2722-4d6c-bda0-cf40f81e00c2]  
+[2020-02-08 21:47:48,724: INFO/ForkPoolWorker-6] Task tools.logs.event_log[22b7d206-2722-4d6c-bda0-cf40f81e00c2] succeeded in 0.009157761000096798s: None
+[2020-02-08 21:47:50,270: INFO/MainProcess] Received task: tools.logs.event_log[006c238a-10fe-47ff-8053-029298e53492]  
+[2020-02-08 21:47:50,281: INFO/ForkPoolWorker-6] Task tools.logs.event_log[006c238a-10fe-47ff-8053-029298e53492] succeeded in 0.00830464600585401s: None
+[2020-02-08 21:51:40,011: INFO/MainProcess] Received task: tools.logs.event_log[36438590-5dbe-4fc2-85ec-104a6c8360ed]  
+[2020-02-08 21:51:40,017: INFO/ForkPoolWorker-6] Task tools.logs.event_log[36438590-5dbe-4fc2-85ec-104a6c8360ed] succeeded in 0.004584972048178315s: None
+[2020-02-08 21:51:45,381: INFO/MainProcess] Received task: tools.logs.event_log[b9445909-9e67-4335-bd6a-a5fb1b7c66bd]  
+[2020-02-08 21:51:45,391: INFO/ForkPoolWorker-6] Task tools.logs.event_log[b9445909-9e67-4335-bd6a-a5fb1b7c66bd] succeeded in 0.007911377004347742s: None
+[2020-02-08 21:51:46,945: INFO/MainProcess] Received task: tools.logs.event_log[3b018fcf-2b6a-47f7-8760-57f32727b71a]  
+[2020-02-08 21:51:46,951: INFO/ForkPoolWorker-6] Task tools.logs.event_log[3b018fcf-2b6a-47f7-8760-57f32727b71a] succeeded in 0.004652824020013213s: None
+[2020-02-08 21:51:50,066: INFO/MainProcess] Received task: tools.logs.event_log[3f954fd4-89f0-45ff-acdc-9a508c46024e]  
+[2020-02-08 21:51:50,076: INFO/ForkPoolWorker-6] Task tools.logs.event_log[3f954fd4-89f0-45ff-acdc-9a508c46024e] succeeded in 0.008938867948018014s: None
+[2020-02-08 21:51:51,627: INFO/MainProcess] Received task: tools.logs.event_log[7b68d5af-1fcc-4f77-9d88-a176b977e6b7]  
+[2020-02-08 21:51:51,632: INFO/ForkPoolWorker-6] Task tools.logs.event_log[7b68d5af-1fcc-4f77-9d88-a176b977e6b7] succeeded in 0.004826970980502665s: None
+[2020-02-08 22:10:14,680: INFO/MainProcess] Received task: tools.logs.event_log[1147c888-81ef-4593-8aec-e16f6472c718]  
+[2020-02-08 22:10:14,687: INFO/ForkPoolWorker-6] Task tools.logs.event_log[1147c888-81ef-4593-8aec-e16f6472c718] succeeded in 0.005444639013148844s: None
+[2020-02-08 22:10:57,236: INFO/MainProcess] Received task: tools.logs.event_log[e7fa4e2e-aa01-42d7-88c1-d2cfd95dde41]  
+[2020-02-08 22:10:57,246: INFO/ForkPoolWorker-6] Task tools.logs.event_log[e7fa4e2e-aa01-42d7-88c1-d2cfd95dde41] succeeded in 0.008696481003426015s: None
+[2020-02-08 22:10:58,927: INFO/MainProcess] Received task: tools.logs.event_log[e7ca3132-994a-45a3-ad03-78b60de994ab]  
+[2020-02-08 22:10:58,934: INFO/ForkPoolWorker-6] Task tools.logs.event_log[e7ca3132-994a-45a3-ad03-78b60de994ab] succeeded in 0.005176863982342184s: None
+[2020-02-08 22:19:19,554: INFO/MainProcess] Received task: tools.logs.event_log[26dba587-1268-4774-a0cc-9e8f2e38c692]  
+[2020-02-08 22:19:19,562: INFO/ForkPoolWorker-6] Task tools.logs.event_log[26dba587-1268-4774-a0cc-9e8f2e38c692] succeeded in 0.007758390041999519s: None
+[2020-02-08 22:19:28,755: INFO/MainProcess] Received task: tools.logs.event_log[93b99792-d59b-419c-8f81-4f5844b6f781]  
+[2020-02-08 22:19:28,766: INFO/ForkPoolWorker-6] Task tools.logs.event_log[93b99792-d59b-419c-8f81-4f5844b6f781] succeeded in 0.009940502000972629s: None
+[2020-02-08 22:19:30,336: INFO/MainProcess] Received task: tools.logs.event_log[93bae3c3-9c22-4e6c-a329-7af815458755]  
+[2020-02-08 22:19:30,343: INFO/ForkPoolWorker-6] Task tools.logs.event_log[93bae3c3-9c22-4e6c-a329-7af815458755] succeeded in 0.006883525988087058s: None
+[2020-02-08 22:22:56,916: INFO/MainProcess] Received task: tools.logs.event_log[c59445bc-c85a-4440-9df2-311bbfa8d04f]  
+[2020-02-08 22:22:56,965: INFO/ForkPoolWorker-6] Task tools.logs.event_log[c59445bc-c85a-4440-9df2-311bbfa8d04f] succeeded in 0.0480312230065465s: None
+[2020-02-08 22:22:58,657: INFO/MainProcess] Received task: tools.logs.event_log[9bff8a43-2b5e-4eeb-8901-ac534147e452]  
+[2020-02-08 22:22:58,666: INFO/ForkPoolWorker-6] Task tools.logs.event_log[9bff8a43-2b5e-4eeb-8901-ac534147e452] succeeded in 0.006956191034987569s: None
+[2020-02-08 22:36:38,492: INFO/MainProcess] Received task: tools.logs.event_log[6f102171-1343-40af-ba62-6fba032a8024]  
+[2020-02-08 22:36:38,500: INFO/ForkPoolWorker-6] Task tools.logs.event_log[6f102171-1343-40af-ba62-6fba032a8024] succeeded in 0.006943653104826808s: None
+[2020-02-08 22:36:40,141: INFO/MainProcess] Received task: tools.logs.event_log[a7673dbb-16ad-4b02-b1a3-a2cc928316af]  
+[2020-02-08 22:36:40,148: INFO/ForkPoolWorker-6] Task tools.logs.event_log[a7673dbb-16ad-4b02-b1a3-a2cc928316af] succeeded in 0.005837703007273376s: None
+[2020-02-08 22:36:59,475: INFO/MainProcess] Received task: tools.logs.event_log[36fe29b3-7ded-403f-b466-2b1bf14e4db1]  
+[2020-02-08 22:36:59,483: INFO/ForkPoolWorker-6] Task tools.logs.event_log[36fe29b3-7ded-403f-b466-2b1bf14e4db1] succeeded in 0.007059753057546914s: None
+[2020-02-08 22:37:11,008: INFO/MainProcess] Received task: tools.logs.event_log[e835ff59-4a44-4e0d-9532-669bf2f4850b]  
+[2020-02-08 22:37:11,015: INFO/ForkPoolWorker-6] Task tools.logs.event_log[e835ff59-4a44-4e0d-9532-669bf2f4850b] succeeded in 0.0054409600561484694s: None
+[2020-02-08 22:40:32,567: INFO/MainProcess] Received task: tools.logs.event_log[479685ee-6a70-4aff-9de4-39c5bdcb8e0d]  
+[2020-02-08 22:40:32,584: INFO/ForkPoolWorker-6] Task tools.logs.event_log[479685ee-6a70-4aff-9de4-39c5bdcb8e0d] succeeded in 0.014999067992903292s: None
+[2020-02-08 22:40:35,159: INFO/MainProcess] Received task: tools.logs.event_log[fff355d6-e58f-4a1f-8fa6-7e4a325ba4d3]  
+[2020-02-08 22:40:35,169: INFO/ForkPoolWorker-6] Task tools.logs.event_log[fff355d6-e58f-4a1f-8fa6-7e4a325ba4d3] succeeded in 0.008818672969937325s: None
+[2020-02-08 22:51:15,329: INFO/MainProcess] Received task: tools.logs.event_log[63176173-437a-4b7d-b2ab-c86a5bdae9ee]  
+[2020-02-08 22:51:15,336: INFO/ForkPoolWorker-6] Task tools.logs.event_log[63176173-437a-4b7d-b2ab-c86a5bdae9ee] succeeded in 0.004585854941979051s: None
+[2020-02-08 22:51:18,478: INFO/MainProcess] Received task: tools.logs.event_log[77d79df8-9044-4055-82aa-5264ff766620]  
+[2020-02-08 22:51:18,494: INFO/ForkPoolWorker-6] Task tools.logs.event_log[77d79df8-9044-4055-82aa-5264ff766620] succeeded in 0.013525714981369674s: None
+[2020-02-08 22:51:20,037: INFO/MainProcess] Received task: tools.logs.event_log[85b3e0ef-e01d-4491-99ed-1bf86fad88fc]  
+[2020-02-08 22:51:20,042: INFO/ForkPoolWorker-6] Task tools.logs.event_log[85b3e0ef-e01d-4491-99ed-1bf86fad88fc] succeeded in 0.004440315067768097s: None
+[2020-02-08 23:26:39,127: INFO/MainProcess] Received task: tools.logs.event_log[af34618a-3b61-46b0-845d-adb5ada09e16]  
+[2020-02-08 23:26:39,137: INFO/ForkPoolWorker-6] Task tools.logs.event_log[af34618a-3b61-46b0-845d-adb5ada09e16] succeeded in 0.0077119170455262065s: None
+[2020-02-08 23:28:20,228: INFO/MainProcess] Received task: tools.logs.event_log[6813cd7a-09df-4fc2-8435-cc8a77fd5850]  
+[2020-02-08 23:28:20,233: INFO/ForkPoolWorker-6] Task tools.logs.event_log[6813cd7a-09df-4fc2-8435-cc8a77fd5850] succeeded in 0.004166517057456076s: None
+[2020-02-08 23:28:23,359: INFO/MainProcess] Received task: tools.logs.event_log[eccacfcb-67f6-41fa-b127-8a87bd0ed424]  
+[2020-02-08 23:28:23,365: INFO/ForkPoolWorker-6] Task tools.logs.event_log[eccacfcb-67f6-41fa-b127-8a87bd0ed424] succeeded in 0.004605186055414379s: None
+[2020-02-08 23:28:24,480: INFO/MainProcess] Received task: tools.logs.event_log[3e1a6a87-eed1-4a56-91d0-18c5677a1c2a]  
+[2020-02-08 23:28:24,486: INFO/ForkPoolWorker-6] Task tools.logs.event_log[3e1a6a87-eed1-4a56-91d0-18c5677a1c2a] succeeded in 0.004392192931845784s: None
+[2020-02-08 23:54:18,336: INFO/MainProcess] Received task: tools.logs.event_log[8f0d29f1-8c47-48bf-91c7-6116873cd0ec]  
+[2020-02-08 23:54:18,342: INFO/ForkPoolWorker-6] Task tools.logs.event_log[8f0d29f1-8c47-48bf-91c7-6116873cd0ec] succeeded in 0.004615315934643149s: None
+[2020-02-08 23:54:21,404: INFO/MainProcess] Received task: tools.logs.event_log[6d06a3d4-f534-4c6f-8bfa-296ceb29f305]  
+[2020-02-08 23:54:21,410: INFO/ForkPoolWorker-6] Task tools.logs.event_log[6d06a3d4-f534-4c6f-8bfa-296ceb29f305] succeeded in 0.00518470595125109s: None
+[2020-02-08 23:54:21,427: INFO/MainProcess] Received task: tools.logs.event_log[2109a02d-97a9-449c-8c40-45a1410351f3]  
+[2020-02-08 23:54:21,434: INFO/ForkPoolWorker-6] Task tools.logs.event_log[2109a02d-97a9-449c-8c40-45a1410351f3] succeeded in 0.0065463370410725474s: None
+[2020-02-08 23:54:22,976: INFO/MainProcess] Received task: tools.logs.event_log[6c9efadc-23ba-48f4-8868-4fd5234b8938]  
+[2020-02-08 23:54:22,985: INFO/ForkPoolWorker-6] Task tools.logs.event_log[6c9efadc-23ba-48f4-8868-4fd5234b8938] succeeded in 0.007578138029202819s: None

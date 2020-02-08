@@ -35,7 +35,7 @@
                                   头像异步加载
                             </div>-->
                             {% load cache %}
-                            {% cache 10 image %}  <!--不渲染-->
+                            {% cache 10 c %}  <!--不渲染-->
                             <img alt="image" class="rounded-circle" src="{{ MEDIA_URL }}{{ img }}" />
                             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                                 <span class="block m-t-xs font-bold">{{ nickname }}</span>

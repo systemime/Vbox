@@ -12,12 +12,13 @@ class Systemos(models.Model):
     deployment-name = create-time md5
     port in pod
     node_port is 80
-    与用户表 OneToMany 关系
     """
 
     os_list = (
-        (0, 'Ubuntu'),
+        (0, 'Ubuntu'),  # 默认ubuntu18.04
         (1, 'Centos'),
+        (2, 'Ubuntu 16.04'),
+        (3, 'Ubuntu 14.04'),
     )
 
     language_list = (
@@ -33,6 +34,13 @@ class Systemos(models.Model):
         (3, 'MongoDB'),
     )
 
+    active = (
+        (0, '正在生成'),
+        (1, '正常运行'),
+        (2, '异常状态'),
+        (3, '正在删除')
+    )
+
     user = models.ForeignKey('users.UserProfile', to_field='username', related_name='dep_user', null=False, on_delete=models.CASCADE)
     namespace = models.CharField(max_length=63, null=False, default='default', verbose_name='命名空间')
     deployment = models.CharField(unique=True, max_length=64, default='emp_name', choices=os_list, null=False,
@@ -41,6 +49,7 @@ class Systemos(models.Model):
     labels = models.CharField(max_length=63, null=False, default='username', verbose_name='容器标签')
     create_time = models.CharField(max_length=63, null=False, default='0', verbose_name='创建时间戳')
     storage = models.IntegerField(null=False, default='5', verbose_name='硬盘容量G')
+    active_status = models.SmallIntegerField(null=False, default=1, verbose_name='容器状态')
 
     os = models.CharField(max_length=64, choices=os_list, null=False, verbose_name='操作系统')
     cpus = models.IntegerField(null=False, default=1, verbose_name='cpu个数')
