@@ -11,7 +11,11 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+import djcelery
+from kombu import Queue
 
+
+djcelery.setup_loader()  # django使用celery+RabbitMQ，加载的django-celery模块, 但是这货明明现在都弃用了
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -52,6 +56,8 @@ INSTALLED_APPS = [
     'crispy_forms',
     # websocket
     'channels',
+    # django-celery
+    'djcelery',  # 为了在django admin里面可一直接配置和查看celery, 只要不使用默认数据库存储就不需要？
     # 自定义app
     'users',
     'selectos',
@@ -238,13 +244,60 @@ CHANNEL_LAYERS = {
 }
 
 # Celery application definition 异步任务设置
-CELERY_BROKER_URL = 'redis://localhost:6379/0'
-CELERY_RESULT_BACKEND = 'redis://localhost:6379/1'
+# BROKER_URL = 'redis://localhost:6379/0'  # 中间件选择
+CELERY_BROKER_URL = 'amqp://guest@localhost:5672'  # RabbitMQ 默认连接
+CELERY_RESULT_BACKEND = 'redis://localhost:6379/1'  # 结果存放，可用于跟踪结果
+# 存放在django-orm 数据表中
+# CELERY_RESULT_BACKEND = 'djcelery.backends.database:DatabaseBackend'
+
+# celery内容等消息的格式设置
 CELERY_ACCEPT_CONTENT = ['application/json']
-CELERY_RESULT_SERIALIZER = 'json'
-CELERY_TASK_SERIALIZER = 'json'
-CELERY_TIMEZONE = 'Asia/Shanghai'
-CELERYD_MAX_TASKS_PER_CHILD = 10
+CELERY_RESULT_SERIALIZER = 'json'  # 结果的序列化方式
+CELERY_TASK_SERIALIZER = 'json'  # 消息任务的序列化方式
+# 时区
+CELERY_TIMEZONE = TIME_ZONE
+
+# 性能配置
+CELERY_FORCE_EXECV = True  # 有些情况可以防止死锁
+CELERYD_CONCURRENCY = 10  # celery worker的并发数 命令行 -c 指定的数目,worker不是越多越好,保证任务不堆积,加上一定新增任务的预留就可以
+CELERYD_PREFETCH_MULTIPLIER = 40  # celery worker 每次去 rabbitMQ 取任务的数量, 日后需要区分低频与高频任务分开设置
+CELERYD_MAX_TASKS_PER_CHILD = 100  # 每个worker执行了多少任务就会死掉，默认无限, 业务增长容易爆内存
+# CELERY_DEFAULT_QUEUE = "message_queue"  # 默认的队列，如果一个消息不符合其他的队列就会放在默认队列里面,发现如果设置无法选择其他路由
+CELERY_TASK_RESULT_EXPIRES = 60 * 30  # celery worker 超时 30分钟
+
+# 详细队列设置 RabbitMQ 队列设置
+CELERY_QUEUES = (
+    # "default_qf": {  # 这是上面指定的默认队列, 另一种写法
+    #     "exchange": "default",  # 消息交换机，按路由规则指定到哪个队列
+    #     "exchange_type": "direct",
+    #     "routing_key": "default"  # 路由关键字，交换机按key进行消息投递
+    # },
+    Queue(name='create_queue', exchange='create_queue', routing_key='create_router'),
+    Queue(name='savedata_queue', exchange='savedata_queue', routing_key='savedata_router'),
+    Queue(name='del_queue', exchange='del_queue', routing_key='del_router'),
+    Queue(name='timing_queue', exchange='timing_queue', routing_key='timing_router'),  # 定时任务队列
+)
+# Queue的路由
+CELERY_ROUTES = {
+    'selectos.tasks.create_deployment': {  # 队列 - 创建服务
+            'queue': 'create_queue',
+            'routing_key': 'create_router',
+    },
+    'selectos.tasks.save_deployment_info': {  # 队列 - 保存数据
+            'queue': 'savedata_queue',
+            'routing_key': 'savedata_router',
+    },
+    'selectos.tasks.delete_deployment': {  # 队列 - 删除服务
+            'queue': 'del_queue',
+            'routing_key': 'del_router',
+    },
+    'selectos.tasks.timing_kill': {  # 队列 - 删除服务
+            'queue': 'timing_queue',
+            'routing_key': 'timing_router',
+    },
+}
+
+# 日志配置
 CELERYD_LOG_FILE = os.path.join(BASE_DIR, "logs", "celery_work.log")
 CELERYBEAT_LOG_FILE = os.path.join(BASE_DIR, "logs", "celery_beat.log")
 
@@ -258,15 +311,7 @@ CELERYBEAT_LOG_FILE = os.path.join(BASE_DIR, "logs", "celery_beat.log")
 #     },
 # }
 
-# celery -A linux_news worker -l info -B -f /path/to/log
-# -A 表示app所在的目录，-B表示启动celery beat运行定时任务。
-#
-# 启动celery：celery worker -A tasks --loglevel=info
-# 同时启动works 和beat：celery -B -A ProjectName worker --loglevel=info
-#
-# celery -A proj worker -l info
-
- # django-allauth相关设置
+# django-allauth相关设置  # 2/10备注 本项目目前弃用该模块，若后续接入第三方登录接口启用,精简代码时删除该模块内容
 AUTHENTICATION_BACKENDS = (
       # django admin所使用的用户登录与django-allauth无关
       'django.contrib.auth.backends.ModelBackend',

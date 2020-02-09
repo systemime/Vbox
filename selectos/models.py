@@ -43,7 +43,7 @@ class Systemos(models.Model):
 
     user = models.ForeignKey('users.UserProfile', to_field='username', related_name='dep_user', null=False, on_delete=models.CASCADE)
     namespace = models.CharField(max_length=63, null=False, default='default', verbose_name='命名空间')
-    deployment = models.CharField(unique=True, max_length=64, default='emp_name', choices=os_list, null=False,
+    deployment = models.CharField(unique=True, max_length=64, default='emp_name', null=False,
                                   verbose_name='deployment_name')
     version = models.CharField(max_length=8, null=False, default='apps/v1', verbose_name='容器版本')
     labels = models.CharField(max_length=63, null=False, default='username', verbose_name='容器标签')
@@ -63,6 +63,22 @@ class Systemos(models.Model):
 
     class Meta:
         verbose_name = '用户配置'
+        verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return str(self.deployment)
+
+
+class ExceptDep(models.Model):
+    namespace = models.CharField(max_length=63, null=False, default='default', verbose_name='命名空间')
+    deployment = models.CharField(unique=True, max_length=64, default='emp_name', null=False,
+                                  verbose_name='deployment_name')
+    cpus = models.IntegerField(null=False, default=1, verbose_name='cpu个数')  # 创建时数据校验，异常容器也占用资源
+    ram = models.IntegerField(null=False, default=2048, verbose_name='内存容量')
+    create_time = models.DateTimeField('上传时间', auto_now_add=True)
+
+    class Meta:
+        verbose_name = '异常表'  # deployment数据存入失败时
         verbose_name_plural = verbose_name
 
     def __str__(self):

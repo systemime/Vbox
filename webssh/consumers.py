@@ -36,8 +36,11 @@ class SSHConsumer(WebsocketConsumer):
             nickname = self.scope["session"].get('nickname', None)  # 从头文件里获取，？？？那我还保持为空干啥
             # REMOTE_ADDR = self.scope['headers']
             # HTTP_USER_AGENT = self.scope['headers']
-            event_log.delay(nickname, 1, 13, '[{}] 关闭ssh链接'.format(nickname),
+            event_log.delay(nickname, 1, 13, '[{}] 关闭与 {} 的ssh链接'.format(nickname, self.name),
                             '', '', str(self.scope['headers']))
+            ssh_log(self.namespace, self.name, 'exit')
+        if close_code == 1000:
+            ssh_log(self.namespace, self.name, 'exit')
 
     def receive(self, text_data):
         """
