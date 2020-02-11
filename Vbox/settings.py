@@ -57,7 +57,8 @@ INSTALLED_APPS = [
     # websocket
     'channels',
     # django-celery
-    'djcelery',  # 为了在django admin里面可一直接配置和查看celery, 只要不使用默认数据库存储就不需要？
+    'djcelery',  # 为了在django admin里面可一直接配置和查看celery,同时使用默认数据库存储任务结果
+    'django_celery_beat',  # 动态定时任务
     # 自定义app
     'users',
     'selectos',
@@ -196,7 +197,7 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False  # 为True会自动使用系统默认时区，TIME-ZONE不起作用
 
 
 # Static files (CSS, JavaScript, Images)
@@ -245,7 +246,7 @@ CHANNEL_LAYERS = {
 
 # Celery application definition 异步任务设置
 # BROKER_URL = 'redis://localhost:6379/0'  # 中间件选择
-CELERY_BROKER_URL = 'amqp://guest@localhost:5672'  # RabbitMQ 默认连接
+CELERY_BROKER_URL = 'amqp://guest@localhost:5672//'  # RabbitMQ 默认连接
 CELERY_RESULT_BACKEND = 'redis://localhost:6379/1'  # 结果存放，可用于跟踪结果
 # 存放在django-orm 数据表中
 # CELERY_RESULT_BACKEND = 'djcelery.backends.database:DatabaseBackend'
@@ -265,35 +266,51 @@ CELERYD_MAX_TASKS_PER_CHILD = 100  # 每个worker执行了多少任务就会死�
 # CELERY_DEFAULT_QUEUE = "message_queue"  # 默认的队列，如果一个消息不符合其他的队列就会放在默认队列里面,发现如果设置无法选择其他路由
 CELERY_TASK_RESULT_EXPIRES = 60 * 30  # celery worker 超时 30分钟
 
+# 动态定时任务
+DJANGO_CELERY_BEAT_TZ_AWARE = False
+# 可以使用redisbeat包存入redis中，安全性考虑不适用这个包
+# 此处配置后, 默认的定时任务也会出现在表django_celery_beat_periodictask中
+CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
+# django_celery_beat.models.PeriodicTask 定义要运行的单个周期性任务。
+# django_celery_beat.models.IntervalSchedule 以特定间隔（例如，每5秒）运行的计划。
+# django_celery_beat.models.CrontabSchedule 与像在cron项领域的时间表 分钟小时日的一周 DAY_OF_MONTH month_of_year
+# django_celery_beat.models.PeriodicTasks 仅用作索引以跟踪计划何时更改
+
 # 详细队列设置 RabbitMQ 队列设置
 CELERY_QUEUES = (
     # "default_qf": {  # 这是上面指定的默认队列, 另一种写法
     #     "exchange": "default",  # 消息交换机，按路由规则指定到哪个队列
-    #     "exchange_type": "direct",
+    #     "exchange_type": "direct",  # 交换机类型
     #     "routing_key": "default"  # 路由关键字，交换机按key进行消息投递
     # },
-    Queue(name='create_queue', exchange='create_queue', routing_key='create_router'),
-    Queue(name='savedata_queue', exchange='savedata_queue', routing_key='savedata_router'),
-    Queue(name='del_queue', exchange='del_queue', routing_key='del_router'),
-    Queue(name='timing_queue', exchange='timing_queue', routing_key='timing_router'),  # 定时任务队列
+    # consumer_arguments={'x-priority': 10} 优先级
+    Queue(name='create_queue', exchange='create_queue', routing_key='create_router'),  # 队列 - 创建服务
+    Queue(name='savedata_queue', exchange='savedata_queue', routing_key='savedata_router'),  # 队列 - 保存数据
+    Queue(name='del_queue', exchange='del_queue', routing_key='del_router'),  # 队列 - 删除服务
+    Queue(name='timing_queue', exchange='timing_queue', routing_key='timing_router'),  # 队列 - 定时服务
+    Queue(name='regular_queue', exchange='regular_queue', routing_key='regular_router'),  # 队列 - 定期服务
 )
 # Queue的路由
 CELERY_ROUTES = {
-    'selectos.tasks.create_deployment': {  # 队列 - 创建服务
+    'selectos.tasks.create_deployment': {
             'queue': 'create_queue',
             'routing_key': 'create_router',
     },
-    'selectos.tasks.save_deployment_info': {  # 队列 - 保存数据
+    'selectos.tasks.save_deployment_info': {
             'queue': 'savedata_queue',
             'routing_key': 'savedata_router',
     },
-    'selectos.tasks.delete_deployment': {  # 队列 - 删除服务
+    'selectos.tasks.delete_deployment': {
             'queue': 'del_queue',
             'routing_key': 'del_router',
     },
-    'selectos.tasks.timing_kill': {  # 队列 - 删除服务
+    'selectos.tasks.timing_del_pod': {
             'queue': 'timing_queue',
             'routing_key': 'timing_router',
+    },
+    'selectos.tasks.regular_kill': {
+            'queue': 'regular_queue',
+            'routing_key': 'regular_router',
     },
 }
 
@@ -301,15 +318,6 @@ CELERY_ROUTES = {
 CELERYD_LOG_FILE = os.path.join(BASE_DIR, "logs", "celery_work.log")
 CELERYBEAT_LOG_FILE = os.path.join(BASE_DIR, "logs", "celery_beat.log")
 
-
-# from datetime import timedelta
-# # 这里是定时任务的配置
-# CELERY_BEAT_SCHEDULE = {
-#     'task_method': {  # 随便起的名字
-#         'task': 'app.tasks.method_name',  # app 下的tasks.py文件中的方法名
-#         'schedule': timedelta(seconds=10),  # 名字为task_method的定时任务, 每10秒执行一次
-#     },
-# }
 
 # django-allauth相关设置  # 2/10备注 本项目目前弃用该模块，若后续接入第三方登录接口启用,精简代码时删除该模块内容
 AUTHENTICATION_BACKENDS = (

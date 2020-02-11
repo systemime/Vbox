@@ -29,15 +29,17 @@ def debug_task(self):
     print('Request: {0!r}'.format(self.request))
 
 
+# 定期任务
 # 参考 https://mp.weixin.qq.com/s/lXrp3igYo9W2UuE5Gauysg
 app.conf.update(
     CELERYBEAT_SCHEDULE={
-        'kill-except': {
-            'task': 'selectos.tasks.timing_kill',
-            'schedule':  timedelta(minutes=5),  # 时间指定 seconds minutes ...
-            # 'args': (xxx, xxx),  # 传入参数
+        'kill-except': {  # 别名
+            'task': 'selectos.tasks.regular_kill',  # task任务所在位置
+            'schedule':  timedelta(minutes=5),  # 5分钟允许一次 # 时间指定 seconds minutes ...
+            # 'schedule': crontab(hour=4, minute=30, day_of_week=1),  # crontab任务计划
+            # 'args': (xxx, xxx),  # 传入参数  # 函数参数
             'options': {
-                'queue': 'timing_queue',  # 指定要使用的队列
+                'queue': 'regular_queue',  # 指定要使用的队列  # setting设置路由及队列
             }
         },
     }
@@ -46,6 +48,7 @@ app.conf.update(
 # delay()方法执行，此时会将任务委托给celery后台的worker执行
 # 由于使用了RabbitMQ 创建了消息队列，每次发生修改必须重新启动celery任务，否则设置队列无效
 
+# 全新测试时,重启redis或删除全部cache, cache.clear()
 # cd /home/soul/Desktop/Vbox
 # pip install eventlet  # 引入协程
 # nohup celery -A Vbox worker -l info -P eventlet > logs/celery.log 2>&1 &
@@ -58,3 +61,9 @@ app.conf.update(
 
 # @app.task使用
 # 在setting中如果设置了对应路由，@app.task无需指定name='queue_name'参数，若未指定则需要
+
+# 定时请不要使用绝对时间
+# 来自GitHub的解释 https://github.com/celery/django-celery-beat
+# 如果更改Django TIME_ZONE设置，则定期任务计划仍将基于旧时区。
+# 要解决此问题，您必须为每个定期任务重置“上次运行时间”：
+# 请注意，这将重置状态，就好像以前从未执行过定期任务一样。

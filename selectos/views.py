@@ -91,7 +91,7 @@ class Selectos(View):
         EPH = '5Gi'
 
         # 创建异步创建任务
-        create_deployment(namespace, VERSION, DEPNAME, IMGNAME, PORTS, DIR, CPUS, MEMORY, EPH, request)
+        create_deployment(namespace, VERSION, DEPNAME, IMGNAME, PORTS, DIR, CPUS, MEMORY, EPH, use_time, request)
         # 异步保存数据
         save_deployment_info(
             request, user_id=namespace, deployment=DEPNAME, version=VERSION, labels=DEPNAME[:25],
@@ -138,9 +138,10 @@ def pod_num(request):
     key_pod_num = str(request.session.get('username', None)) + '_pod_num'
     num = cache.get(key_pod_num)  # 不存在就是None
     if not num:
-        func = request.GET.get("getpodsum")
+        fun_name = request.GET.get("getpodsum")
         data = {'sum': Systemos.objects.filter(namespace=request.session.get('username', None)).count()}
     else:
+        fun_name = request.GET.get("getpodsum")
         data = {'sum': num}
-    return HttpResponse("%s('%s')" % (func, json.dumps(data)))
+    return HttpResponse("%s('%s')" % (fun_name, json.dumps(data)))
 
