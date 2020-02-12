@@ -3,7 +3,8 @@
 
 ### 开启celery  
 
-> nohup celery -A Vbox worker -l info > logs/celery.log 2>&1 &  
+> nohup celery -A Vbox worker -l info -P eventlet > logs/celery_worker.log 2>&1 &  
+> nohup celery -A Vbox beat -l info > logs/celery_beat.log 2>&1 &
 
   - install
     ```

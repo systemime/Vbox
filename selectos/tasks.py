@@ -36,18 +36,18 @@ def create_deployment(namespace, VERSION, DEPNAME, IMGNAME, PORTS, DIR, CPUS, ME
             active.active_status = 1
             active.save()
     except Exception as err:  # 得到创建结果，查询数据库数据不存在，写入缓存
-        print("数据暂时未写入，pod状态写入缓存, 错误信息：" + str(err))
+        # print("数据暂时未写入，pod状态写入缓存, 错误信息：" + str(err))
         if not info[0]:
             cache.set(key, 2, None)  # 创建该容器创建失败缓存，不过期
         else:
             cache.set(key, 1, None)
-        print("缓存内容" + str(cache.get(key)))
+        # print("缓存内容" + str(cache.get(key)))
     if not info[0]:  # 创建错误
-        event_log.delay(namespace, 1, 10, '[{}] 创建容器 {} 失败'.format(namespace, DEPNAME), request.META.get('REMOTE_ADDR', None),
+        event_log.delay(namespace, 1, 10, '[{}] 创建容器 [{}] 失败'.format(namespace, DEPNAME), request.META.get('REMOTE_ADDR', None),
                         request.META.get('HTTP_USER_AGENT', None), info)
     else:
         create_timing(namespace, DEPNAME, use_time)  # 创建删除计划
-        event_log.delay(namespace, 1, 9, '[{}] 创建容器 {} 成功'.format(namespace, DEPNAME), request.META.get('REMOTE_ADDR', None),
+        event_log.delay(namespace, 1, 9, '[{}] 创建容器 [{}] 成功'.format(namespace, DEPNAME), request.META.get('REMOTE_ADDR', None),
                         request.META.get('HTTP_USER_AGENT', None), info)
 
 
@@ -90,14 +90,14 @@ def save_deployment_info(request, **kwargs):
         pod_num = UserProfile.objects.get(username=kwargs['namespace'])
         pod_num.pod_num = pod_num.pod_num + 1
         pod_num.save()
-        cache.get_or_set(key_pod_num, pod_num.pod_num, None)  # 添加bash侧边容器数量的缓存，仅在存入数据库成功时存入
+        cache.set(key_pod_num, pod_num.pod_num, None)  # 添加bash侧边容器数量的缓存，仅在存入数据库成功时存入
         event_log.delay(kwargs['namespace'], 1, 9,
-                        '[{}] 创建容器 {} 成功，数据录入成功'.format(kwargs['namespace'], kwargs['deployment']),
+                        '[{}] 创建容器 [{}] 成功，数据录入成功'.format(kwargs['namespace'], kwargs['deployment']),
                         request.META.get('REMOTE_ADDR', None), request.META.get('HTTP_USER_AGENT', None),
                         kwargs['deployment'])
     except Exception as err:
         event_log.delay(kwargs['namespace'], 1, 9,
-                        '[{}] 创建容器 {} 成功，数据未录入，纳入删除计划'.format(kwargs['namespace'], kwargs['deployment']),
+                        '[{}] 创建容器 [{}] 成功，数据未录入，纳入删除计划'.format(kwargs['namespace'], kwargs['deployment']),
                         request.META.get('REMOTE_ADDR', None), request.META.get('HTTP_USER_AGENT', None),
                         str(err))
         # 异常数据记录,celery定时任务删除
@@ -119,27 +119,35 @@ def delete_deployment(request, namespace, dep_name):
         pod_num = UserProfile.objects.get(username=request.session.get('username', None))
         pod_num.pod_num = pod_num.pod_num - 1
         pod_num.save()
-        cache.get_or_set(key_pod_num, pod_num.pod_num, None)  # 当前容器数量
+        cache.set(key_pod_num, pod_num.pod_num, None)  # 当前容器数量
         event_log.delay(request.session.get('nickname', None), 1, 11,
-                        '[{}] 删除容器 {} 数据成功'.format(request.session.get('nickname', None), dep_name),
+                        '[{}] 删除容器 [{}] 数据成功'.format(request.session.get('nickname', None), dep_name),
                         request.META.get('REMOTE_ADDR', None), request.META.get('HTTP_USER_AGENT', None),
                         dep_name)
-    except Exception as err:
+    except Exception as err:  # 可能存在错误, 自动删除任务已执行,用户网页未刷新,执行了删除操作
         event_log.delay(request.session.get('nickname', None), 1, 11,
-                        '[{}] 删除容器 {} 数据失败'.format(request.session.get('nickname', None), dep_name),
+                        '[{}] 删除容器 [{}] 数据失败'.format(request.session.get('nickname', None), dep_name),
                         request.META.get('REMOTE_ADDR', None), request.META.get('HTTP_USER_AGENT', None),
                         str(err))
     info = task.delete_deployment(dep_name)
     if not info[0]:
         event_log.delay(request.session.get('nickname', None), 1, 11,
-                        '[{}] 删除 {} 容器失败'.format(request.session.get('nickname', None), dep_name),
+                        '[{}] 删除 [{}] 容器失败'.format(request.session.get('nickname', None), dep_name),
                         request.META.get('REMOTE_ADDR', None), request.META.get('HTTP_USER_AGENT', None),
                         info)
     else:
         event_log.delay(request.session.get('nickname', None), 1, 11,
-                        '[{}] 删除 {} 容器成功'.format(request.session.get('nickname', None), dep_name),
+                        '[{}] 删除 [{}] 容器成功'.format(request.session.get('nickname', None), dep_name),
                         request.META.get('REMOTE_ADDR', None), request.META.get('HTTP_USER_AGENT', None),
                         info)
+    try:  # 关闭自动删除计划
+        periodic_task = PeriodicTask.objects.filter(name__contains=dep_name)  # field lookup 查询
+        periodic_task.delete()
+        event_log.delay('Admin', 0, 11, '[成功]针对用户 [{}] 容器 [{}] 的删除计划'.format(namespace, dep_name),
+                        '清除关闭计划操作成功', '清除关闭计划操作成功', str(periodic_task))
+    except Exception as err:
+        event_log.delay('Admin', 0, 11, '[失败]针对用户 [{}] 容器 [{}] 的删除计划'.format(namespace, dep_name),
+                        '清除关闭计划操作失败', '清除关闭计划操作失败', str(err))
 
 
 @app.task
@@ -148,7 +156,7 @@ def regular_kill():
     定期清除异常主机及数据
     :return:
     """
-    print("执行成功....")
+    print("开始执行删除异常主机任务....")
     except_info = ExceptDep.objects.all().order_by("namespace")
     except_user = set()
     if not except_info:
@@ -167,7 +175,7 @@ def regular_kill():
                 except_user.add(except_name)
                 kube.delete_deployment(except_dep.deployment)
         except_info.delete()
-        event_log.delay('Admin', 0, 11, '本次删除异常主机共计 {} 个'.format(num),
+        event_log.delay('Admin', 0, 11, '本次删除异常主机共计 [{}] 个'.format(num),
                         '定期任务', '定期任务', str(except_user))
 
 
@@ -180,24 +188,33 @@ def timing_del_pod(namespace, deployment):
         pod_num = UserProfile.objects.get(username=namespace)
         pod_num.pod_num = pod_num.pod_num - 1
         pod_num.save()
-        cache.get_or_set(key_pod_num, pod_num.pod_num, None)
+        cache.set(key_pod_num, pod_num.pod_num, None)
         event_log.delay('Admin', 0, 11,
-                        '[Admin] 删除用户 {} 过期容器容器 {} 数据成功'.format(namespace, deployment),
+                        '[Admin] 删除用户 [{}] 过期容器 [{}] 数据成功'.format(namespace, deployment),
                         '定时任务', '定时任务', '')
-    except Exception as err:
+    except Exception as err:  # 错误类型: 数据存在错误, 容器已被删除, 定时任务没有被有效清理
         event_log.delay('Admin', 0, 11,
-                        '[Admin] 删除用户 {} 过期容器容器 {} 数据失败'.format(namespace, deployment),
+                        '[Admin] 删除用户 [{}] 过期容器 [{}] 数据失败'.format(namespace, deployment),
                         '定时任务', '定时任务', str(err))
     info = task.delete_deployment(deployment)
     if not info[0]:
-        event_log.delay('Admin', 0, 11, '[Admin] 删除用户 {} 过期容器容器 {} 失败'.format(namespace, deployment),
+        event_log.delay('Admin', 0, 11, '[Admin] 删除用户 [{}] 过期容器 [{}] 失败'.format(namespace, deployment),
                         '定时任务', '定时任务', info)
     else:
-        event_log.delay('Admin', 0, 11, '[Admin] 删除用户 {} 过期容器容器 {} 成功'.format(namespace, deployment),
+        event_log.delay('Admin', 0, 11, '[Admin] 删除用户 [{}] 过期容器 [{}] 成功'.format(namespace, deployment),
                         '定时任务', '定时任务', info)
+    try:
+        # 这里即时数据为空也会返回空列表, 该任务执行完成后, 下面的内容就是传说中的我删我自己......
+        periodic_task = PeriodicTask.objects.filter(name__contains=deployment)  # field lookup 查询
+        periodic_task.delete()
+        event_log.delay('Admin', 0, 11, '[完成]清除针对用户 [{}] 的容器 [{}] 的删除计划'.format(namespace, deployment),
+                        '删除计划执行完成', '删除计划执行完成', str(periodic_task))
+    except Exception as err:
+        event_log.delay('Admin', 0, 11, '[错误]针对用户 [{}] 的容器 [{}] 的删除计划删除失败'.format(namespace, deployment),
+                        '删除计划执行完成', '删除计划执行完成', str(err))
 
 
-def create_timing(namespace, deployment, use_time=4):
+def create_timing(namespace, deployment, use_time):
     """该函数创建成功后触发, 30分钟后过期
     通过django_celery_beat模块向表django_celery_beat_periodictask中动态添加新的定时任务
     djang-celery-beat 会自动检测执行任务并执行
@@ -213,12 +230,18 @@ def create_timing(namespace, deployment, use_time=4):
     )
     PeriodicTask.objects.create(
         interval=schedule,
-        name='create timing delete pod task',
+        name='[create_timing_delete_task]' + deployment,  # 任务数据库的主键, 不能重复
         task='selectos.tasks.timing_del_pod',
         args=(json.dumps([namespace, deployment])),
         # kwargs=json.dumps({'be_careful': True,}),
-        expires=datetime.utcnow() + timedelta(minutes=int(use_time) * 60 + 30)  # 过期时间,存在时区bug,只能使用utc时间
+        expires=datetime.utcnow() + timedelta(minutes=(int(use_time) * 60 + 5)),  # 过期时间,时区bug使用utc时间,目前好像不需要
+        # queue='timing_queue',  # 后面三个不用指定,依赖于设置中的路由即可,指定则任务无效
+        # exchange='timing_queue',
+        # routing_key='timing_router'
     )
-    # periodic_task表, enabled属性 = False暂时关闭这个任务
+    event_log.delay('Admin', 0, 11, '[创建]针对用户 [{}] 的容器 [{}] 的删除计划'.format(namespace, deployment),
+                    '成功创建删除计划', '成功创建删除计划', '成功')
+    # periodic_task表, enabled属性 = False暂时关闭这个任务, 无save方法,只有update update_or_create方法
+    #     # 测试enabled属性未知bug根本无效, 代码中应立即删除
     # IntervalSchedule.DAYS HOURS MINUTES SECONDS MICROSECONDS
 

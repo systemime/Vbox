@@ -31,14 +31,14 @@ def web_ssh(request):
     state, data = kub.get_deployment_pod(label)  # 执行状态 / 信息
     if not state:
         event_log.delay(request.session.get('nickname', None), 1, 12,
-                        '[{}] 试图与label为 {} 的pod建立ssh连接失败'.format(request.session.get('nickname', None), label),
+                        '[{}] 试图与label为 [{}] 的pod建立ssh连接失败'.format(request.session.get('nickname', None), label),
                         request.META.get('REMOTE_ADDR', None), request.META.get('HTTP_USER_AGENT', None),
                         'kubernetes查询pod信息失败' + str(data))
         return JsonResponse({"status": "发生错误", "error": data}, safe=False)
     else:
         pod_name = data.items[0].metadata.name  # data.items包含了所有的pod信息，为一个list列表
         event_log.delay(request.session.get('nickname', None), 1, 12,
-                        '[{}] 与 {} 建立ssh连接成功'.format(request.session.get('nickname', None), pod_name),
+                        '[{}] 与 [{}] 建立ssh连接成功'.format(request.session.get('nickname', None), pod_name),
                         request.META.get('REMOTE_ADDR', None), request.META.get('HTTP_USER_AGENT', None),
                         '' + str(data))
         return render(request, 'webssh/ssh.html', {"name": pod_name, "namespace": namespace})

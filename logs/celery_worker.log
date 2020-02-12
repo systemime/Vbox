@@ -1,43 +1,63 @@
 nohup: ignoring input
-[2020-02-11 21:54:29,721: INFO/MainProcess] Connected to amqp://guest:**@127.0.0.1:5672//
-[2020-02-11 21:54:30,737: INFO/MainProcess] mingle: searching for neighbors
-[2020-02-11 21:54:32,771: INFO/MainProcess] mingle: all alone
-[2020-02-11 21:54:32,798: WARNING/MainProcess] /home/soul/tools/my_env/Vbox/lib/python3.6/site-packages/celery/fixups/django.py:203: UserWarning: Using settings.DEBUG leads to a memory
+[2020-02-12 21:40:31,519: INFO/MainProcess] Connected to amqp://guest:**@127.0.0.1:5672//
+[2020-02-12 21:40:32,535: INFO/MainProcess] mingle: searching for neighbors
+[2020-02-12 21:40:34,569: INFO/MainProcess] mingle: all alone
+[2020-02-12 21:40:34,591: WARNING/MainProcess] /home/soul/tools/my_env/Vbox/lib/python3.6/site-packages/celery/fixups/django.py:203: UserWarning: Using settings.DEBUG leads to a memory
             leak, never use this setting in production environments!
   leak, never use this setting in production environments!''')
-[2020-02-11 21:54:32,798: INFO/MainProcess] celery@master ready.
-[2020-02-11 21:54:33,795: INFO/MainProcess] pidbox: Connected to amqp://guest:**@127.0.0.1:5672//.
-[2020-02-11 21:55:00,333: INFO/MainProcess] Received task: tools.logs.event_log[695779c3-618a-4b0d-8b42-11aa2ae03561]  
-[2020-02-11 21:55:00,343: INFO/MainProcess] Task tools.logs.event_log[695779c3-618a-4b0d-8b42-11aa2ae03561] succeeded in 0.008304586983285844s: None
-[2020-02-11 21:55:00,490: INFO/MainProcess] Received task: tools.logs.event_log[916caa66-b3f7-44a1-abcd-f4798369b279]  
-[2020-02-11 21:55:00,501: INFO/MainProcess] Task tools.logs.event_log[916caa66-b3f7-44a1-abcd-f4798369b279] succeeded in 0.00911678303964436s: None
-[2020-02-11 21:55:02,499: INFO/MainProcess] Received task: tools.logs.event_log[cfc0c50b-b3a1-41a9-90ff-50aa2ded89df]  
-[2020-02-11 21:55:02,504: INFO/MainProcess] Task tools.logs.event_log[cfc0c50b-b3a1-41a9-90ff-50aa2ded89df] succeeded in 0.004177447990514338s: None
-[2020-02-11 21:58:30,527: INFO/MainProcess] Received task: tools.logs.event_log[07c155d5-6e91-4df3-bd66-f47074fb7e24]  
-[2020-02-11 21:58:30,534: INFO/MainProcess] Task tools.logs.event_log[07c155d5-6e91-4df3-bd66-f47074fb7e24] succeeded in 0.005738095031119883s: None
-[2020-02-11 21:58:30,649: INFO/MainProcess] Received task: tools.logs.event_log[90064a85-9431-4c85-b5db-169d7f95f5f1]  
-[2020-02-11 21:58:30,657: INFO/MainProcess] Task tools.logs.event_log[90064a85-9431-4c85-b5db-169d7f95f5f1] succeeded in 0.007219086983241141s: None
-[2020-02-11 21:58:32,211: INFO/MainProcess] Received task: tools.logs.event_log[5345f19e-4b69-4299-90b3-c53bd4ea6d67]  
-[2020-02-11 21:58:32,217: INFO/MainProcess] Task tools.logs.event_log[5345f19e-4b69-4299-90b3-c53bd4ea6d67] succeeded in 0.005172222037799656s: None
-[2020-02-11 22:01:26,891: INFO/MainProcess] Received task: tools.logs.event_log[c46cb748-67ff-4e21-9864-945be27644ec]  
-[2020-02-11 22:01:26,898: INFO/MainProcess] Task tools.logs.event_log[c46cb748-67ff-4e21-9864-945be27644ec] succeeded in 0.005560081917792559s: None
-[2020-02-11 22:12:00,862: INFO/MainProcess] Received task: tools.logs.event_log[c741c6d4-d6e5-4798-a6f6-cc888d2c93ca]  
-[2020-02-11 22:12:00,871: INFO/MainProcess] Task tools.logs.event_log[c741c6d4-d6e5-4798-a6f6-cc888d2c93ca] succeeded in 0.007702433038502932s: None
-[2020-02-11 22:13:30,028: INFO/MainProcess] Received task: tools.logs.event_log[7034d4cc-a539-4711-872c-8b4f651be965]  
-[2020-02-11 22:13:30,034: INFO/MainProcess] Task tools.logs.event_log[7034d4cc-a539-4711-872c-8b4f651be965] succeeded in 0.005272084032185376s: None
-[2020-02-11 22:13:32,262: INFO/MainProcess] Received task: tools.logs.event_log[020100eb-9c16-4c11-a717-72c69e166ce0]  
-[2020-02-11 22:13:32,269: INFO/MainProcess] Task tools.logs.event_log[020100eb-9c16-4c11-a717-72c69e166ce0] succeeded in 0.005682489951141179s: None
-[2020-02-11 22:13:40,728: INFO/MainProcess] Received task: tools.logs.event_log[9b048da6-709a-49da-b6f9-bef6ff51f74a]  
-[2020-02-11 22:13:40,740: INFO/MainProcess] Task tools.logs.event_log[9b048da6-709a-49da-b6f9-bef6ff51f74a] succeeded in 0.00963657395914197s: None
-[2020-02-11 22:13:43,362: INFO/MainProcess] Received task: tools.logs.event_log[eb66079f-969d-490e-a663-0e18a7fb2c89]  
-[2020-02-11 22:13:43,374: INFO/MainProcess] Task tools.logs.event_log[eb66079f-969d-490e-a663-0e18a7fb2c89] succeeded in 0.010976362973451614s: None
-[2020-02-11 22:13:44,965: INFO/MainProcess] Received task: tools.logs.event_log[0c991a3a-dc9f-44c4-98fd-952f514ace80]  
-[2020-02-11 22:13:44,974: INFO/MainProcess] Task tools.logs.event_log[0c991a3a-dc9f-44c4-98fd-952f514ace80] succeeded in 0.008348124916665256s: None
-[2020-02-11 22:58:31,517: INFO/MainProcess] Received task: selectos.tasks.timing_del_pod[86ec5d59-9ba7-4c94-a233-c77835f51078]   expires:[2020-02-11 23:28:30.484943+08:00]
-[2020-02-11 22:58:31,561: INFO/MainProcess] Received task: tools.logs.event_log[829a14d6-b577-4caa-8bd0-2c663295278f]  
-[2020-02-11 22:58:31,577: INFO/MainProcess] Task tools.logs.event_log[829a14d6-b577-4caa-8bd0-2c663295278f] succeeded in 0.011980419978499413s: None
-[2020-02-11 22:58:31,586: INFO/MainProcess] Received task: tools.logs.event_log[42386f3f-7f22-4e49-9dd5-5abe511741ec]  
-[2020-02-11 22:58:31,590: INFO/MainProcess] Task selectos.tasks.timing_del_pod[86ec5d59-9ba7-4c94-a233-c77835f51078] succeeded in 0.07061633199919015s: None
-[2020-02-11 22:58:31,595: INFO/MainProcess] Task tools.logs.event_log[42386f3f-7f22-4e49-9dd5-5abe511741ec] succeeded in 0.007001791032962501s: None
-[2020-02-11 23:17:51,592: INFO/MainProcess] Received task: tools.logs.event_log[ee3bb62d-0f79-41c2-8e6c-71f1006fb813]  
-[2020-02-11 23:17:51,599: INFO/MainProcess] Task tools.logs.event_log[ee3bb62d-0f79-41c2-8e6c-71f1006fb813] succeeded in 0.006368425092659891s: None
+[2020-02-12 21:40:34,591: INFO/MainProcess] celery@master ready.
+[2020-02-12 21:40:34,596: INFO/MainProcess] pidbox: Connected to amqp://guest:**@127.0.0.1:5672//.
+[2020-02-12 21:41:03,186: INFO/MainProcess] Received task: tools.logs.event_log[d9881aff-d275-4d0c-ab74-36fbb6b38f53]  
+[2020-02-12 21:41:03,198: INFO/MainProcess] Task tools.logs.event_log[d9881aff-d275-4d0c-ab74-36fbb6b38f53] succeeded in 0.007865138002671301s: None
+[2020-02-12 21:41:03,311: INFO/MainProcess] Received task: tools.logs.event_log[5ea66f2c-0711-4a20-b1f5-d1138e4cdb6c]  
+[2020-02-12 21:41:03,319: INFO/MainProcess] Task tools.logs.event_log[5ea66f2c-0711-4a20-b1f5-d1138e4cdb6c] succeeded in 0.007205629954114556s: None
+[2020-02-12 21:41:03,331: INFO/MainProcess] Received task: tools.logs.event_log[898daf87-6390-48e5-a54c-d5731379c01f]  
+[2020-02-12 21:41:03,340: INFO/MainProcess] Task tools.logs.event_log[898daf87-6390-48e5-a54c-d5731379c01f] succeeded in 0.007206618902273476s: None
+[2020-02-12 21:41:04,917: INFO/MainProcess] Received task: tools.logs.event_log[c1681f82-7b14-4eee-88e6-1798b2bea04f]  
+[2020-02-12 21:41:04,931: INFO/MainProcess] Task tools.logs.event_log[c1681f82-7b14-4eee-88e6-1798b2bea04f] succeeded in 0.013613624032586813s: None
+[2020-02-12 22:02:12,494: INFO/MainProcess] Received task: tools.logs.event_log[7fcae5e8-dba0-406b-b088-33d630ca0521]  
+[2020-02-12 22:02:12,503: INFO/MainProcess] Task tools.logs.event_log[7fcae5e8-dba0-406b-b088-33d630ca0521] succeeded in 0.007732404978014529s: None
+[2020-02-12 22:41:03,341: INFO/MainProcess] Received task: selectos.tasks.timing_del_pod[6981f2d0-adb1-402e-8972-4d8ff7ff4cb9]   expires:[2020-02-12 22:46:03.139636+08:00]
+[2020-02-12 22:41:03,395: INFO/MainProcess] Received task: tools.logs.event_log[88028cf1-406c-4047-8501-d0f6669738e1]  
+[2020-02-12 22:41:03,407: INFO/MainProcess] Task tools.logs.event_log[88028cf1-406c-4047-8501-d0f6669738e1] succeeded in 0.011127058998681605s: None
+[2020-02-12 22:41:03,417: INFO/MainProcess] Received task: tools.logs.event_log[ae0970c3-f19b-4ac6-8c8c-8e4ccb9e85af]  
+[2020-02-12 22:41:03,433: INFO/MainProcess] Task tools.logs.event_log[ae0970c3-f19b-4ac6-8c8c-8e4ccb9e85af] succeeded in 0.013776883017271757s: None
+[2020-02-12 22:41:03,445: INFO/MainProcess] Received task: tools.logs.event_log[37ac44ac-f66c-4a97-95f6-c66ebc5b2546]  
+[2020-02-12 22:41:03,449: INFO/MainProcess] Task selectos.tasks.timing_del_pod[6981f2d0-adb1-402e-8972-4d8ff7ff4cb9] succeeded in 0.10565062297973782s: None
+[2020-02-12 22:41:03,454: INFO/MainProcess] Task tools.logs.event_log[37ac44ac-f66c-4a97-95f6-c66ebc5b2546] succeeded in 0.008489212952554226s: None
+[2020-02-12 23:05:03,890: INFO/MainProcess] Received task: tools.logs.event_log[0bb99ee4-a14e-4340-ad6e-8adcc23207d6]  
+[2020-02-12 23:05:03,901: INFO/MainProcess] Task tools.logs.event_log[0bb99ee4-a14e-4340-ad6e-8adcc23207d6] succeeded in 0.01005010202061385s: None
+[2020-02-12 23:05:08,624: INFO/MainProcess] Received task: tools.logs.event_log[d2a2e736-f9ce-420f-99cb-8c44992ec376]  
+[2020-02-12 23:05:08,634: INFO/MainProcess] Task tools.logs.event_log[d2a2e736-f9ce-420f-99cb-8c44992ec376] succeeded in 0.00901059596799314s: None
+[2020-02-12 23:05:20,087: INFO/MainProcess] Received task: tools.logs.event_log[51e82ebd-5f39-4653-b5d8-9642739f57b7]  
+[2020-02-12 23:05:20,099: INFO/MainProcess] Task tools.logs.event_log[51e82ebd-5f39-4653-b5d8-9642739f57b7] succeeded in 0.011004455969668925s: None
+[2020-02-12 23:05:23,677: INFO/MainProcess] Received task: tools.logs.event_log[7c70900c-a6a2-4b88-b36c-c2b98a1af2fe]  
+[2020-02-12 23:05:23,686: INFO/MainProcess] Task tools.logs.event_log[7c70900c-a6a2-4b88-b36c-c2b98a1af2fe] succeeded in 0.00836549000814557s: None
+[2020-02-12 23:05:56,936: INFO/MainProcess] Received task: tools.logs.event_log[3428214e-587d-44cc-8d28-458a00d26fe5]  
+[2020-02-12 23:05:56,947: INFO/MainProcess] Task tools.logs.event_log[3428214e-587d-44cc-8d28-458a00d26fe5] succeeded in 0.008730337955057621s: None
+[2020-02-12 23:08:47,702: INFO/MainProcess] Received task: tools.logs.event_log[1527b35d-213e-405f-a242-6bb58fb89bc8]  
+[2020-02-12 23:08:47,709: INFO/MainProcess] Task tools.logs.event_log[1527b35d-213e-405f-a242-6bb58fb89bc8] succeeded in 0.005327407969161868s: None
+[2020-02-12 23:08:47,747: INFO/MainProcess] Received task: tools.logs.event_log[ba1fd66c-50c7-4691-8a09-18d1ce0dfd66]  
+[2020-02-12 23:08:47,753: INFO/MainProcess] Task tools.logs.event_log[ba1fd66c-50c7-4691-8a09-18d1ce0dfd66] succeeded in 0.0048000330571085215s: None
+[2020-02-12 23:08:49,436: INFO/MainProcess] Received task: tools.logs.event_log[3e9dde87-5d29-4e03-a066-beaa3dfde257]  
+[2020-02-12 23:08:49,443: INFO/MainProcess] Task tools.logs.event_log[3e9dde87-5d29-4e03-a066-beaa3dfde257] succeeded in 0.005825030035339296s: None
+[2020-02-12 23:11:54,865: INFO/MainProcess] Received task: tools.logs.event_log[3ac34bd3-c59e-4265-af9b-426d507ac5ae]  
+[2020-02-12 23:11:54,873: INFO/MainProcess] Received task: tools.logs.event_log[6245a4af-d4e4-4f24-93e0-9ac7d28e186f]  
+[2020-02-12 23:11:54,882: INFO/MainProcess] Received task: tools.logs.event_log[f031df82-43cf-4212-ab7e-c0cea28c9446]  
+[2020-02-12 23:11:54,890: INFO/MainProcess] Task tools.logs.event_log[3ac34bd3-c59e-4265-af9b-426d507ac5ae] succeeded in 0.023619115934707224s: None
+[2020-02-12 23:11:54,892: INFO/MainProcess] Task tools.logs.event_log[f031df82-43cf-4212-ab7e-c0cea28c9446] succeeded in 0.006699061021208763s: None
+[2020-02-12 23:11:54,893: INFO/MainProcess] Task tools.logs.event_log[6245a4af-d4e4-4f24-93e0-9ac7d28e186f] succeeded in 0.018792774993926287s: None
+[2020-02-12 23:11:56,442: INFO/MainProcess] Received task: tools.logs.event_log[308c4218-f319-47c4-9304-b211f0f5710a]  
+[2020-02-12 23:11:56,453: INFO/MainProcess] Task tools.logs.event_log[308c4218-f319-47c4-9304-b211f0f5710a] succeeded in 0.009997096960432827s: None
+[2020-02-13 02:11:56,592: INFO/MainProcess] Received task: selectos.tasks.timing_del_pod[f1fed30a-3b7d-44dd-be50-c9c258ae8b1e]   expires:[2020-02-13 02:16:54.851267+08:00]
+[2020-02-13 02:11:56,648: INFO/MainProcess] Received task: tools.logs.event_log[6e9b77c9-5621-488c-b2f1-dd207a63b8af]  
+[2020-02-13 02:11:56,670: INFO/MainProcess] Task tools.logs.event_log[6e9b77c9-5621-488c-b2f1-dd207a63b8af] succeeded in 0.015647021937184036s: None
+[2020-02-13 02:11:56,684: INFO/MainProcess] Received task: tools.logs.event_log[90f19250-b151-49f0-a279-634233c235a0]  
+[2020-02-13 02:11:56,711: INFO/MainProcess] Task tools.logs.event_log[90f19250-b151-49f0-a279-634233c235a0] succeeded in 0.025171573972329497s: None
+[2020-02-13 02:11:56,724: INFO/MainProcess] Task selectos.tasks.timing_del_pod[f1fed30a-3b7d-44dd-be50-c9c258ae8b1e] succeeded in 0.12756011507008225s: None
+[2020-02-13 02:11:56,727: INFO/MainProcess] Received task: tools.logs.event_log[5ec0fcc2-d868-4bfe-83bd-f58a355945c1]  
+[2020-02-13 02:11:56,741: INFO/MainProcess] Task tools.logs.event_log[5ec0fcc2-d868-4bfe-83bd-f58a355945c1] succeeded in 0.01166583294980228s: None
+[2020-02-13 02:17:30,891: INFO/MainProcess] Received task: tools.logs.event_log[08752184-eea7-447e-9343-3c8b091ab3ed]  
+[2020-02-13 02:17:30,900: INFO/MainProcess] Task tools.logs.event_log[08752184-eea7-447e-9343-3c8b091ab3ed] succeeded in 0.008709090063348413s: None
+[2020-02-13 02:17:38,960: INFO/MainProcess] Received task: tools.logs.event_log[1127d330-798e-4db8-b377-74f2c231be65]  
+[2020-02-13 02:17:38,970: INFO/MainProcess] Task tools.logs.event_log[1127d330-798e-4db8-b377-74f2c231be65] succeeded in 0.008943411987274885s: None

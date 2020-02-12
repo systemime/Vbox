@@ -135,12 +135,13 @@ def pod_num(request):
     :param request:
     :return: 主机数量
     """
-    key_pod_num = str(request.session.get('username', None)) + '_pod_num'
+    key_pod_num = str(request.session.get(  'username', None)) + '_pod_num'
     num = cache.get(key_pod_num)  # 不存在就是None
     if not num:
         fun_name = request.GET.get("getpodsum")
         data = {'sum': Systemos.objects.filter(namespace=request.session.get('username', None)).count()}
     else:
+        # print("缓存存在: %s" % num)
         fun_name = request.GET.get("getpodsum")
         data = {'sum': num}
     return HttpResponse("%s('%s')" % (fun_name, json.dumps(data)))

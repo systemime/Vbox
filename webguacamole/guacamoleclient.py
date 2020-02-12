@@ -75,7 +75,7 @@ class Client:
                 time.sleep(0.0001)  # 链接需要时间，暂缓一下
                 # 可以使用select来控制变成非阻塞,这里必须等待
                 # 没有数据到来时会阻塞，获取这部分数据
-                data = self.guacamoleclient.receive()
+                data = self.guacamoleclient.receive()  # 此位置该模块本身存在bug,与程序无关
                 if not data:
                     return
                 if self.websocker.send_flag == 0:  # 普通用户登录
