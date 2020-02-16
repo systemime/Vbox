@@ -28,7 +28,7 @@ class Client:
 
     def connect(self, protocol, hostname, port, username, password, width, height, dpi):
         try:
-            # 获取服务端信息建立连接，超时时间20
+            # 获取服务端信息建立连接，超时时间30
             self.guacamoleclient = GuacamoleClient(
                 settings.GUACD.get('host'),
                 settings.GUACD.get('port'),
@@ -57,8 +57,6 @@ class Client:
                     height=height,
                     dpi=dpi,
                 )
-            # 创建连接线程, target默认为空，是要由run()方法调用的可调用对象
-            # 功能：无连接信息默认空值，连接信息开始时记录连接信息
             Thread(target=self.websocket_to_django).start()
         except Exception:
             self.websocker.close(3001)
@@ -72,7 +70,7 @@ class Client:
     def websocket_to_django(self):
         try:
             while True:
-                time.sleep(0.0001)  # 链接需要时间，暂缓一下
+                # time.sleep(0.0001)  # 链接需要时间，暂缓一下
                 # 可以使用select来控制变成非阻塞,这里必须等待
                 # 没有数据到来时会阻塞，获取这部分数据
                 data = self.guacamoleclient.receive()  # 此位置该模块本身存在bug,与程序无关

@@ -141,8 +141,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'Vbox',
         'USER': 'root',
-        'PASSWORD': '123456',
-        'HOST': '192.168.221.133',
+        'PASSWORD': 'Admin@2488.m',
+        'HOST': '192.168.221.139',
         'PORT': '3306',
     }
 }
@@ -243,6 +243,17 @@ CHANNEL_LAYERS = {
         },
     },
 }
+
+# web guacamole
+GUACD = {
+    'host': '172.17.0.2',
+    'port': 4822,
+    'timeout': 30,
+}
+
+# kubernetes_api_server
+APISERVER = 'https://192.168.221.139:6443'
+TOKEN = 'eyJhbGciOiJSUzI1NiIsImtpZCI6IiJ9.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJrdWJlLXN5c3RlbSIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VjcmV0Lm5hbWUiOiJhZG1pbi11c2VyLXRva2VuLW04cHdkIiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZXJ2aWNlLWFjY291bnQubmFtZSI6ImFkbWluLXVzZXIiLCJrdWJlcm5ldGVzLmlvL3NlcnZpY2VhY2NvdW50L3NlcnZpY2UtYWNjb3VudC51aWQiOiIzMjFkYmZkMy00MDlkLTQ2MzUtYTNkYy03NzM2NmJmYzJjNDQiLCJzdWIiOiJzeXN0ZW06c2VydmljZWFjY291bnQ6a3ViZS1zeXN0ZW06YWRtaW4tdXNlciJ9.YtnTtlSHL9rqrlrydBXpNQFpbfHDmJDUDDcsJCoF0E_SNYWm9y_d2Q5J6lEy6DpCzGmi_QGK0mKZJ489PpqEDGjx0ADDCHRJh93ywu6JXYTO65js_3p_jEsRoDQU3fzcBCkbeQQCEZaWhZCk1R3AUOJtDeV3dHwbn_z8nHiPtUMB421GXD3YALtT5LcfwF6ENhKof5wLRKooyJ2xV5MlRczh-ALweT7bA1x108-Mj7jHh40-1d0E-kiH75FirKMZNBWVYcDG9e5Y3HMrazQNmdyn9ytFsFfMSHDJNk2h6lH7sfj8O-PBY07uMKBNCXtdRJK-2VAhzl2y49qKfacPkQ'
 
 # Celery application definition 异步任务设置
 # BROKER_URL = 'redis://localhost:6379/0'  # 中间件选择
@@ -394,9 +405,3 @@ AUTH_USER_MODEL = 'users.UserProfile'
 RATELIMIT_LOGIN = '600/30s'
 RATELIMIT_NOLOGIN = '20/30s'
 
-# webguacamole
-GUACD = {
-    'host': '172.17.0.2',
-    'port': 4822,
-    'timeout': 30,
-}

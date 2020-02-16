@@ -3,6 +3,7 @@ from kubernetes.stream import stream
 from kubernetes.client.rest import ApiException
 import json
 from threading import Thread
+from django.conf import settings
 
 
 class KubeApi:
@@ -15,10 +16,15 @@ class KubeApi:
     """
     def __init__(self, namespace='default'):
         """
-        初始化api，获取当前/将创建namespace，并建立连接
+        初始化api，获取目标namespace，并建立连接
         :param namespace:
         """
-        config.load_kube_config("/home/soul/tools/kubeconfig.yaml")  # path need confirmation
+        # config.load_kube_config("/home/soul/tools/kubeconfig.yaml")  # path need confirmation
+        configuration = client.Configuration()
+        configuration.host = settings.APISERVER
+        configuration.verify_ssl = False  # 不验证加密
+        configuration.api_key = {"authorization": "Bearer " + settings.TOKEN}
+        client.Configuration.set_default(configuration)
         self.namespace = namespace
 
     def create_user_namespace(self):

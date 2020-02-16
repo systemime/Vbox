@@ -52,10 +52,10 @@ app.conf.update(
 # cd /home/soul/Desktop/Vbox
 # pip install eventlet  # 引入协程
 # nohup celery -A Vbox worker -l info -P eventlet > logs/celery.log 2>&1 &
-# 不引用协程
-# nohup celery -A Vbox worker -l info > logs/celery.log 2>&1 &
+    # 不引用协程
+    # nohup celery -A Vbox worker -l info > logs/celery.log 2>&1 &
 # 定时
-# celery -A Vbox beat -l info
+# nohup celery -A Vbox beat -l info > logs/celery_beat.log 2>&1 &
 # 合并
 # celery -A Vbox worker -b -l info
 
