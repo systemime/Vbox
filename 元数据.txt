@@ -1,0 +1,68 @@
+[
+{'url': '/file/file_upload/'}, 
+{'url': '/file/file_list/'}, 
+{'url': '/selectos/select/'}, 
+{'url': '/selectos/delete_user_deployment/'}, 
+{'url': '/webguacamole/terminal/<int:pod_id>'}, 
+{'url': '/webssh/webterminal/'}, 
+{'url': '/file/file_upload/'}, 
+{'url': '/file/file_list/'}, 
+{'url': '/selectos/select/'}, 
+{'url': '/selectos/delete_user_deployment/'}, 
+{'url': '/webguacamole/terminal/<int:pod_id>'}, 
+{'url': '/webssh/webterminal/'}, 
+{'url': '/file/file_upload/'}, 
+{'url': '/file/file_list/'}, 
+{'url': '/selectos/select/'}, 
+{'url': '/selectos/delete_user_deployment/'}, 
+{'url': '/webguacamole/terminal/<int:pod_id>'}, 
+{'url': '/webssh/webterminal/'}
+]
+
+{4: 
+	{
+		'title': '文件上传', 
+		'children': [
+			{'title': '文件操作', 
+			'url': '/file/file_upload/'
+			}, 
+			{'title': '文件操作', 
+			'url': '/file/file_upload/'
+			}, 
+			{'title': '文件操作', 
+			'url': '/file/file_list/'}
+		]
+	}
+}
+
+<QuerySet [
+{
+	'permissions__url': '/file/file_upload/', 
+	'permissions__title': '文件上传', 
+	'permissions__menu__title': '文件操作', '
+	permissions__menu_id': 4
+}, 
+{
+	'permissions__url': '/file/file_list/', 
+	'permissions__title': '文件列表', 
+	'permissions__menu__title': '文件操作', 
+	'permissions__menu_id': 4
+}, 
+{
+	'permissions__url': '/selectos/select/', 
+	'permissions__title': '创建容器', 
+	'permissions__menu__title': None, 
+	'permissions__menu_id': None}, 
+{
+	'permissions__url': '/selectos/delete_user_deployment/', 
+	'permissions__title': '删除容器', 
+	'permissions__menu__title': None, 
+	'permissions__menu_id': None
+}, 
+{
+	'permissions__url': '/webguacamole/terminal/<int:pod_id>', 
+	'permissions__title': 'webvnc连接', 
+	'permissions__menu__title': None, 
+	'permissions__menu_id': None
+}, 
+{'permissions__url': '/webssh/webterminal/', 'permissions__title': 'webssh连接', 'permissions__menu__title': None, 'permissions__menu_id': None}]>

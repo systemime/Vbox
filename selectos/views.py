@@ -30,6 +30,7 @@ def delete_this_namespace(name):
 
 
 @method_decorator(login_required, name='dispatch')  # dispatch代表全部方法
+# name实际上等于在这类中继承了View的dispatch方法
 class Selectos(View):
 
     # @method_decorator(cache_page(5))  # 对单个方法加装饰器
@@ -135,7 +136,7 @@ def pod_num(request):
     :param request:
     :return: 主机数量
     """
-    key_pod_num = str(request.session.get(  'username', None)) + '_pod_num'
+    key_pod_num = str(request.session.get('username', None)) + '_pod_num'
     num = cache.get(key_pod_num)  # 不存在就是None
     if not num:
         fun_name = request.GET.get("getpodsum")

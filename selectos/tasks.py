@@ -181,6 +181,9 @@ def regular_kill():
 
 @app.task
 def timing_del_pod(namespace, deployment):
+    """
+    动态主机计时删除计划
+    """
     task = KubeApi(namespace)
     key_pod_num = namespace + '_pod_num'
     try:

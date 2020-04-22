@@ -9,6 +9,8 @@ from django.shortcuts import redirect
 import platform  # platform.system().lower() in ['linux', 'unix']
 import os
 from Vbox import celery_app
+from users import models
+from django.core.cache import cache  # 操作缓存 clear() 清空所有缓存
 
 
 # 用户密码加密
@@ -82,4 +84,10 @@ def res(res_file, res, enter=True):
             for line in res:
                 f.write('{}'.format(line))
 
+
+def user_cache():
+    '''获取所有用户名缓存'''
+    users = models.UserProfile.objects.values('username')
+    # [{'name': 'xxx'}, {'name': 'xxx'}, {'name': 'xxx'}]
+    cache.set('users_name', users)
 

@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # rest framework
+    'rest_framework',
     # 跨域app注册
     'corsheaders',
     # django-allauth必须安装的app
@@ -60,11 +62,12 @@ INSTALLED_APPS = [
     'djcelery',  # 为了在django admin里面可一直接配置和查看celery,同时使用默认数据库存储任务结果
     'django_celery_beat',  # 动态定时任务
     # 自定义app
-    'users',
+    'users',  # users.apps.usersConfig
     'selectos',
     'file',
     'webssh',
     'webguacamole',
+    'rbac.apps.RbacConfig',
 ]
 
 # 配置表单插件使用的样式
@@ -75,6 +78,8 @@ MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     # 跨域
     'corsheaders.middleware.CorsMiddleware',
+    # 权限、登录验证
+    'tools.permission_middleware.PermissionAuth',
 
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -147,26 +152,6 @@ DATABASES = {
     }
 }
 
-# MemcachedCache 缓存替换原则是LRU算法（速度快，安全性低，数据格式必须简单，弃用换redis）
-CACHES = {
-    'default': {
-        # 指定缓存使用的引擎
-        'BACKEND': 'django_redis.cache.RedisCache',
-        'LOCATION': 'redis://127.0.0.1:6379/3',  # 1，2数据库存放channel缓存，分片行为
-        "OPTIONS": {
-            "CLIENT_CLASS": "django_redis.client.DefaultClient",
-            "COMPRESSOR": "django_redis.compressors.zlib.ZlibCompressor",  # 激活数据压缩
-            "IGNORE_EXCEPTIONS": True,  # 防止redis意外关闭造成异常，memcached backend 的默认行为
-            # "PASSWORD": "密码",
-        }
-    }
-}
-
-redis_setting = {
-    'host': '127.0.0.1',
-    'port': 6379,
-}
-
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
 
@@ -222,13 +207,38 @@ PASSWD_TOKEN = '__66711__Ops__devops'
 SESSION_ENGINE = 'django.contrib.sessions.backends.cached_db'
 # SESSION_ENGINE = "django.contrib.sessions.backends.cache"  # 官方
 SESSION_CACHE_ALIAS = "default"
-# session 如果在此期间未做任何操作，则退出， django 本身要么设置固定时间，要么关闭浏览器失效
+# session 过期时间， django 本身要么设置固定时间，要么关闭浏览器失效
 SESSION_COOKIE_AGE = 60 * 240  # 4小时
-SESSION_SAVE_EVERY_REQUEST = True  # 上下两种方式的依赖项，SESSION_EXPIRE_AT_BROWSER_CLOSE优先级高
+SESSION_SAVE_EVERY_REQUEST = True  # 是否每次请求都保存session，默认修改后才保存 即，false到期实际马上失效，true每次请求重新计时
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True  # 关闭浏览器，则COOKIE失效
+SESSION_COOKIE_NAME = "vboxsuper"  # 浏览器中session字符串key标识
+# SESSION_COOKIE_DOMAIN = None  # session的cookie保存的域名(在哪个域名下可用,None 子域名)
+# SESSION_COOKIE_PATH = "/"  # 默认所有页面都能使用session
+# SESSION_COOKIE_SECURE = False  # 是否https传输cookie
+# SESSION_COOKIE_HTTPONLY = True  # 是否session的cookie只支持http传输
 
 # 终端过期时间，最好小于等于 CUSTOM_SESSION_EXIPRY_TIME
 CUSTOM_TERMINAL_EXIPRY_TIME = 60 * 120
+
+# MemcachedCache 缓存替换原则是LRU算法（速度快，安全性低，数据格式必须简单，弃用换redis）
+CACHES = {
+    'default': {
+        # 指定缓存使用的引擎
+        'BACKEND': 'django_redis.cache.RedisCache',
+        'LOCATION': 'redis://127.0.0.1:6379/3',  # 1，2数据库存放channel缓存，分片行为
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+            "COMPRESSOR": "django_redis.compressors.zlib.ZlibCompressor",  # 激活数据压缩
+            "IGNORE_EXCEPTIONS": True,  # 防止redis意外关闭造成异常，memcached backend 的默认行为
+            # "PASSWORD": "密码",
+        }
+    }
+}
+
+redis_setting = {
+    'host': '127.0.0.1',
+    'port': 6379,
+}
 
 # websocket channels设置
 # 指定ASGI的路由地址， channels运行于ASGI协议上一种异步服务网关接口协议
@@ -405,3 +415,7 @@ AUTH_USER_MODEL = 'users.UserProfile'
 RATELIMIT_LOGIN = '600/30s'
 RATELIMIT_NOLOGIN = '20/30s'
 
+# session中保留权限key
+PERMISSION_SESSION_KEY = 'permissions'
+# 保留菜单信息key
+PERMISSION_MENU_KEY = 'menus'

@@ -1,5 +1,6 @@
 from kubernetes import client, config
 from kubernetes.stream import stream
+from kubernetes.client import ApiClient
 from kubernetes.client.rest import ApiException
 import json
 from threading import Thread
@@ -298,6 +299,20 @@ class KubeApi:
             return True, r
         except Exception as err:
             return False, 'Get Deployment: %s' % err
+
+    def get_target_monitor_dict(self, target):
+        """
+        :param target: nodes pods
+        """
+        api_client = ApiClient()
+        try:
+            ret_metrics = api_client.call_api('/apis/metrics.k8s.io/v1beta1/' + target,
+                                              'GET', auth_settings=['BearerToken'],
+                                              response_type='json', _preload_content=False)
+            response = ret_metrics[0].data.decode('utf-8')
+            return True, response
+        except Exception as err:
+            return False, str(err)
 
     def test_pods_connect(self, podname, namespace, command, container=None):
         """

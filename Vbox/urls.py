@@ -20,6 +20,7 @@ from users import urls as users_url
 from selectos import urls as selectos_url
 from webssh import urls as ssh_url
 from file import urls as file_url
+from component import urls as comp_url
 
 from django.conf import settings
 from django.views.static import serve
@@ -33,5 +34,7 @@ urlpatterns = [
     path('file/', include(file_url)),
     path('webssh/', include(ssh_url)),
     path('webguacamole/', include('webguacamole.urls', namespace='webguacamole')),
+    path('component/', include(comp_url)),
     url(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
+    # url(r'^api-auth/', include('rest_framework.urls'))
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
