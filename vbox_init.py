@@ -3,7 +3,7 @@ from tools import tool
 
 
 cache.clear()  # 清除残余缓存
-tool.user_cache()  # 获取所有用户username
+tool.user_cache()  # 获取所有用户username, 资源配合缓存
 
 # 认证tokne
 # APISERVER=$(kubectl config view --minify | grep server | cut -f 2- -d ":" | tr -d " ")

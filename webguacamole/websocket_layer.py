@@ -1,18 +1,16 @@
 from channels.generic.websocket import WebsocketConsumer
-
-# from server.models import RemoteUserBindHost  # 导入主机类
-from selectos.models import Systemos
-# from webssh.models import TerminalSession  # 会话记录表，这是记录在线终端的
-
+from django.http.request import QueryDict
 import django.utils.timezone as timezone
 
 # 同步代码中使用channel layer的方法（包括send()、group_send()，group_add()等异步方法），都需要使用await，即使用装饰器asgiref.sync.async_to_sync
 from asgiref.sync import async_to_sync
 import platform
-from guacamole.client import GuacamoleClient
-from .guacamoleclient import Client
 
-from django.http.request import QueryDict
+# from server.models import RemoteUserBindHost  # 导入主机类
+from selectos.models import Systemos
+# from webssh.models import TerminalSession  # 会话记录表，这是记录在线终端的
+
+from .guacamoleclient import Client
 # from webssh.tasks import celery_save_res_asciinema, celery_save_terminal_log  # 创建操作文件，写入日志表
 from tools.tool import gen_rand_char
 from tools.k8s import KubeApi

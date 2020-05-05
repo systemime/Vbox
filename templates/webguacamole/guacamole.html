@@ -106,6 +106,7 @@
     // 获取链接协如果是https协议使用wss链接，否则使用ws链接
     var protocol = (location.protocol === 'https:') ? 'wss://' : 'ws://';
     // 获取完整请求连接 ws://xxx:端口/ws/webguacamole/
+    // 同源时 ws://192.168.221.139:60013/ws/webguacamole/  期望值 ws://192.168.221.139:60015/ws/webguacamole/
     var ws_path = protocol + location.hostname + ((location.port) ? (':' + location.port) : '') + '/ws/webguacamole/';
 	
     //var guac = new Guacamole.Client(
@@ -149,7 +150,7 @@
 		};
 	};
 
-	//将内容传送到往堡垒机，data 是获取到的内容，怎么自动获取本机剪切板内容暂时未实现
+	//将内容传送到往宿主，data 是获取到的内容，怎么自动获取本机剪切板内容暂时未实现
     function setClipboard(data) {
         var stream = client.createClipboardStream("text/plain");
         var writer = new Guacamole.StringWriter(stream);

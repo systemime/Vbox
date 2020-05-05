@@ -60,7 +60,7 @@ class Login(View):
                     return render(request, 'login.html', locals())
             else:
                 error_message = '用户不存在!'
-                event_log.delay(None, 0, 3, '用户 [{}] 不存在'.format(username),
+                event_log.delay('Admin', 0, 3, '用户 [{}] 不存在'.format(username),
                                 request.META.get('REMOTE_ADDR', None), request.META.get('HTTP_USER_AGENT', None),
                                 str(request.headers))
                 return render(request, 'login.html', locals())

@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-from rbac.models import Role
+from rbac.models import Role, Menu
 import time
 
 
@@ -18,7 +18,6 @@ class UserProfile(AbstractUser):
     address = models.CharField(max_length=200, verbose_name='地址', null=True, blank=True)
     enabled = models.BooleanField(default=True, verbose_name='是否启用')
     role = models.ManyToManyField(Role, blank=True, verbose_name='用户角色')
-    # role = models.SmallIntegerField(default=1, choices=ROLE_CHOICES, verbose_name='用户级别')
     memo = models.TextField(blank=True, null=True, verbose_name="备注")
     create_time = models.DateTimeField(auto_now_add=True, verbose_name='创建时间')
     last_login_time = models.DateTimeField(blank=True, null=True, verbose_name='最后登录时间')
@@ -31,6 +30,7 @@ class UserProfile(AbstractUser):
 
     def __str__(self):
         return self.username
+
 
 class UserLog(models.Model):
     event_type_choice = (

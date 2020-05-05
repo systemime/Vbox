@@ -2,24 +2,27 @@ from django.shortcuts import render
 from django.http import HttpRequest, HttpResponse, JsonResponse
 import json
 from django.views.generic import View
-from tools.tool import get_deploy_name
 
-from Vbox import celery_app
-from .tasks import *
-
-from users.models import UserProfile
-from selectos.models import Systemos, ExceptDep
-
-from tools.tool import login_required
-# 对类视图使用装饰器需要使用这个方法
-from django.utils.decorators import method_decorator
-
-# from django.views.decorators.cache import cache_page  # 缓存装饰器
+from django.views.decorators.cache import cache_page  # 缓存装饰器
 # @cache_page(5)  # 部分数据需要实时更新，所以还是使用redis作为缓存服务器，cache方法实现缓存
 from django.core.cache import cache  # 操作缓存 clear() 清空所有缓存
 # from django.views.decorators.cache import cache_control
 # @cache_control(private=True)  # 私有缓存标识
 # @cache_control(must_revalidate=True, max_age=3600)  # 每次访问均验证缓存，最长保存3600s
+
+# 对类视图使用装饰器需要使用这个方法
+from django.utils.decorators import method_decorator
+
+from users.models import UserProfile
+from selectos.models import Systemos, ExceptDep
+
+
+from tools.tool import get_deploy_name, not_cache
+from tools.k8s import KubeApi
+
+from Vbox import celery_app
+from .tasks import *
+from tools.tool import login_required
 
 
 @celery_app.task
@@ -33,8 +36,8 @@ def delete_this_namespace(name):
 # name实际上等于在这类中继承了View的dispatch方法
 class Selectos(View):
 
-    # @method_decorator(cache_page(5))  # 对单个方法加装饰器
-    def get(self, request):  # 这里需要实时更新所以不加入缓存了，后期添加访问限制
+    @method_decorator(cache_page(5))  # 对单个方法加装饰器
+    def get(self, request):  # 后期添加访问限制
         data = {}
         data['array'] = range(1, 5)
         data['os_list'] = list(Systemos.os_list)
@@ -73,11 +76,15 @@ class Selectos(View):
         language = request.POST.get('language')
         database = request.POST.get('database')
         use_time = request.POST.get('use_time')
+        cpus = str(request.POST.get('cpus'))
 
         namespace = request.session.get('username', None)
         VERSION = 'apps/v1'
         DEPNAME, create_time = get_deploy_name()
-        IMGNAME = imgname_list[os]
+        if os in imgname_list.keys():
+            IMGNAME = imgname_list[os]
+        else:
+            return JsonResponse({"status": 403, "error": "参数信息错误，请刷新界面后重试"}, safe=False)
 
         # readUint32: unexpected character: \\ufffd, error found in #10 byte of ...|erPort\\": \\"59999\\"}],
         # 单引号，必须正整形，未知bug
@@ -87,7 +94,10 @@ class Selectos(View):
         PORTS = int(port)
 
         DIR = '/home/soul/tools/' + str(namespace)
-        CPUS = cpu_limit[str(request.POST.get('cpus'))]  # 单位不同
+        if cpus in cpu_limit.keys():
+            CPUS = cpu_limit[cpus]  # 单位不同
+        else:
+            return JsonResponse({"status": 403, "error": "参数信息错误，请刷新界面后重试"}, safe=False)
         MEMORY = str(request.POST.get('memory')) + 'Mi'
         EPH = '5Gi'
 
@@ -103,7 +113,7 @@ class Selectos(View):
         return JsonResponse({"status": 200, "error": "数据提交成功，正在生成"}, safe=False)
 
 
-@login_required
+# @login_required
 def delete_user_deployment(request):
     """
     删除主机
@@ -128,22 +138,35 @@ def delete_user_deployment(request):
     return JsonResponse({"status": 200, "error": "删除请求已提交"}, safe=False)
 
 
-@login_required
-# @cache_page(10)  # 10秒缓存
+# @login_required
+# @cache_page(5)  # 5秒缓存，与容器列表缓存时间相同
 def pod_num(request):
     """
     虚拟主机数量
     :param request:
     :return: 主机数量
     """
-    key_pod_num = str(request.session.get('username', None)) + '_pod_num'
+    key_pod_num = str(request.session.get('username', None)) + '_pod_num'  # 缓存关键字，防重复
     num = cache.get(key_pod_num)  # 不存在就是None
+    username = request.session.get('username', None)
+    fun_name = request.GET.get("getpodsum")  # jsonp ajax提交时函数名
     if not num:
-        fun_name = request.GET.get("getpodsum")
-        data = {'sum': Systemos.objects.filter(namespace=request.session.get('username', None)).count()}
+        not_cache(key_pod_num, username)
+        data = {'sum': cache.get(key_pod_num)}  # 直接重新读取缓存
     else:
-        # print("缓存存在: %s" % num)
-        fun_name = request.GET.get("getpodsum")
+        # 缓存存在
         data = {'sum': num}
     return HttpResponse("%s('%s')" % (fun_name, json.dumps(data)))
+
+
+@celery_app.task
+def remove_all(request):
+    namespace = request.session.get('username', 'default')
+    kube = KubeApi(namespace)
+    status, data = kube.delete_deployment("")
+    print(status)
+    Systemos.objects.filter(namespace__exact=namespace).delete()
+    key_pod_num = namespace + '_pod_num'
+    cache.set(key_pod_num, 0, None)  # 当前容器数量
+    return JsonResponse({"status": 200, "error": data}, safe=False)
 

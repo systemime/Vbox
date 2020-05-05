@@ -50,3 +50,14 @@ def init_permisson(request, user):
     request.session[settings.PERMISSION_SESSION_KEY] = permission_list
     # 保存菜单信息
     request.session[settings.PERMISSION_MENU_KEY] = menu_dict
+    '''
+    # permission_list
+    [{'url': '/file/file_upload/'}, {'url': '/file/file_list/'}, {'url': '/selectos/select/'},
+     {'url': '/selectos/delete_user_deployment/'}, {'url': '/webguacamole/terminal/<int:pod_id>'},
+     {'url': '/webssh/webterminal/'}]
+    # menu_dict
+    {4: {'title': '文件操作',
+         'children': [{'title': '文件上传', 'url': '/file/file_upload/'}, {'title': '文件列表', 'url': '/file/file_list/'}]}}
+    '''
+
+

@@ -48,7 +48,7 @@ class KubeApi:
 
     def create_namespace_limit(self):
         """
-        0 创建namespace的资源申请范围限制
+        创建namespace的资源申请范围限制
         :return:
         """
         api_instance = client.CoreV1Api()
@@ -108,7 +108,7 @@ class KubeApi:
         """
         创建namespace资源限制，配合函数双重限制
         最多4个cpu， 2G内存用量，5GB硬盘用量
-        综合不超过6个cpu，6G内存
+        综合不超过4个cpu，4G内存
         :return:
         """
         api_instance = client.CoreV1Api()
@@ -143,8 +143,8 @@ class KubeApi:
         """
         k8s_api_obj = client.CoreV1Api()
         namespace = self.namespace
-        if service_name=='':
-            service_name=self.namespace
+        if service_name == '':
+            service_name = self.namespace
         body = {
             'apiVersion': 'v1',
             'kind': 'Service',
@@ -283,8 +283,7 @@ class KubeApi:
 
     def get_deployment_pod(self, RAND):
         """
-        获取该deployment下pod名称
-
+        获取该deployment下pod信息，不够详细
         :param RAND: deployment的labels
         :return: result
         """
@@ -342,6 +341,11 @@ class KubeApi:
         # print(new_resp.spec.containers[0].image)
 
     def delete_pod(self, pod_name):
+        """
+        删除单个 pod
+        :param pod_name:
+        :return:
+        """
         k8s_core_v1 = client.CoreV1Api()
         body = client.V1DeleteOptions(
             propagation_policy='Foreground',

@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.http import JsonResponse
+from django.db.models import Sum, Count
 from functools import wraps
 import hashlib
 import time
@@ -10,6 +11,7 @@ import platform  # platform.system().lower() in ['linux', 'unix']
 import os
 from Vbox import celery_app
 from users import models
+from selectos.models import Systemos
 from django.core.cache import cache  # 操作缓存 clear() 清空所有缓存
 
 
@@ -85,9 +87,32 @@ def res(res_file, res, enter=True):
                 f.write('{}'.format(line))
 
 
+def not_cache(key_pod_num, username):
+    """
+    写入用户username的虚拟机数量缓存
+    :param key_pod_num: 缓存关键字
+    :param username: 用户名/namespace
+    """
+    num = Systemos.objects.filter(namespace=username).count()
+    num = 0 if not num else num
+    cache.set(key_pod_num, num)
+
+
 def user_cache():
-    '''获取所有用户名缓存'''
+    """
+    获取所有用户名缓存以及资源配合
+    """
+    # 用户名缓存，注册/登录使用
     users = models.UserProfile.objects.values('username')
     # [{'name': 'xxx'}, {'name': 'xxx'}, {'name': 'xxx'}]
     cache.set('users_name', users)
 
+    # 资源配额，创建/删除使用
+    quota = {}
+    for user in users:
+        if user['username'] != 'soul':
+            quota[user['username']] = Systemos.objects.filter(
+                namespace__exact=user['username']
+            ).aggregate(Sum('cpus'), Sum('ram'), Count('id'))
+    # {'systemime': {'cpus__sum': 4, 'ram__sum': 4096, 'id__count': 3},'xxx':{...}}
+    cache.set('users_quota', quota)

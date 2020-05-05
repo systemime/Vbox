@@ -4,6 +4,7 @@ from django.db.models import Q
 from tools.k8s import KubeApi
 from django.core.cache import cache
 from tools.logs import event_log
+from tools.tool import not_cache
 
 from users.models import UserProfile
 from selectos.models import Systemos, ExceptDep
@@ -124,30 +125,30 @@ def delete_deployment(request, namespace, dep_name):
                         '[{}] 删除容器 [{}] 数据成功'.format(request.session.get('nickname', None), dep_name),
                         request.META.get('REMOTE_ADDR', None), request.META.get('HTTP_USER_AGENT', None),
                         dep_name)
+        info = task.delete_deployment(dep_name)
+        if not info[0]:
+            event_log.delay(request.session.get('nickname', None), 1, 11,
+                            '[{}] 删除 [{}] 容器失败'.format(request.session.get('nickname', None), dep_name),
+                            request.META.get('REMOTE_ADDR', None), request.META.get('HTTP_USER_AGENT', None),
+                            info)
+        else:
+            event_log.delay(request.session.get('nickname', None), 1, 11,
+                            '[{}] 删除 [{}] 容器成功'.format(request.session.get('nickname', None), dep_name),
+                            request.META.get('REMOTE_ADDR', None), request.META.get('HTTP_USER_AGENT', None),
+                            info)
+            try:  # 关闭自动删除计划
+                periodic_task = PeriodicTask.objects.filter(name__contains=dep_name)  # field lookup 查询
+                periodic_task.delete()
+                event_log.delay('Admin', 0, 11, '[成功]针对用户 [{}] 容器 [{}] 的删除计划'.format(namespace, dep_name),
+                                '清除关闭计划操作成功', '清除关闭计划操作成功', str(periodic_task))
+            except Exception as err:
+                event_log.delay('Admin', 0, 11, '[失败]针对用户 [{}] 容器 [{}] 的删除计划'.format(namespace, dep_name),
+                                '清除关闭计划操作失败', '清除关闭计划操作失败', str(err))
     except Exception as err:  # 可能存在错误, 自动删除任务已执行,用户网页未刷新,执行了删除操作
         event_log.delay(request.session.get('nickname', None), 1, 11,
                         '[{}] 删除容器 [{}] 数据失败'.format(request.session.get('nickname', None), dep_name),
                         request.META.get('REMOTE_ADDR', None), request.META.get('HTTP_USER_AGENT', None),
                         str(err))
-    info = task.delete_deployment(dep_name)
-    if not info[0]:
-        event_log.delay(request.session.get('nickname', None), 1, 11,
-                        '[{}] 删除 [{}] 容器失败'.format(request.session.get('nickname', None), dep_name),
-                        request.META.get('REMOTE_ADDR', None), request.META.get('HTTP_USER_AGENT', None),
-                        info)
-    else:
-        event_log.delay(request.session.get('nickname', None), 1, 11,
-                        '[{}] 删除 [{}] 容器成功'.format(request.session.get('nickname', None), dep_name),
-                        request.META.get('REMOTE_ADDR', None), request.META.get('HTTP_USER_AGENT', None),
-                        info)
-    try:  # 关闭自动删除计划
-        periodic_task = PeriodicTask.objects.filter(name__contains=dep_name)  # field lookup 查询
-        periodic_task.delete()
-        event_log.delay('Admin', 0, 11, '[成功]针对用户 [{}] 容器 [{}] 的删除计划'.format(namespace, dep_name),
-                        '清除关闭计划操作成功', '清除关闭计划操作成功', str(periodic_task))
-    except Exception as err:
-        event_log.delay('Admin', 0, 11, '[失败]针对用户 [{}] 容器 [{}] 的删除计划'.format(namespace, dep_name),
-                        '清除关闭计划操作失败', '清除关闭计划操作失败', str(err))
 
 
 @app.task
@@ -187,34 +188,36 @@ def timing_del_pod(namespace, deployment):
     task = KubeApi(namespace)
     key_pod_num = namespace + '_pod_num'
     try:
-        Systemos.objects.get(deployment=deployment).delete()
-        pod_num = UserProfile.objects.get(username=namespace)
-        pod_num.pod_num = pod_num.pod_num - 1
-        pod_num.save()
-        cache.set(key_pod_num, pod_num.pod_num, None)
+        Systemos.objects.get(deployment=deployment).delete()  # 删除数据库中数据
+        user = UserProfile.objects.get(username=namespace)  # 更新数据库中数据
+        user.pod_num = user.pod_num - 1
+        user.save()
+        not_cache(key_pod_num, namespace)  # 重设缓存
         event_log.delay('Admin', 0, 11,
                         '[Admin] 删除用户 [{}] 过期容器 [{}] 数据成功'.format(namespace, deployment),
                         '定时任务', '定时任务', '')
+
+        info = task.delete_deployment(deployment)  # 删除该deployment
+        if not info[0]:  # 检查删除状态
+            event_log.delay('Admin', 0, 11, '[Admin] 删除用户 [{}] 过期容器 [{}] 失败'.format(namespace, deployment),
+                            '定时任务', '定时任务', info)
+        else:
+            event_log.delay('Admin', 0, 11, '[Admin] 删除用户 [{}] 过期容器 [{}] 成功'.format(namespace, deployment),
+                            '定时任务', '定时任务', info)
+            try:
+                # 这里即时数据为空也会返回空列表, 该任务执行完成后, 下面的内容就是传说中的我删我自己......
+                periodic_task = PeriodicTask.objects.filter(name__contains=deployment)  # field lookup 查询
+                periodic_task.delete()
+                event_log.delay('Admin', 0, 11, '[完成]清除针对用户 [{}] 的容器 [{}] 的删除计划'.format(namespace, deployment),
+                                '删除计划执行完成', '删除计划执行完成', str(periodic_task))
+            except Exception as err:
+                event_log.delay('Admin', 0, 11, '[错误]针对用户 [{}] 的容器 [{}] 的删除计划删除失败'.format(namespace, deployment),
+                                '删除计划执行完成', '删除计划执行完成', str(err))
     except Exception as err:  # 错误类型: 数据存在错误, 容器已被删除, 定时任务没有被有效清理
         event_log.delay('Admin', 0, 11,
                         '[Admin] 删除用户 [{}] 过期容器 [{}] 数据失败'.format(namespace, deployment),
                         '定时任务', '定时任务', str(err))
-    info = task.delete_deployment(deployment)
-    if not info[0]:
-        event_log.delay('Admin', 0, 11, '[Admin] 删除用户 [{}] 过期容器 [{}] 失败'.format(namespace, deployment),
-                        '定时任务', '定时任务', info)
-    else:
-        event_log.delay('Admin', 0, 11, '[Admin] 删除用户 [{}] 过期容器 [{}] 成功'.format(namespace, deployment),
-                        '定时任务', '定时任务', info)
-    try:
-        # 这里即时数据为空也会返回空列表, 该任务执行完成后, 下面的内容就是传说中的我删我自己......
-        periodic_task = PeriodicTask.objects.filter(name__contains=deployment)  # field lookup 查询
-        periodic_task.delete()
-        event_log.delay('Admin', 0, 11, '[完成]清除针对用户 [{}] 的容器 [{}] 的删除计划'.format(namespace, deployment),
-                        '删除计划执行完成', '删除计划执行完成', str(periodic_task))
-    except Exception as err:
-        event_log.delay('Admin', 0, 11, '[错误]针对用户 [{}] 的容器 [{}] 的删除计划删除失败'.format(namespace, deployment),
-                        '删除计划执行完成', '删除计划执行完成', str(err))
+
 
 
 def create_timing(namespace, deployment, use_time):

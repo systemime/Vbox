@@ -12,14 +12,16 @@ class PermissionAuth(MiddlewareMixin):
     white_login = [
         reverse('users:login'),
         reverse('users:registered'),
+        # '^/hello-tornado*',
+        '^/favicon.ico*',
         '^/admin*',
     ]
     # 权限白名单
     white_permission = [
-        reverse('users:index'),
         reverse('users:logout'),
         reverse('get_pod_num'),
         reverse('users:bash_info'),
+        '^/media*'
     ]
 
     def process_request(self, request):
@@ -44,15 +46,17 @@ class PermissionAuth(MiddlewareMixin):
         else:
             request.session['lasttime'] = now
 
-        # # 权限白名单
-        # if request.path in self.white_permission:
-        #     return
-        # # 权限认证
-        # permission_list = request.session.get("permission_list")
-        # # [{'permission_url': '/xxx/'},{'permission_url': '/xxx/(/d+)'}]
-        # for reg in permission_list:
-        #     reg = r"^%s" % reg['permission_url']
-        #     if re.match(reg, request.path):
-        #         return
-        # else:  # for...else语句
-        #     return HttpResponse("您无权进行操作")
+        # 权限白名单
+        for req in self.white_permission:
+            if re.match(req, request.path):
+                return
+        # 权限认证
+        permission_list = request.session.get(settings.PERMISSION_SESSION_KEY)
+        # print(permission_list)
+        # [{'url': '/xxx/'},{'url': '/xxx/(/d+)'}]
+        for reg in permission_list:
+            reg = r"^%s" % reg['url']
+            if re.match(reg, request.path):
+                return
+        else:  # for...else语句
+            return HttpResponse("您无权进行操作")
