@@ -1,4 +1,7 @@
 # FastVbox
+
+> 重构ing，django3.2预计发布的异步ORM很香，目前用django3.1重构了一部分，坐等django3。2正式发布
+
 测试需要安装guacad服务，主要功能已完成，其他功能暂不更新
 
 ### 开启celery  
