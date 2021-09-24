@@ -4,7 +4,8 @@ Cloud platform based on kubernetes and django, supports webssh and webvnc
 
 Need to build redis, rabbitmq, mysql and guacamole services
 
-> 重构ing，django3.2预计发布的异步ORM很香，目前用django3.1重构了一部分，坐等django3。2正式发布
+> ~重构ing，django3.2预计发布的异步ORM很香，目前用django3.1重构了一部分，坐等django3。2正式发布~
+> Django 3.2 does not release an asynchronous ORM, and sqlalchemy only has experimental features. Wait a minute, an asynchronous version may be refactored
 
 测试需要安装guacad服务，主要功能已完成，其他功能暂不更新
 
